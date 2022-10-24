@@ -1,7 +1,7 @@
 var fs = require("fs");
-var http = require("http");
 var express = require("express");
 var app = express();
+
 
 class Contenedor {
     constructor(fileName) {
@@ -26,7 +26,9 @@ class Contenedor {
             const data = await fs.promises.readFile(this.fileName, "utf-8");
             return JSON.parse(data);
         } catch (error) {
-            console.log(error);
+            //Create file if not exists
+            await fs.promises.writeFile(this.fileName, JSON.stringify([], null, 2));
+            return JSON.parse("[]");
         }
     }
 
@@ -58,9 +60,11 @@ class Contenedor {
     }
 }
 
-const contenedor = new Contenedor("productos.txt");
+
 
 const main = async () => {
+    const contenedor = new Contenedor("productos.txt");
+
     await contenedor.save({ title: "Escuadra", price: 123.45, thumbnail: "https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-256.png" });
     await contenedor.save({ title: "Calculadora", price: 234.56, thumbnail: "https://cdn3.iconfinder.com/data/icons/education-209/64/calculator-math-tool-school-256.png" });
     await contenedor.save({ title: "Globo Terráqueo", price: 345.67, thumbnail: "https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png" });
@@ -76,11 +80,6 @@ const main = async () => {
     server.on("error", (error) => console.log(`Error en servidor ${error}`));
     
     
-    app.get("/", (req, res) => {
-        res.send({mensaje: "Hola Mundo"});
-    }
-    );
-
     app.get("/productos", async (req, res) => {
         const data = await contenedor.getAll();
         res.send(data);
@@ -96,19 +95,5 @@ const main = async () => {
 }
 
 main();
-
-
-
-/*
-const server = http.createServer((req, res) => {
-    res.writeHead(200, { "Content-Type": "text/plain" });
-    res.end("Hello World");
-});
-
-const connectedServer = server.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
-
-*/
 
 
