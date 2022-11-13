@@ -1,0 +1,47 @@
+
+const express = require('express')
+const app = express();
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+//const dataStore = require('./dataStore');
+const routerProductos = require('./productos.js');
+
+const PORT = 8080;
+
+
+const sendProductsToClient = async (products) => {
+   //Send productos to client
+   io.emit('new product', products);
+}
+routerProductos.setSendProductsToClient(sendProductsToClient);
+
+const main = async () => {
+
+   app.use(express.static('public'));
+    
+   //Configuración de rutas
+   app.use(express.json());//para poder usar req.body
+   app.use(express.urlencoded({ extended: true }));
+   app.use('/api/productos', routerProductos);
+   //End Configuración de rutas
+
+   io.on('connection', (socket) => {
+        socket.on('chat message', msg => {
+        io.emit('chat message', msg);
+        });
+    });
+
+
+   let server = http.listen(PORT, function () {
+       console.log(`Server running on port ${PORT}`);
+   }
+   );
+   
+   server.on("error", (error) => console.log(`Error en servidor ${error}`));
+
+}
+
+main();
+
+
+

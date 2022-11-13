@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit-cover">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>My awesome App</title>
+    <link rel="stylesheet" href="./style.css" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="./client_validations.js"></script>
+  </head>
+  <body>
+    <div style="background-color:white;padding:20px">
+      <div style="background-color:LightGray;padding:20px;height: 1200px;">
+         
+
+          <form action="/api/productos" name="product_form" id="product_form"  method="POST">
+            <div class="m-4">
+
+                <div class="container text-left">
+
+
+                    <div class="row">
+                        <div class="col-12">
+                            <h1 style="color:blue">Ingrese Producto</h1>
+                        </div>
+
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="title" class="form-label">Nombre</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                        <input type="text" class="form-control" name="title" id="title" />
+                        </div>
+                    
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-12">
+                                <label for="price" class="form-label">Precio</label> 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <input type="number" class="form-control"  name="price" id="price" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="thumbnail" class="form-label">Foto Url</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <input type="text" class="form-control" name="thumbnail" id="thumbnail" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <br/>
+                            <button type="submit" class="btn btn-success">Enviar</button>
+                        </div> 
+                    </div>
+
+
+                </div>
+
+                <br/>
+            </div>
+          </form>
+
+
+
+          <span></span> <!-- para inyectar el resultado -->
+
+      </div>
+    </div>
+
+
+  <!-- incluir handlebars desde el CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+  <script>
+
+
+    fetch('/api/productos')
+    .then(response => response.json())
+    .then(products => {
+        // fetch template from server
+        fetch('/productList.hbs')
+          .then(response => response.text())
+          .then(templateStr => {
+            const template = Handlebars.compile(templateStr); // compila la plantilla
+            const html = template({products}); // genera el html
+            document.querySelector('span').innerHTML = html; // inyecta el resultado en la vista
+          });
+    });
+    
+
+
+  </script>
+
+
+
+
+<ul id="messages"></ul>
+<form id="form" action="">
+  <input id="input" autocomplete="off" /><button>Send</button>
+</form>
+<script src="/socket.io/socket.io.js"></script>
+
+<script>
+  var socket = io();
+
+  var messages = document.getElementById('messages');
+  var form = document.getElementById('form');
+  var productForm = document.getElementById('product_form');
+  var input = document.getElementById('input');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    if (input.value) {
+      socket.emit('chat message', input.value);
+      input.value = '';
+    }
+  });
+
+  socket.on('chat message', function(msg) {
+    var item = document.createElement('li');
+    item.textContent = msg;
+    messages.appendChild(item);
+    window.scrollTo(0, document.body.scrollHeight);
+  });
+
+  socket.on('new product', function(products) {
+    fetch('/productList.hbs')
+      .then(response => response.text())
+      .then(templateStr => {
+        const template = Handlebars.compile(templateStr); // compila la plantilla
+        //const products = [{"title":"Regla","price":"124","thumbnail":"https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-256.png","id":1}]
+        const html = template({products}); // genera el html
+        document.querySelector('span').innerHTML = html; // inyecta el resultado en la vista
+      });
+  });
+
+
+ 
+  async function postData(url = '', data = {}) {
+    // Default options are marked with *
+    const response = await fetch(url, {
+      method: 'POST', // *GET, POST, PUT, DELETE, etc.
+      mode: 'cors', // no-cors, *cors, same-origin
+      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: 'same-origin', // include, *same-origin, omit
+      headers: {
+        'Content-Type': 'application/json'
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      redirect: 'follow', // manual, *follow, error
+      referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+      body: JSON.stringify(data) // body data type must match "Content-Type" header
+    });
+    return response.json(); // parses JSON response into native JavaScript objects
+  }
+
+  productForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    if (validateForm()) {
+
+      let title = document.forms["product_form"]["title"].value;
+      let price = document.forms["product_form"]["price"].value;
+      let thumbnail = document.forms["product_form"]["thumbnail"].value;
+
+      postData('/api/productos', { title, price, thumbnail})
+      .then((data) => {
+        //console.log(data); // JSON data parsed by `data.json()` call
+        document.forms["product_form"]["title"].value = '';
+        document.forms["product_form"]["price"].value = '';
+        document.forms["product_form"]["thumbnail"].value = '';
+      });
+
+    }
+  });
+
+
+
+
+
+</script>
+
+  
+  </body>
+</html>
