@@ -21,3 +21,18 @@ function validateForm() {
     return true;
   }
   
+function validateMessageForm() {
+    let email = document.forms["message_form"]["email"].value;
+    if (!email) {
+      alert("Ingrese su email");
+      return false;
+    }
+
+    let message = document.forms["message_form"]["message"].value;
+    if (!message) {
+      alert("Ingrese su mensaje");
+      return false;
+    }
+    
+    return true;
+  }

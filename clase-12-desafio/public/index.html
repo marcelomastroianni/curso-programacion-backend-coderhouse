@@ -82,23 +82,24 @@
 
       <div style="background-color:LightGray;padding:20px;height: auto;margin-top: 20px;">
 
+
         <h1 style="color:blue">Centro de Mensajes</h1>
 
-        <input id="txtEmail" class="form-control" style="width: 500px;margin-top:50px" placeholder="Ingresá un email"  autocomplete="off" />
+        <form name="message_form" id="message_form" action="">
+          <input id="txtEmail" name="email" class="form-control" style="width: 500px;margin-top:50px" placeholder="Ingresá un email"  autocomplete="off" />
 
-        <br/>
-        <hr/>
+          <br/>
+          <hr/>
 
-        <ul id="messages"></ul>
-        <form id="form" action="">
-          <div class="row">
-            <div class="col-3">
-              <input id="input" class="form-control" style="width: 300px" placeholder="Ingresá un mensaje..."  autocomplete="off" />
-            </div>
-            <div class="col-9">
-              <button type="submit" class="btn btn-primary">Enviar!</button>
-            </div>  
-        </div>
+          <ul id="messages"></ul>
+            <div class="row">
+              <div class="col-3">
+                <input id="input" name="message" class="form-control" style="width: 300px" placeholder="Ingresá un mensaje..."  autocomplete="off" />
+              </div>
+              <div class="col-9">
+                <button type="submit" class="btn btn-primary">Enviar!</button>
+              </div>  
+          </div>
         </form>
 
 
@@ -133,16 +134,18 @@
   let socket = io();
 
   let messages = document.getElementById('messages');
-  let form = document.getElementById('form');
+  let message_form = document.getElementById('message_form');
   let productForm = document.getElementById('product_form');
   let input = document.getElementById('input');
   let txtEmail = document.getElementById('txtEmail');
 
-  form.addEventListener('submit', function(e) {
+  message_form.addEventListener('submit', function(e) {
     e.preventDefault();
-    if (input.value) {
-      socket.emit('chat message', {email:txtEmail.value, msg:input.value});
-      input.value = '';
+    if(validateMessageForm()){
+      if (input.value) {
+        socket.emit('chat message', {email:txtEmail.value, msg:input.value});
+        input.value = '';
+      }
     }
   });
 
