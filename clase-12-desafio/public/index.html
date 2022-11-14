@@ -11,13 +11,13 @@
   </head>
   <body>
     <div style="background-color:white;padding:20px">
-      <div style="background-color:LightGray;padding:20px;height: 1200px;">
+      <div style="background-color:LightGray;padding:20px;height: auto;">
          
 
           <form action="/api/productos" name="product_form" id="product_form"  method="POST">
             <div class="m-4">
 
-                <div class="container text-left">
+                <div class="text-left">
 
 
                     <div class="row">
@@ -83,6 +83,27 @@
           <span></span> <!-- para inyectar el resultado -->
 
       </div>
+
+      <div style="background-color:LightGray;padding:20px;height: auto;margin-top: 20px;">
+
+        <h1 style="color:blue">Centro de Mensajes</h1>
+
+        <input id="txtEmail" class="form-control" style="width: 500px;margin-top:50px" placeholder="Ingresá un email"  autocomplete="off" />
+
+        <br/>
+        <hr/>
+
+        <ul id="messages"></ul>
+        <form id="form" action="">
+          <input id="input" class="form-control" style="width: 300px;float:left" placeholder="Ingresá un mensaje..."  autocomplete="off" />
+          
+          <button type="submit" style="margin-left:10px;float:left" class="btn btn-primary">Enviar!</button>
+
+        </form>
+
+
+      </div>
+
     </div>
 
 
@@ -111,10 +132,7 @@
 
 
 
-<ul id="messages"></ul>
-<form id="form" action="">
-  <input id="input" autocomplete="off" /><button>Send</button>
-</form>
+
 <script src="/socket.io/socket.io.js"></script>
 
 <script>
@@ -124,11 +142,12 @@
   var form = document.getElementById('form');
   var productForm = document.getElementById('product_form');
   var input = document.getElementById('input');
+  var txtEmail = document.getElementById('txtEmail');
 
   form.addEventListener('submit', function(e) {
     e.preventDefault();
     if (input.value) {
-      socket.emit('chat message', input.value);
+      socket.emit('chat message', {email:txtEmail.value, msg:input.value});
       input.value = '';
     }
   });
@@ -142,6 +161,18 @@
     window.scrollTo(0, document.body.scrollHeight);
     */
 
+    fetch('/messageList.hbs')
+      .then(response => response.text())
+      .then(templateStr => {
+        const template = Handlebars.compile(templateStr); // compila la plantilla
+        //const products = [{"title":"Regla","price":"124","thumbnail":"https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-256.png","id":1}]
+        const html = template({messages:lstMessages}); // genera el html
+        messages.innerHTML = "";
+        messages.innerHTML = html; // inyecta el resultado en la vista
+      });
+
+
+      /*
     messages.innerHTML = "";
     
     lstMessages.forEach(function(msg) { 
@@ -150,7 +181,7 @@
       messages.appendChild(item);
       window.scrollTo(0, document.body.scrollHeight);
     });
-
+*/
   });
 
   socket.on('new product', function(products) {

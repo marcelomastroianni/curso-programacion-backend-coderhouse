@@ -36,7 +36,8 @@ const main = async () => {
 
       //Save message to file storage and send all messages to client when receive a new message
       socket.on('chat message', async msg => {
-         await messageStore.save({msg});
+         msg.created_at = new Date().toLocaleDateString("es-AR",{dateStyle: 'short', timeStyle: 'medium'});
+         await messageStore.save(msg);
          io.emit('all messages', await messageStore.getAll());
       });
     });
