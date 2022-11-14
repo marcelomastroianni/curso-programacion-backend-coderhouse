@@ -29,13 +29,17 @@ const main = async () => {
    app.use('/api/productos', routerProductos);
    //End Configuración de rutas
 
-   io.on('connection',  (socket) => {
+   io.on('connection', async (socket) => {
+
+      //Send chat history to client when connect
+      io.emit('all messages', await messageStore.getAll());
+
+      //Save message to file storage and send all messages to client when receive a new message
       socket.on('chat message', async msg => {
          await messageStore.save({msg});
          io.emit('all messages', await messageStore.getAll());
       });
     });
-
 
    let server = http.listen(PORT, function () {
        console.log(`Server running on port ${PORT}`);
