@@ -2,7 +2,7 @@
 
 class DataStore {
 
-    constructor(sendProductsToClient) {
+    constructor() {
         this.datos = [];
     }
 

@@ -133,11 +133,24 @@
     }
   });
 
-  socket.on('chat message', function(msg) {
+  socket.on('all messages', function(lstMessages) {
+    //alert(messages);
+    /*
     var item = document.createElement('li');
     item.textContent = msg;
     messages.appendChild(item);
     window.scrollTo(0, document.body.scrollHeight);
+    */
+
+    messages.innerHTML = "";
+    
+    lstMessages.forEach(function(msg) { 
+      var item = document.createElement('li');
+      item.textContent = msg.msg;
+      messages.appendChild(item);
+      window.scrollTo(0, document.body.scrollHeight);
+    });
+
   });
 
   socket.on('new product', function(products) {

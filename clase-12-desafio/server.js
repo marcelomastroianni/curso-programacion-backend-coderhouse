@@ -6,6 +6,10 @@ const io = require('socket.io')(http);
 //const dataStore = require('./dataStore');
 const routerProductos = require('./productos.js');
 
+const messageStore = require('./messageStore');
+
+
+
 const PORT = 8080;
 
 
@@ -25,10 +29,11 @@ const main = async () => {
    app.use('/api/productos', routerProductos);
    //End Configuración de rutas
 
-   io.on('connection', (socket) => {
-        socket.on('chat message', msg => {
-        io.emit('chat message', msg);
-        });
+   io.on('connection',  (socket) => {
+      socket.on('chat message', async msg => {
+         await messageStore.save({msg});
+         io.emit('all messages', await messageStore.getAll());
+      });
     });
 
 
