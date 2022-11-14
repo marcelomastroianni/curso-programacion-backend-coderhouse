@@ -91,10 +91,14 @@
 
         <ul id="messages"></ul>
         <form id="form" action="">
-          <input id="input" class="form-control" style="width: 300px" placeholder="Ingresá un mensaje..."  autocomplete="off" />
-          
-          <button type="submit" style="margin-left:10px" class="btn btn-primary">Enviar!</button>
-
+          <div class="row">
+            <div class="col-3">
+              <input id="input" class="form-control" style="width: 300px" placeholder="Ingresá un mensaje..."  autocomplete="off" />
+            </div>
+            <div class="col-9">
+              <button type="submit" class="btn btn-primary">Enviar!</button>
+            </div>  
+        </div>
         </form>
 
 
@@ -126,13 +130,13 @@
 <script src="/socket.io/socket.io.js"></script>
 
 <script>
-  var socket = io();
+  let socket = io();
 
-  var messages = document.getElementById('messages');
-  var form = document.getElementById('form');
-  var productForm = document.getElementById('product_form');
-  var input = document.getElementById('input');
-  var txtEmail = document.getElementById('txtEmail');
+  let messages = document.getElementById('messages');
+  let form = document.getElementById('form');
+  let productForm = document.getElementById('product_form');
+  let input = document.getElementById('input');
+  let txtEmail = document.getElementById('txtEmail');
 
   form.addEventListener('submit', function(e) {
     e.preventDefault();
