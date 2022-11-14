@@ -3,15 +3,9 @@ const express = require('express')
 const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
-//const dataStore = require('./dataStore');
 const routerProductos = require('./productos.js');
-
 const messageStore = require('./messageStore');
-
-
-
 const PORT = 8080;
-
 
 const sendProductsToClient = async (products) => {
    //Send productos to client
@@ -46,12 +40,7 @@ const main = async () => {
        console.log(`Server running on port ${PORT}`);
    }
    );
-   
    server.on("error", (error) => console.log(`Error en servidor ${error}`));
-
 }
 
 main();
-
-
-

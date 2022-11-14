@@ -77,11 +77,7 @@
                 <br/>
             </div>
           </form>
-
-
-
           <span></span> <!-- para inyectar el resultado -->
-
       </div>
 
       <div style="background-color:LightGray;padding:20px;height: auto;margin-top: 20px;">
@@ -95,9 +91,9 @@
 
         <ul id="messages"></ul>
         <form id="form" action="">
-          <input id="input" class="form-control" style="width: 300px;float:left" placeholder="Ingresá un mensaje..."  autocomplete="off" />
+          <input id="input" class="form-control" style="width: 300px" placeholder="Ingresá un mensaje..."  autocomplete="off" />
           
-          <button type="submit" style="margin-left:10px;float:left" class="btn btn-primary">Enviar!</button>
+          <button type="submit" style="margin-left:10px" class="btn btn-primary">Enviar!</button>
 
         </form>
 
@@ -124,14 +120,8 @@
             document.querySelector('span').innerHTML = html; // inyecta el resultado en la vista
           });
     });
-    
-
 
   </script>
-
-
-
-
 
 <script src="/socket.io/socket.io.js"></script>
 
@@ -153,35 +143,14 @@
   });
 
   socket.on('all messages', function(lstMessages) {
-    //alert(messages);
-    /*
-    var item = document.createElement('li');
-    item.textContent = msg;
-    messages.appendChild(item);
-    window.scrollTo(0, document.body.scrollHeight);
-    */
-
     fetch('/messageList.hbs')
       .then(response => response.text())
       .then(templateStr => {
         const template = Handlebars.compile(templateStr); // compila la plantilla
-        //const products = [{"title":"Regla","price":"124","thumbnail":"https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-256.png","id":1}]
         const html = template({messages:lstMessages}); // genera el html
         messages.innerHTML = "";
         messages.innerHTML = html; // inyecta el resultado en la vista
       });
-
-
-      /*
-    messages.innerHTML = "";
-    
-    lstMessages.forEach(function(msg) { 
-      var item = document.createElement('li');
-      item.textContent = msg.msg;
-      messages.appendChild(item);
-      window.scrollTo(0, document.body.scrollHeight);
-    });
-*/
   });
 
   socket.on('new product', function(products) {
@@ -189,30 +158,25 @@
       .then(response => response.text())
       .then(templateStr => {
         const template = Handlebars.compile(templateStr); // compila la plantilla
-        //const products = [{"title":"Regla","price":"124","thumbnail":"https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-256.png","id":1}]
         const html = template({products}); // genera el html
         document.querySelector('span').innerHTML = html; // inyecta el resultado en la vista
       });
   });
 
-
- 
   async function postData(url = '', data = {}) {
-    // Default options are marked with *
     const response = await fetch(url, {
-      method: 'POST', // *GET, POST, PUT, DELETE, etc.
-      mode: 'cors', // no-cors, *cors, same-origin
-      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: 'same-origin', // include, *same-origin, omit
+      method: 'POST',
+      mode: 'cors', 
+      cache: 'no-cache',
+      credentials: 'same-origin', 
       headers: {
         'Content-Type': 'application/json'
-        // 'Content-Type': 'application/x-www-form-urlencoded',
       },
-      redirect: 'follow', // manual, *follow, error
-      referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-      body: JSON.stringify(data) // body data type must match "Content-Type" header
+      redirect: 'follow', 
+      referrerPolicy: 'no-referrer',
+      body: JSON.stringify(data) 
     });
-    return response.json(); // parses JSON response into native JavaScript objects
+    return response.json();
   }
 
   productForm.addEventListener('submit', function(e) {
@@ -225,7 +189,6 @@
 
       postData('/api/productos', { title, price, thumbnail})
       .then((data) => {
-        //console.log(data); // JSON data parsed by `data.json()` call
         document.forms["product_form"]["title"].value = '';
         document.forms["product_form"]["price"].value = '';
         document.forms["product_form"]["thumbnail"].value = '';
@@ -233,10 +196,6 @@
 
     }
   });
-
-
-
-
 
 </script>
 
