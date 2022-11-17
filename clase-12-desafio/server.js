@@ -32,7 +32,8 @@ const main = async () => {
       socket.on('chat message', async msg => {
          if (msg){
             try{
-               msg.created_at = new Date().toLocaleDateString("es-AR",{dateStyle: 'short', timeStyle: 'medium'});
+               //msg.created_at = new Date().toLocaleDateString("es-AR",{dateStyle: 'short', timeStyle: 'medium'});
+               msg.created_at = new Intl.DateTimeFormat('es-AR', { dateStyle: "short", timeStyle: "medium" }).format(new Date());  
             }
             catch(err){
                msg.created_at = new Date();
