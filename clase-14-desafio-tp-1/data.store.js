@@ -67,7 +67,7 @@ class DataStore {
             const newData = data.map((item) => {
                 if (item.id === id) {
                     updated = true;
-                    return { id, ...object };
+                    return { id, ...item, ...object };
                 }
                 return item;
             });

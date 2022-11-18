@@ -7,9 +7,9 @@ class ProductService {
     }
 
     initDataStore = async () => {
-        await this.dataStore.save({ title: "Escuadra", price: 123.45, thumbnail: "https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-256.png" });
-        await this.dataStore.save({ title: "Calculadora", price: 234.56, thumbnail: "https://cdn3.iconfinder.com/data/icons/education-209/64/calculator-math-tool-school-256.png" });
-        await this.dataStore.save({ title: "Globo Terráqueo", price: 345.67, thumbnail: "https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png" });
+        await this.dataStore.save({ name: "Escuadra", timestamp: new Date() ,description:"Descripcion Escuadra", code: "AAA", price: 123.45, stock:20, photo_url: "https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-256.png" });
+        await this.dataStore.save({ name: "Calculadora", timestamp: new Date() , description:"Descripcion Calculadora", code: "BBB" , price: 234.56, stock:30, photo_url: "https://cdn3.iconfinder.com/data/icons/education-209/64/calculator-math-tool-school-256.png" });
+        await this.dataStore.save({ name: "Globo Terráqueo", timestamp: new Date() , description:"Descripcion Globo Terráqueo", code:"CCC", price: 345.67,  stock:40, photo_url: "https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png" });
     }
 
     getAll = async () => {
@@ -22,13 +22,15 @@ class ProductService {
         return data;
     }
 
-    create = async (title, price, thumbnail) => {
-        const id = await this.dataStore.save({ title, price, thumbnail });
+
+    create = async (name, timestamp, description, code, price, stock, photo_url) => {
+        const id = await this.dataStore.save({ name, timestamp, description, code, price, stock, photo_url });
         return id;
     }
 
-    update = async (id, title, price, thumbnail) => {
-        const response = await this.dataStore.updateById(Number(id), { id:Number(id), title, price, thumbnail });
+
+    update = async (id, name, description, code, price, stock, photo_url) => {
+        const response = await this.dataStore.updateById(Number(id), { name, description, code, price, stock, photo_url });
         return response;
     }
 

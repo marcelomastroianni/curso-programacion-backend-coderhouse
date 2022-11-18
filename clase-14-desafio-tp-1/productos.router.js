@@ -12,14 +12,15 @@ const initDataStore = async () => {
 }
 
 initDataStore();
-   
+
 const validateProduct = (req, res, next) => {
-    const { title, price, thumbnail } = req.body;
-    if (!title || !price || !thumbnail) {
-        return res.status(400).json({ error: "faltan datos del producto" });
-    }
-    next();
-}   
+   const { name, description, code, price, stock, photo_url } = req.body;
+   if (!name || !description || !code || !price || !stock || !photo_url) {
+         return res.status(400).json({ error: "faltan datos del producto" });
+   }
+   next();
+}
+
 
 routerProductos.get("/", async (req, res) => {
     const data = await productService.getAll();
@@ -36,22 +37,26 @@ routerProductos.get("/:id", async (req, res) => {
    }
 });
 
+
 routerProductos.post("/",validateProduct, async (req, res) => {
-   const { title, price, thumbnail } = req.body;
-   const id = await productService.create({ title, price, thumbnail });
-   res.send({id,title, price, thumbnail});
+   const { name, description, code, price, stock, photo_url } = req.body;
+   const timestamp = new Date();
+   const id = await productService.create(name, timestamp, description, code, price, stock, photo_url );
+   res.send({id,name, timestamp, description, code, price, stock, photo_url});
 });
+
 
 routerProductos.put("/:id",validateProduct, async (req, res) => {
    const { id } = req.params;
-   const { title, price, thumbnail } = req.body;
-   const updated = await productService.update(Number(id), title, price, thumbnail);
-   if(updated){
-      res.send({id,title, price, thumbnail});
+   const { name, description, code, price, stock, photo_url } = req.body;
+   const response = await productService.update(Number(id),  name, description, code, price, stock, photo_url );
+   if(response){
+      res.send({id,name, description, code, price, stock, photo_url});
    }else{
       res.send({error: 'producto no encontrado'});
    }
 });
+
 
 routerProductos.delete("/:id", async (req, res) => {
    const { id } = req.params;
