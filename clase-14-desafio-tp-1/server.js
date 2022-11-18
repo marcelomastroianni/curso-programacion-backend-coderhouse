@@ -2,7 +2,7 @@
 const express = require('express')
 const app = express();
 const http = require('http').Server(app);
-const routerProductos = require('./productos.router.js');
+const routerProductos = require('./product.router.js');
 const PORT = process.env.PORT || 8080;
 
 

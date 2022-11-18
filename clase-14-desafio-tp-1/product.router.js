@@ -2,16 +2,11 @@ const express = require('express')
 const { Router } = express
 const routerProductos = Router()
 
-
-const ProductService = require('./productos.service');
+const CreateProductDto = require('./product.dto.js').CreateProductDto;
+const UpdateProductDto = require('./product.dto.js').UpdateProductDto;
+const ProductService = require('./product.service');
 const productService = new ProductService();
 
-const initDataStore = async () => {
-
-   await productService.initDataStore();
-}
-
-initDataStore();
 
 const validateProduct = (req, res, next) => {
    const { name, description, code, price, stock, photo_url } = req.body;
@@ -41,17 +36,20 @@ routerProductos.get("/:id", async (req, res) => {
 routerProductos.post("/",validateProduct, async (req, res) => {
    const { name, description, code, price, stock, photo_url } = req.body;
    const timestamp = new Date();
-   const id = await productService.create(name, timestamp, description, code, price, stock, photo_url );
-   res.send({id,name, timestamp, description, code, price, stock, photo_url});
+   const product = new CreateProductDto(name, timestamp, description, code, price, stock, photo_url);
+   const id = await productService.create(product);
+   product.id = id;
+   res.send(product);
 });
 
 
 routerProductos.put("/:id",validateProduct, async (req, res) => {
    const { id } = req.params;
    const { name, description, code, price, stock, photo_url } = req.body;
-   const response = await productService.update(Number(id),  name, description, code, price, stock, photo_url );
+   const product = new UpdateProductDto(name, description, code, price, stock, photo_url);
+   const response = await productService.update(Number(id), product);
    if(response){
-      res.send({id,name, description, code, price, stock, photo_url});
+      res.send({id,...product});
    }else{
       res.send({error: 'producto no encontrado'});
    }
