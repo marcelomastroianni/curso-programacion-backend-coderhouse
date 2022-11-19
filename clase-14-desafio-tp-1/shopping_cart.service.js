@@ -1,9 +1,12 @@
+const ProductService = require('./product.service');
+
 const DataStore = require('./data.store');
 
 class ShoppingCartService {
 
     constructor() {
         this.dataStore = new DataStore("carrito.txt");
+        this.productService = new ProductService();
     }
 
     getOne = async (id) => {
@@ -28,8 +31,9 @@ class ShoppingCartService {
 
     addProduct = async (id, product_id) => {
         const shoppingCart = await this.dataStore.getById(Number(id));
-        if (shoppingCart) {
-            shoppingCart.products.push(product_id);
+        const product = await this.productService.getOne(Number(product_id));
+        if (shoppingCart && product) {
+            shoppingCart.products.push(product);
             await this.dataStore.updateById(Number(id), shoppingCart);
             return shoppingCart;
         } else {
@@ -40,12 +44,19 @@ class ShoppingCartService {
     deleteProduct = async (id, product_id) => {
         const shoppingCart = await this.dataStore.getById(Number(id));
         if (shoppingCart) {
-            const index = shoppingCart.products.indexOf(product_id);
-            if (index > -1) {
-                shoppingCart.products.splice(index, 1);
+            const product = await this.productService.getOne(Number(product_id));
+            if (product) {
+                const index = shoppingCart.products.findIndex(p => p.id === product.id);
+                if (index >= 0) {
+                    shoppingCart.products.splice(index, 1);
+                    await this.dataStore.updateById(Number(id), shoppingCart);
+                    return shoppingCart;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
             }
-            await this.dataStore.updateById(Number(id), shoppingCart);
-            return shoppingCart;
         } else {
             return false;
         }
@@ -59,8 +70,6 @@ class ShoppingCartService {
             return false;
         }
     }
-
-
 }
 
 module.exports = ShoppingCartService
