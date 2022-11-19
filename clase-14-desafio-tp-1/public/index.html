@@ -6,10 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>My awesome App</title>
     <link rel="stylesheet" href="./style.css" type="text/css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <script src="./client_validations.js"></script>
+    <!-- Bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- incluir handlebars desde el CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
   </head>
   <body>
+
+ 
+
     <div style="background-color:white;padding:20px">
       <div style="background-color:LightGray;padding:20px;height: auto;">
          
@@ -77,39 +85,19 @@
                 <br/>
             </div>
           </form>
-          <span></span> <!-- para inyectar el resultado -->
-      </div>
-
-      <div style="background-color:LightGray;padding:20px;height: auto;margin-top: 20px;">
-
-
-        <h1 style="color:blue">Centro de Mensajes</h1>
-
-        <form name="message_form" id="message_form" action="">
-          <input id="txtEmail" name="email" class="form-control" style="width: 500px;margin-top:50px" placeholder="Ingresá un email"  autocomplete="off" />
+          <div id="lstProductos"></div> <!-- para inyectar el resultado -->
 
           <br/>
-          <hr/>
 
-          <ul id="messages"></ul>
-            <div class="row">
-              <div class="col-3">
-                <input id="input" name="message" class="form-control" style="width: 300px" placeholder="Ingresá un mensaje..."  autocomplete="off" />
-              </div>
-              <div class="col-9">
-                <button type="submit" class="btn btn-primary">Enviar!</button>
-              </div>  
-          </div>
-        </form>
-
+        
 
       </div>
+
+
 
     </div>
 
 
-  <!-- incluir handlebars desde el CDN -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
   <script>
 
 
@@ -122,53 +110,15 @@
           .then(templateStr => {
             const template = Handlebars.compile(templateStr); // compila la plantilla
             const html = template({products}); // genera el html
-            document.querySelector('span').innerHTML = html; // inyecta el resultado en la vista
+            document.getElementById("lstProductos").innerHTML = html; // inyecta el html
           });
     });
 
   </script>
 
-<script src="/socket.io/socket.io.js"></script>
-
 <script>
-  let socket = io();
-
-  let messages = document.getElementById('messages');
-  let message_form = document.getElementById('message_form');
+  
   let productForm = document.getElementById('product_form');
-  let input = document.getElementById('input');
-  let txtEmail = document.getElementById('txtEmail');
-
-  message_form.addEventListener('submit', function(e) {
-    e.preventDefault();
-    if(validateMessageForm()){
-      if (input.value) {
-        socket.emit('chat message', {email:txtEmail.value, msg:input.value});
-        input.value = '';
-      }
-    }
-  });
-
-  socket.on('all messages', function(lstMessages) {
-    fetch('/messageList.hbs')
-      .then(response => response.text())
-      .then(templateStr => {
-        const template = Handlebars.compile(templateStr); // compila la plantilla
-        const html = template({messages:lstMessages}); // genera el html
-        messages.innerHTML = "";
-        messages.innerHTML = html; // inyecta el resultado en la vista
-      });
-  });
-
-  socket.on('new product', function(products) {
-    fetch('/productList.hbs')
-      .then(response => response.text())
-      .then(templateStr => {
-        const template = Handlebars.compile(templateStr); // compila la plantilla
-        const html = template({products}); // genera el html
-        document.querySelector('span').innerHTML = html; // inyecta el resultado en la vista
-      });
-  });
 
   async function postData(url = '', data = {}) {
     const response = await fetch(url, {
