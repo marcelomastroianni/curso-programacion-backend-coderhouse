@@ -7,6 +7,9 @@ const CreateShoppingCartDto = require('./shopping_cart.dto.js').CreateShoppingCa
 const ShoppingCartService = require('./shopping_cart.service.js');
 const shoppingCartService = new ShoppingCartService();
 
+const validateIfAdmin = require('./middlewares/security.middleware.js');
+
+
 
 routerShoppingCart.post("/:id/productos", async (req, res) => {
    const { id } = req.params;

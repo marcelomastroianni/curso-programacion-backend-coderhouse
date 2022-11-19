@@ -6,6 +6,8 @@ const CreateProductDto = require('./product.dto.js').CreateProductDto;
 const UpdateProductDto = require('./product.dto.js').UpdateProductDto;
 const ProductService = require('./product.service');
 const productService = new ProductService();
+const validateIfAdmin = require('./middlewares/security.middleware.js');
+
 
 
 const validateProduct = (req, res, next) => {
@@ -33,7 +35,7 @@ routerProductos.get("/:id", async (req, res) => {
 });
 
 
-routerProductos.post("/",validateProduct, async (req, res) => {
+routerProductos.post("/", validateIfAdmin,validateProduct, async (req, res) => {
    const { name, description, code, price, stock, photo_url } = req.body;
    const timestamp = new Date();
    const product = new CreateProductDto(name, timestamp, description, code, price, stock, photo_url);
@@ -43,7 +45,7 @@ routerProductos.post("/",validateProduct, async (req, res) => {
 });
 
 
-routerProductos.put("/:id",validateProduct, async (req, res) => {
+routerProductos.put("/:id",validateIfAdmin,validateProduct, async (req, res) => {
    const { id } = req.params;
    const { name, description, code, price, stock, photo_url } = req.body;
    const product = new UpdateProductDto(name, description, code, price, stock, photo_url);
@@ -56,7 +58,7 @@ routerProductos.put("/:id",validateProduct, async (req, res) => {
 });
 
 
-routerProductos.delete("/:id", async (req, res) => {
+routerProductos.delete("/:id", validateIfAdmin, async (req, res) => {
    const { id } = req.params;
    const deleted = await productService.delete(Number(id));
    if (deleted) {
