@@ -22,6 +22,7 @@ class CreateShoppingCartDto {
 
     constructor(timestamp) {
         this.timestamp = timestamp;
+        this.products = [];
     }
 
 }

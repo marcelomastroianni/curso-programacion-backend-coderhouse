@@ -2,23 +2,44 @@ const express = require('express')
 const { Router } = express
 const routerShoppingCart = Router()
 
-const ShoppingCartDto = require('./shopping_cart.dto.js').ShoppingCartDto;
 const CreateShoppingCartDto = require('./shopping_cart.dto.js').CreateShoppingCartDto;
 
 const ShoppingCartService = require('./shopping_cart.service.js');
 const shoppingCartService = new ShoppingCartService();
 
 
-
-routerShoppingCart.get("/:id", async (req, res) => {
+routerShoppingCart.post("/:id/productos", async (req, res) => {
    const { id } = req.params;
-   const data = await shoppingCartService.getOne(Number(id));
-   if(data){
-      res.send(data);
+   const { product_id } = req.body;
+   const response = await shoppingCartService.addProduct(Number(id), Number(product_id));
+
+   if(response){
+      res.send(response);
    }else{
-      res.send({error: 'carrito no encontrado'});
+      res.send({error: 'carrito de compras no encontrado'});
    }
 });
+
+routerShoppingCart.delete("/:id/productos/:product_id", async (req, res) => {
+   const { id, product_id } = req.params;
+   const response = await shoppingCartService.deleteProduct(Number(id), Number(product_id));
+   if(response){
+      res.send(response);
+   }else{
+      res.send({error: 'carrito de compras no encontrado'});
+   }
+});
+
+routerShoppingCart.get("/:id/productos", async (req, res) => {
+   const { id } = req.params;
+   const response = await shoppingCartService.getProducts(Number(id));
+   if(response){
+      res.send(response);
+   }else{
+      res.send({error: 'carrito de compras no encontrado'});
+   }
+});
+
 
 routerShoppingCart.post("/", async (req, res) => {
    const timestamp = new Date();
