@@ -7,31 +7,6 @@
         }
       }
 
-      fetch('/product_form.hbs')
-        .then(response => response.text())
-        .then(templateStr => {
-          const template = Handlebars.compile(templateStr); // compila la plantilla
-          const html = template({}); // genera el html
-          document.getElementById("divCreateProduct").innerHTML = html; // inyecta el html
-        });
-        
-
-      fetch('/api/productos')
-      .then(response => response.json())
-      .then(products => {
-          // fetch template from server
-          fetch('/product_list.hbs')
-            .then(response => response.text())
-            .then(templateStr => {
-              const template = Handlebars.compile(templateStr); // compila la plantilla
-              const html = template({products}); // genera el html
-              document.getElementById("lstProductos").innerHTML = html; // inyecta el html
-            });
-      });
-
-      
-      let productForm = document.getElementById('product_form');
-
       async function postData(url = '', data = {}) {
         const response = await fetch(url, {
           method: 'POST',
@@ -48,20 +23,62 @@
         return response.json();
       }
 
-      productForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        if (validateForm()) {
+      const bindProductForm = () => {
+        let productForm = document.getElementById('product_form');
 
-          let title = document.forms["product_form"]["title"].value;
-          let price = document.forms["product_form"]["price"].value;
-          let thumbnail = document.forms["product_form"]["thumbnail"].value;
-
-          postData('/api/productos', { title, price, thumbnail})
-          .then((data) => {
-            document.forms["product_form"]["title"].value = '';
-            document.forms["product_form"]["price"].value = '';
-            document.forms["product_form"]["thumbnail"].value = '';
+        productForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (validateForm()) {
+    
+              let title = document.forms["product_form"]["title"].value;
+              let price = document.forms["product_form"]["price"].value;
+              let thumbnail = document.forms["product_form"]["thumbnail"].value;
+    
+              postData('/api/productos', { title, price, thumbnail})
+              .then((data) => {
+                document.forms["product_form"]["title"].value = '';
+                document.forms["product_form"]["price"].value = '';
+                document.forms["product_form"]["thumbnail"].value = '';
+              });
+    
+            }
           });
 
-        }
-      });
+      }
+
+      const showProductForm = () => {
+        fetch('/product_form.hbs')
+            .then(response => response.text())
+            .then(templateStr => {
+            const template = Handlebars.compile(templateStr); // compila la plantilla
+            const html = template({}); // genera el html
+            document.getElementById("divCreateProduct").innerHTML = html; // inyecta el html
+            bindProductForm();
+            });
+      }
+        
+
+      const showProductList = () => {
+        fetch('/api/productos')
+        .then(response => response.json())
+        .then(products => {
+            // fetch template from server
+            fetch('/product_list.hbs')
+                .then(response => response.text())
+                .then(templateStr => {
+                const template = Handlebars.compile(templateStr); // compila la plantilla
+                const html = template({products}); // genera el html
+                document.getElementById("lstProductos").innerHTML = html; // inyecta el html
+                });
+        });     
+      }
+
+      if(is_admin){
+        showProductForm();
+      }
+      showProductList();
+      
+
+  
+
+     
