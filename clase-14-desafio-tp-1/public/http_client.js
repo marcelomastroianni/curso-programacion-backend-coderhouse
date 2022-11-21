@@ -1,4 +1,4 @@
-async function postData(url = '', data = {}) {
+async function performCreate(url = '', data = {}) {
     const response = await fetch(url, {
       method: 'POST',
       mode: 'cors', 
