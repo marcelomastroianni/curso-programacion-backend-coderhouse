@@ -5,7 +5,8 @@ async function postData(url = '', data = {}) {
       cache: 'no-cache',
       credentials: 'same-origin', 
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'is_admin': is_admin()
       },
       redirect: 'follow', 
       referrerPolicy: 'no-referrer',

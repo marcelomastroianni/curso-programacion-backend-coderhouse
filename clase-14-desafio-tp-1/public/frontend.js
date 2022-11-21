@@ -30,15 +30,21 @@
             e.preventDefault();
             if (validateForm()) {
     
-              let title = document.forms["product_form"]["title"].value;
+              let name = document.forms["product_form"]["name"].value;
+              let description = document.forms["product_form"]["description"].value;
+              let code = document.forms["product_form"]["code"].value;
               let price = document.forms["product_form"]["price"].value;
-              let thumbnail = document.forms["product_form"]["thumbnail"].value;
+              let stock = document.forms["product_form"]["stock"].value;
+              let photo_url = document.forms["product_form"]["photo_url"].value;
     
-              postData('/api/productos', { title, price, thumbnail})
+              postData('/api/productos', { name, description, code, price, stock, photo_url})
               .then((data) => {
-                document.forms["product_form"]["title"].value = '';
-                document.forms["product_form"]["price"].value = '';
-                document.forms["product_form"]["thumbnail"].value = '';
+
+                showProductList(is_admin());
+                
+                //document.forms["product_form"]["name"].value = '';
+                //document.forms["product_form"]["price"].value = '';
+                //document.forms["product_form"]["thumbnail"].value = '';
               });
             }
           });
