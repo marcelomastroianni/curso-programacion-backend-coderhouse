@@ -62,7 +62,7 @@ routerProductos.delete("/:id", validateIfAdmin, async (req, res) => {
    const { id } = req.params;
    const deleted = await productService.delete(Number(id));
    if (deleted) {
-      res.send("producto eliminado");
+      res.send({description:"producto eliminado"});
    } else {
       res.send({error: 'producto no encontrado'});
    }

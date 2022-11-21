@@ -28,6 +28,32 @@
         return response.json();
       }
 
+      async function performDelete(url = '') {
+        const response = await fetch(url, {
+          method: 'DELETE',
+          mode: 'cors', 
+          cache: 'no-cache',
+          credentials: 'same-origin', 
+          headers: {
+            'Content-Type': 'application/json',
+            'is_admin': is_admin()
+          },
+          redirect: 'follow', 
+          referrerPolicy: 'no-referrer',
+          body: null
+        });
+        return response.json();
+      }
+
+      const deleteProduct = (id) => {
+        performDelete(`http://localhost:8080/api/productos/${id}`)
+        .then((data) => {
+            console.log(data);
+            showProductList(is_admin());
+         });
+       }
+
+
       const bindProductForm = () => {
         let productForm = document.getElementById('product_form');
 
@@ -45,10 +71,8 @@
                 document.forms["product_form"]["price"].value = '';
                 document.forms["product_form"]["thumbnail"].value = '';
               });
-    
             }
           });
-
       }
 
       const showProductForm = () => {
