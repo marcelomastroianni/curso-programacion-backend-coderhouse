@@ -1,6 +1,16 @@
 
 
 
+      const get_cart_id = () => {
+        const params = new URLSearchParams(window.location.search);
+        let cart_id = 0;
+        for (const param of params) {
+          if (param[0] == 'cart_id') {
+            cart_id = param[1];
+          }
+        }
+        return cart_id;
+      }
   
 
 
@@ -24,7 +34,7 @@
         
       }
 
-      showCart(2);
+      showCart(get_cart_id());
 
       
       

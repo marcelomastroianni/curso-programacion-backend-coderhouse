@@ -37,37 +37,28 @@
             cartId = data.id;
             performCreate(`/api/carrito/${cartId}/productos`,{product_id:id})
             .then((data) => {
-              console.log(data);
-              showCart(cartId);
+              //console.log(data);
+              //showCart(cartId);
             });
           });
         }
         else{
           performCreate(`/api/carrito/${cartId}/productos`,{product_id:id})
           .then((data) => {
-            console.log(data);
-            showCart(cartId);
+            //console.log(data);
+            //showCart(cartId);
           });
         }
       }
 
 
-      const showCart = (cartId) => {
+      const showCart = () => {
         console.log("cartId:", cartId);
-        /*
-        fetch(`/api/carrito/${cartId}`)
-        .then(response => response.json())
-        .then(cart => {
-            // fetch template from server
-            fetch('/cart.hbs')
-                .then(response => response.text())
-                .then(templateStr => {
-                const template = Handlebars.compile(templateStr); // compila la plantilla
-                const html = template({cart}); // genera el html
-                document.getElementById("divCart").innerHTML = html; // inyecta el html
-                });
-        });     
-        */
+
+        window.location.href = `/cart.html?cart_id=${cartId}`;
+
+
+       
       }
 
       
