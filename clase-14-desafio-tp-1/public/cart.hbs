@@ -1,0 +1,35 @@
+
+
+<h1 style="color:blue">Carrito de compras</h1>
+
+
+{{#if products.length}}
+
+
+
+   <div class="grid text-center">
+            {{#each products}}
+
+                    <div class="g-col-4">
+                        <div class="card" style="width: 18rem">
+                            
+                            <img src="{{this.photo_url}}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">{{this.name}}</h5>
+                                <p class="card-text">{{this.description}}</p>
+                            </div>
+                        </div>
+                    </div>
+       
+            
+            {{/each}}
+
+    </div>
+{{else}}
+   
+
+    <div style="background-color:LightYellow;padding:20px;color:black">No se encontraron productos</div>
+{{/if}}
+
+
+
