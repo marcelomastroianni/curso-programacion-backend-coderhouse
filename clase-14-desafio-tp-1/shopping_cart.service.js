@@ -33,7 +33,15 @@ class ShoppingCartService {
         const shoppingCart = await this.dataStore.getById(Number(id));
         const product = await this.productService.getOne(Number(product_id));
         if (shoppingCart && product) {
-            shoppingCart.products.push(product);
+            product.stock = 1;
+            if (shoppingCart.products) {
+                const productIndex = shoppingCart.products.findIndex(p => p.id == product.id);
+                if (productIndex >= 0) {
+                    shoppingCart.products[productIndex].stock++;
+                } else {
+                    shoppingCart.products.push(product);
+                }
+            } 
             await this.dataStore.updateById(Number(id), shoppingCart);
             return shoppingCart;
         } else {
