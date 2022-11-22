@@ -51,7 +51,9 @@
     }
 
 
-
+    const volverAListadoProductos = () => {
+        window.location.href = `/index.html?is_admin=${is_admin()}&cart_id=${get_cart_id()}`;
+    }
 
 
       showCart(get_cart_id());

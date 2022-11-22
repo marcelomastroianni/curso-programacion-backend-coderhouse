@@ -28,7 +28,23 @@
       showProductList(is_admin());
 
 
-      let cartId = -1;
+      
+
+
+      const get_cart_id = () => {
+        const params = new URLSearchParams(window.location.search);
+        let cart_id = -1;
+        for (const param of params) {
+          if (param[0] == 'cart_id') {
+            cart_id = param[1];
+          }
+        }
+        return cart_id;
+      }
+  
+
+      let cartId = get_cart_id();
+
 
       const buyProduct = (id) => {
         if (cartId==-1){
@@ -54,11 +70,7 @@
 
       const showCart = () => {
         console.log("cartId:", cartId);
-
         window.location.href = `/cart.html?cart_id=${cartId}&is_admin=${is_admin()}`;
-
-
-       
       }
 
       
