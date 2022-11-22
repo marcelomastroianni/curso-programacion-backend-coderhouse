@@ -55,7 +55,7 @@
       const showCart = () => {
         console.log("cartId:", cartId);
 
-        window.location.href = `/cart.html?cart_id=${cartId}`;
+        window.location.href = `/cart.html?cart_id=${cartId}&is_admin=${is_admin()}`;
 
 
        

@@ -56,7 +56,7 @@ routerShoppingCart.delete("/:id", async (req, res) => {
    const { id } = req.params;
    const deleted = await shoppingCartService.delete(Number(id));
    if (deleted) {
-      res.send("carrito eliminado");
+      res.send({description:"carrito eliminado"});
    } else {
       res.send({error: 'carrito no encontrado'});
    }

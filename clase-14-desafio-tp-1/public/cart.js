@@ -34,6 +34,26 @@
         
       }
 
+      const deleteProductFromCart = (productId) => {
+        const cartId = get_cart_id();
+        performDelete(`/api/carrito/${cartId}/productos/${productId}`)
+        .then((data) => {
+            showCart(cartId);
+        });
+      }
+
+      const deleteCart = () => {
+        const cartId = get_cart_id();
+        performDelete(`/api/carrito/${cartId}`)
+        .then((data) => {
+            window.location.href = `/index.html?is_admin=${is_admin()}`;
+        });
+    }
+
+
+
+
+
       showCart(get_cart_id());
 
       
