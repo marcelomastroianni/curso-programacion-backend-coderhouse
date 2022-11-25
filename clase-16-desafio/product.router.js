@@ -1,6 +1,6 @@
 const express = require('express')
 
-const dataStore = require('./dataStore');
+const productStore = require('./product.store');
 
 const { Router } = express
 
@@ -18,17 +18,13 @@ const validateProduct = (req, res, next) => {
 }   
 
 routerProductos.get("/", async (req, res) => {
-    //const data = await dataStore.getAll();
-
-    const data = await this.getAllProductsFromDatabase();
+    const data = await productStore.getAll();
     res.send(data);
 });
 
 routerProductos.get("/:id", async (req, res) => {
    const { id } = req.params;
-   //const data = await dataStore.getById(Number(id));
-   const allProducts = await this.getAllProductsFromDatabase();
-
+   const allProducts = await productStore.getById(Number(id));
    const data = allProducts.find((product) => product.id === Number(id));
    if(data){
       res.send(data);
@@ -39,13 +35,10 @@ routerProductos.get("/:id", async (req, res) => {
 
 routerProductos.post("/",validateProduct, async (req, res) => {
    const { title, price, thumbnail } = req.body;
-   //const data = await dataStore.save({ title, price, thumbnail });
+   const data = await productStore.save({ title, price, thumbnail });
    //res.send({id:data,title, price, thumbnail});
 
-   await this.saveProductToDatabase({ title, price, thumbnail });
-
-   this.sendProductsToClient(await this.getAllProductsFromDatabase());
-   //this.sendProductsToClient(await dataStore.getAll());
+   this.sendProductsToClient(await productStore.getAll());
 
    //res.redirect('/');
 });
@@ -54,7 +47,7 @@ routerProductos.post("/",validateProduct, async (req, res) => {
 routerProductos.put("/:id",validateProduct, async (req, res) => {
    const { id } = req.params;
    const { title, price, thumbnail } = req.body;
-   const data = await dataStore.updateById(Number(id), { id:Number(id), title, price, thumbnail });
+   const data = await productStore.updateById(Number(id), { id:Number(id), title, price, thumbnail });
    if(data){
       res.send({id,title, price, thumbnail});
    }else{
@@ -65,9 +58,9 @@ routerProductos.put("/:id",validateProduct, async (req, res) => {
 
 routerProductos.delete("/:id", async (req, res) => {
    const { id } = req.params;
-   const data = await dataStore.getById(Number(id));
+   const data = await productStore.getById(Number(id));
    if (data) {
-      await dataStore.deleteById(Number(id));
+      await productStore.deleteById(Number(id));
       res.send("producto eliminado");
    } else {
       res.send({error: 'producto no encontrado'});
@@ -78,14 +71,5 @@ routerProductos.delete("/:id", async (req, res) => {
 routerProductos.setSendProductsToClient = (sendProductsToClient)=>{
    this.sendProductsToClient = sendProductsToClient;
 };
-
-routerProductos.setSaveProductToDatabase = (saveProductToDatabase)=>{
-   this.saveProductToDatabase = saveProductToDatabase;
-};
-
-routerProductos.setGetAllProductsFromDatabase = (getAllProducts)=>{
-   this.getAllProductsFromDatabase = getAllProducts;
-};
-
 
 module.exports = routerProductos

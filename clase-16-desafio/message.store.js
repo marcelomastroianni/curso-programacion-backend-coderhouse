@@ -31,38 +31,45 @@ class MessageStorage{
     
         return knex;
     }
+
+    getConnection = async () => {
+        if(!this.connection){
+            this.connection = await this.connectToDataBase();
+        }
+        return this.connection;
+    }
  
     save = async (msg) => {
-        const knex = await this.connectToDataBase();
+        const knex = await this.getConnection();
         await knex('mensajes').insert(msg);
     }
     
     getAll = async () => {
-        const knex = await this.connectToDataBase();
+        const knex = await this.getConnection();
         const mensajes = await knex.from('mensajes').select("*");
         return mensajes;
     }
 
 
     getById = async (id) => {
-        const knex = await this.connectToDataBase();
+        const knex = await this.getConnection();
         const mensajes = await knex.from('mensajes').select("*").where('id', id);
         return mensajes;
     }
         
     deleteById = async (id) => {
-        const knex = await this.connectToDataBase();
+        const knex = await this.getConnection();
         await knex.from('mensajes').where('id', id).del();
     }
 
 
     deleteAll = async () => {
-        const knex = await this.connectToDataBase();
+        const knex = await this.getConnection();
         await knex.from('mensajes').del();
     }
 
     updateById = async (id, msg) => {
-        const knex = await this.connectToDataBase();
+        const knex = await this.getConnection();
         await knex.from('mensajes').where('id', id).update(msg);
     }
   

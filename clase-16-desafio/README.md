@@ -3,3 +3,4 @@
 
 # Docker Compose Command
 
+docker-compose up -d
