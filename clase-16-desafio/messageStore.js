@@ -1,62 +1,71 @@
 const fs = require("fs");
 
 
-
 class MessageStorage{
     constructor(fileName) {
         this.fileName = fileName;
     }
 
-    async save(object) {
-        try {
-            const data = await this.getAll();
-            const id = data.length + 1;
-            const newObject = { id, ...object };
-            data.push(newObject);
-            await fs.promises.writeFile(this.fileName, JSON.stringify(data, null, 2));
-            return id;
-        } catch (error) {
-            console.log(error);
+    connectToDataBase = async () => {
+        var knex = require('knex')({
+        client: 'sqlite3',
+        connection: { filename: './mydb.sqlite' }
+        })
+
+        //Create table if not exists
+        await knex.schema.hasTable('mensajes').then(async (exists) => {
+        if (!exists) {
+            await knex.schema.createTable('mensajes', function (table) {
+                table.increments('id');
+                table.string('email');
+                table.string('created_at');
+                table.string('msg');
+            });
         }
+        });
+
+        knex.on('query', function(queryData) {
+            console.log({sql: queryData.sql, bindings: queryData.bindings ? queryData.bindings.join(',') : ''});
+         });
+ 
+    
+        return knex;
+    }
+ 
+    save = async (msg) => {
+        const knex = await this.connectToDataBase();
+        await knex('mensajes').insert(msg);
+    }
+    
+    getAll = async () => {
+        const knex = await this.connectToDataBase();
+        const mensajes = await knex.from('mensajes').select("*");
+        return mensajes;
     }
 
-    async getAll() {
-        try {
-            const data = await fs.promises.readFile(this.fileName, "utf-8");
-            return JSON.parse(data);
-        } catch (error) {
-            //Create file if not exists
-            await fs.promises.writeFile(this.fileName, JSON.stringify([], null, 2));
-            return JSON.parse("[]");
-        }
+
+    getById = async (id) => {
+        const knex = await this.connectToDataBase();
+        const mensajes = await knex.from('mensajes').select("*").where('id', id);
+        return mensajes;
+    }
+        
+    deleteById = async (id) => {
+        const knex = await this.connectToDataBase();
+        await knex.from('mensajes').where('id', id).del();
     }
 
-    async getById(id) {
-        try {
-            const data = await this.getAll();
-            return data.find((object) => object.id === id);
-        } catch (error) {
-            console.log(error);
-        }
+
+    deleteAll = async () => {
+        const knex = await this.connectToDataBase();
+        await knex.from('mensajes').del();
     }
 
-    async deleteById(id) {
-        try {
-            const data = await this.getAll();
-            const newData = data.filter((object) => object.id !== id);
-            await fs.promises.writeFile(this.fileName, JSON.stringify(newData, null, 2));
-        } catch (error) {
-            console.log(error);
-        }
+    updateById = async (id, msg) => {
+        const knex = await this.connectToDataBase();
+        await knex.from('mensajes').where('id', id).update(msg);
     }
-
-    async deleteAll() {
-        try {
-            await fs.promises.writeFile(this.fileName, JSON.stringify([], null, 2));
-        } catch (error) {
-            console.log(error);
-        }
-    }
+  
 }
 
 

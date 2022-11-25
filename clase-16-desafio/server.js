@@ -3,7 +3,7 @@ const express = require('express')
 const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
-const routerProductos = require('./productos.js');
+const routerProductos = require('./product.router.js');
 const messageStore = require('./messageStore');
 const PORT = 8080;
 
@@ -13,42 +13,6 @@ const sendProductsToClient = async (products) => {
 }
 routerProductos.setSendProductsToClient(sendProductsToClient);
 
-const createDatabase = async () => {
-   var knex = require('knex')({
-      client: 'sqlite3',
-      connection: { filename: './mydb.sqlite' }
-    })
-
-   
-   //Create table if not exists
-   await knex.schema.hasTable('mensajes').then(async (exists) => {
-      if (!exists) {
-         await knex.schema.createTable('mensajes', function (table) {
-            table.increments('id');
-            table.string('email');
-            table.string('created_at');
-            table.string('msg');
-         });
-      }
-   });
-
-   return knex;
-}
-
-
-//Insert message to database
-messageStore.save = async (msg) => {
-   const knex = await createDatabase();
-   await knex('mensajes').insert(msg);
-}
-
-
-//Get all messages from database
-messageStore.getAll = async () => {
-   const knex = await createDatabase();
-   const mensajes = await knex.from('mensajes').select("*");
-   return mensajes;
-}
 
 
 //Connect database on port 6033
@@ -113,11 +77,7 @@ const main = async () => {
 
 
    //Configuración base de datos
-   const knex = await createDatabase();
-   knex.on('query', function(queryData) {
-      console.log({sql: queryData.sql, bindings: queryData.bindings ? queryData.bindings.join(',') : ''});
-   });
-
+ 
    const knexMySql = await createDatabaseMySql();
    knexMySql.on('query', function(queryData) {
       console.log({sql: queryData.sql, bindings: queryData.bindings ? queryData.bindings.join(',') : ''});
