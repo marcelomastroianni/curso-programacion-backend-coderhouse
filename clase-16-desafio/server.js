@@ -3,10 +3,15 @@ const express = require('express')
 const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
-const routerProductos = require('./product.router.js');
-const messageStore = require('./message.store.js');
+const getRouterProductos = require('./product.router.js');
 const PORT = 8080;
 const dotenv = require('dotenv');
+
+const getMessageStore = require('./message.store.js');
+
+
+
+
 
 
 const main = async () => {
@@ -17,7 +22,14 @@ const main = async () => {
    //End Configuracion de dotenv
 
 
+   const messageStore = await getMessageStore();
+
+   const routerProductos = await getRouterProductos();
+
+
+   //Configuracion de express
    app.use(express.static('public'));
+   //End Configuracion de express
     
 
    //Configuración de socket.io
