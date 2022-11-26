@@ -6,9 +6,16 @@ const io = require('socket.io')(http);
 const routerProductos = require('./product.router.js');
 const messageStore = require('./message.store.js');
 const PORT = 8080;
+const dotenv = require('dotenv');
 
 
 const main = async () => {
+
+
+   //Configuracion de dotenv
+   dotenv.config();
+   //End Configuracion de dotenv
+
 
    app.use(express.static('public'));
     

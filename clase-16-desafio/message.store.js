@@ -7,9 +7,17 @@ class MessageStorage{
     }
 
     connectToDataBase = async () => {
+
+        //Create database folder if not exists
+        try{
+            await fs.promises.mkdir(process.env.SQLITE_DATABASE_FOLDER);
+        }
+        catch(err){
+            //console.log(err);
+        }
         var knex = require('knex')({
         client: 'sqlite3',
-        connection: { filename: './mydb.sqlite' }
+        connection: { filename: process.env.SQLITE_DATABASE_FOLDER + process.env.SQLITE_DATABASE }
         })
 
         //Create table if not exists
