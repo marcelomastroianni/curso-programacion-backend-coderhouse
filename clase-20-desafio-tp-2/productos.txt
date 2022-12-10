@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "name": "Globo Terráqueo Coto  3 AAA",
+    "timestamp": "2022-11-21T13:25:15.032Z",
+    "description": "Descripcion Globo Terráqueo Coto",
+    "code": "AAA",
+    "price": 345.67,
+    "stock": 443,
+    "photo_url": "https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png"
+  },
+  {
+    "id": 3,
+    "name": "Globo Terráqueo Coto  3 CCC",
+    "timestamp": "2022-11-21T13:44:32.295Z",
+    "description": "Descripcion Globo Terráqueo Coto",
+    "code": "CCC",
+    "price": "4234",
+    "stock": "40",
+    "photo_url": "https://cdn3.iconfinder.com/data/icons/education-209/64/calculator-math-tool-school-256.png"
+  },
+  {
+    "id": 5,
+    "name": "Globo Terráqueo Coto  3 EEE MM",
+    "timestamp": "2022-11-21T18:53:21.887Z",
+    "description": "Descripcion Globo Terráqueo Coto",
+    "code": "EEE MM",
+    "price": "2134",
+    "stock": "40",
+    "photo_url": "https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png"
+  },
+  {
+    "id": 6,
+    "name": "Globo Terráqueo Coto  3 FFF Modif 2",
+    "timestamp": "2022-11-21T19:26:12.492Z",
+    "description": "Descripcion Globo Terráqueo Coto",
+    "code": "FFF Modif",
+    "price": "124",
+    "stock": "40",
+    "photo_url": "https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png"
+  },
+  {
+    "id": 7,
+    "name": "Globo Terráqueo Coto  3 GGG",
+    "timestamp": "2022-11-21T21:30:08.985Z",
+    "description": "Descripcion Globo Terráqueo Coto",
+    "code": "GGG",
+    "price": "140",
+    "stock": "40",
+    "photo_url": "https://cdn3.iconfinder.com/data/icons/education-209/64/calculator-math-tool-school-256.png"
+  },
+  {
+    "id": 8,
+    "name": "Globo Terráqueo Coto  3 ZZZ",
+    "timestamp": "2022-11-21T21:30:53.240Z",
+    "description": "Descripcion Globo Terráqueo Coto",
+    "code": "ZZZ",
+    "price": "999",
+    "stock": "40",
+    "photo_url": "https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png"
+  },
+  {
+    "id": 9,
+    "name": "Globo Terráqueo Coto  3 TTT",
+    "timestamp": "2022-11-22T01:47:41.849Z",
+    "description": "Descripcion Globo Terráqueo Coto",
+    "code": "TTT",
+    "price": "890",
+    "stock": "56",
+    "photo_url": "https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-256.png"
+  }
+]
