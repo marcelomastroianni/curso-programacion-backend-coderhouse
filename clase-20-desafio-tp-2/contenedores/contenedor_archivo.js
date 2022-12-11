@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-class DataStore {
+class ContenedorArchivo {
     constructor(fileName) {
         this.fileName = fileName;
     }
@@ -80,5 +80,5 @@ class DataStore {
 
 }
 
-module.exports = DataStore;
+module.exports = ContenedorArchivo;
 

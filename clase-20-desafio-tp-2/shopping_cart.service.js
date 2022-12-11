@@ -1,28 +1,32 @@
 const ProductService = require('./product.service');
 
-const DataStore = require('./data.store');
+//const CarritosDaoArchivo = require('./daos/carritos/carritos_dao_archivo');
+
+const DaoFactory = require('./daos');
+const config = require('./config');
 
 class ShoppingCartService {
 
     constructor() {
-        this.dataStore = new DataStore("carrito.txt");
+        this.cartDao = DaoFactory.getDao('carritos',config.TIPO_PERSISTENCIA);
+        //this.cartDao = new CarritosDaoArchivo();
         this.productService = new ProductService();
     }
 
     getOne = async (id) => {
-        const data = await this.dataStore.getById(Number(id));
+        const data = await this.cartDao.getById(Number(id));
         return data;
     }
 
     create = async (shoppingCart) => {
-        const id = await this.dataStore.save(shoppingCart);
+        const id = await this.cartDao.save(shoppingCart);
         return id;
     }
 
     delete = async (id) => {
-        const data = await this.dataStore.getById(Number(id));
+        const data = await this.cartDao.getById(Number(id));
         if (data) {
-            await this.dataStore.deleteById(Number(id));
+            await this.cartDao.deleteById(Number(id));
             return true;
         } else {
             return false;
@@ -30,7 +34,7 @@ class ShoppingCartService {
     }
 
     addProduct = async (id, product_id) => {
-        const shoppingCart = await this.dataStore.getById(Number(id));
+        const shoppingCart = await this.cartDao.getById(Number(id));
         const product = await this.productService.getOne(Number(product_id));
         if (shoppingCart && product) {
             product.stock = 1;
@@ -42,7 +46,7 @@ class ShoppingCartService {
                     shoppingCart.products.push(product);
                 }
             } 
-            await this.dataStore.updateById(Number(id), shoppingCart);
+            await this.cartDao.updateById(Number(id), shoppingCart);
             return shoppingCart;
         } else {
             return false;
@@ -50,14 +54,14 @@ class ShoppingCartService {
     }
 
     deleteProduct = async (id, product_id) => {
-        const shoppingCart = await this.dataStore.getById(Number(id));
+        const shoppingCart = await this.cartDao.getById(Number(id));
         if (shoppingCart) {
             const product = await this.productService.getOne(Number(product_id));
             if (product) {
                 const index = shoppingCart.products.findIndex(p => p.id === product.id);
                 if (index >= 0) {
                     shoppingCart.products.splice(index, 1);
-                    await this.dataStore.updateById(Number(id), shoppingCart);
+                    await this.cartDao.updateById(Number(id), shoppingCart);
                     return shoppingCart;
                 } else {
                     return false;
@@ -71,7 +75,7 @@ class ShoppingCartService {
     }
 
     getProducts = async (id) => {
-        const shoppingCart = await this.dataStore.getById(Number(id));
+        const shoppingCart = await this.cartDao.getById(Number(id));
         if (shoppingCart) {
             return shoppingCart.products;
         } else {

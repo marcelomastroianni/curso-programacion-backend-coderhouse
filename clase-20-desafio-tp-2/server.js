@@ -4,11 +4,16 @@ const app = express();
 const http = require('http').Server(app);
 const routerProductos = require('./product.router.js');
 const routerCarrito = require('./shopping_cart.router.js');
-const PORT = process.env.PORT || 8080;
 
 
+
+const config = require('./config');
 
 const main = async () => {
+
+
+
+  
 
    app.use(express.static('public'));
     
@@ -21,8 +26,8 @@ const main = async () => {
 
 
 
-   let server = http.listen(PORT, function () {
-       console.log(`Server running on port ${PORT}`);
+   let server = http.listen(config.PORT, function () {
+       console.log(`Server running on port ${config.PORT}`);
    }
    );
    server.on("error", (error) => console.log(`Error en servidor ${error}`));
