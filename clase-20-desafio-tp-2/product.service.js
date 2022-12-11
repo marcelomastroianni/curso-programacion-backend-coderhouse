@@ -1,14 +1,11 @@
 const DaoFactory = require('./daos');
-//const ProductosDaoArhivo = require('./daos/productos/productos_dao_archivo');
 
-const config = require('./config');
 
 class ProductService {
 
     constructor() {
         
-        this.productDao = DaoFactory.getDao('productos',config.TIPO_PERSISTENCIA);
-        //this.productDao = new ProductosDaoArhivo();
+        this.productDao = DaoFactory.getDao('productos');
     }
 
     getAll = async () => {

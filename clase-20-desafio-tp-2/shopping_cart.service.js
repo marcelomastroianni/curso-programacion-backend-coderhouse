@@ -1,15 +1,11 @@
 const ProductService = require('./product.service');
 
-//const CarritosDaoArchivo = require('./daos/carritos/carritos_dao_archivo');
-
 const DaoFactory = require('./daos');
-const config = require('./config');
 
 class ShoppingCartService {
 
     constructor() {
-        this.cartDao = DaoFactory.getDao('carritos',config.TIPO_PERSISTENCIA);
-        //this.cartDao = new CarritosDaoArchivo();
+        this.cartDao = DaoFactory.getDao('carritos');
         this.productService = new ProductService();
     }
 

@@ -397,5 +397,21 @@
         "photo_url": "https://cdn3.iconfinder.com/data/icons/education-209/64/calculator-math-tool-school-256.png"
       }
     ]
+  },
+  {
+    "id": 20,
+    "timestamp": "2022-12-11T14:23:35.948Z",
+    "products": [
+      {
+        "id": 1,
+        "name": "Globo Terráqueo Coto  3 AAA",
+        "timestamp": "2022-11-21T13:25:15.032Z",
+        "description": "Descripcion Globo Terráqueo Coto",
+        "code": "AAA",
+        "price": 345.67,
+        "stock": 1,
+        "photo_url": "https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png"
+      }
+    ]
   }
 ]

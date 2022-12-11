@@ -12,13 +12,19 @@ let instanciaCarritosDaoArchivo = null;
 let instanciaCarritosDaoMemoria = null;
 
 
+
+
+const config = require('../config.js');
+
+
 //Esta clase nos permite obtener una instancia de un dao en particular
 //Tipo de persistencia desde variable de entorno
+
 class DaoFactory {
-    static getDao(tipo, tipoPersistencia) {
+    static getDao(tipo) {
 
  
-        
+        const tipoPersistencia = config.TIPO_PERSISTENCIA;
     
         if (tipo === 'productos') {
             if (tipoPersistencia === 'archivo') {
