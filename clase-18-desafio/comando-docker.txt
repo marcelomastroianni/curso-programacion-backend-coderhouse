@@ -2,7 +2,7 @@ docker run --name mongodb -d -p 27017:27017 -v YOUR_LOCAL_DIR:/data/db mongo
 
 
 
-
+//Con volumen
 sudo docker run --name mongodb -d -p 27017:27017 -v /home/marcelo/Desktop/desarrollo/curso-programacion-backend-coderhouse/clase-18-desafio/db:/data/db mongo
 
 sudo docker container ls --all
@@ -12,5 +12,10 @@ sudo docker rm mongodb
 
 
 sudo docker exec -it mongodb mongo
+
+
+//Sin volumen
+sudo docker run --name mongodb -d -p 27017:27017  mongo
+
 
 

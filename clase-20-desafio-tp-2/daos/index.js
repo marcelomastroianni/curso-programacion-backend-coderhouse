@@ -1,15 +1,19 @@
 
 const ProductosDaoArchivo = require('./productos/productos_dao_archivo');
 const ProductosDaoMemoria = require('./productos/productos_dao_memoria');
+const ProductosDaoMongo = require('./productos/productos_dao_mongodb');
 const CarritosDaoArchivo = require('./carritos/carritos_dao_archivo');
 const CarritosDaoMemoria = require('./carritos/carritos_dao_memoria');
+const CarritosDaoMongo = require('./carritos/carritos_dao_mongodb');
 
 
 //Usamos el patron de diseño singleton para que solo exista una instancia de cada dao
 let instanciaProductosDaoArchivo = null;
 let instanciaProductosDaoMemoria = null;
+let instanciaProductosDaoMongo = null;
 let instanciaCarritosDaoArchivo = null;
 let instanciaCarritosDaoMemoria = null;
+let instanciaCarritosDaoMongo = null;
 
 
 
@@ -38,6 +42,14 @@ class DaoFactory {
                 }
                 return instanciaProductosDaoMemoria;
             }
+            else if (tipoPersistencia === 'mongodb') {
+                if (!instanciaProductosDaoMongo) {
+                    instanciaProductosDaoMongo = new ProductosDaoMongo();
+                }
+                return instanciaProductosDaoMongo;
+            }
+
+
         } else if (tipo === 'carritos') {
             if (tipoPersistencia === 'archivo') {
                 if (!instanciaCarritosDaoArchivo) {
@@ -49,6 +61,12 @@ class DaoFactory {
                     instanciaCarritosDaoMemoria = new CarritosDaoMemoria();
                 }
                 return instanciaCarritosDaoMemoria;
+            }
+            else if (tipoPersistencia === 'mongodb') {
+                if (!instanciaCarritosDaoMongo) {
+                    instanciaCarritosDaoMongo = new CarritosDaoMongo();
+                }
+                return instanciaCarritosDaoMongo;
             }
         }
     }
