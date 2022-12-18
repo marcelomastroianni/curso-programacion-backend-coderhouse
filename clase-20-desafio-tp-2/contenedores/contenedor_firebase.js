@@ -1,14 +1,11 @@
 
 var admin = require("firebase-admin");
 
-//var serviceAccount = require("path/to/serviceAccountKey.json");
-var serviceAccount = require("../coderhouse-clase20-desafio-firebase-adminsdk-nshyk-a86f38e25b.json");
+const config = require('../config.js');
+
+var serviceAccount = require("../" + config.FIREBASE_CONFIG_FILE);
 
 const { v4: uuidv4 } = require('uuid');
-
-
-//var instanceFirebaseAdmin;
-
 
 class FirebaseFactory{
     static async conectar(){
@@ -17,7 +14,7 @@ class FirebaseFactory{
                 if (!admin.apps.length) {
                     FirebaseFactory.instanceFirebaseAdmin = await admin.initializeApp({
                         credential: admin.credential.cert(serviceAccount),
-                        databaseURL: "https://coderhouse-clase20-desafio.firebaseio.com"
+                        databaseURL: config.FIREBASE_DATABASE_URL
                     });
                     console.log('Base de datos Firebase conectada');
 

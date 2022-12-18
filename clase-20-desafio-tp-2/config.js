@@ -6,7 +6,9 @@ dotenv.config();
 
 config = {
     PORT: process.env.PORT || 8080,
-    TIPO_PERSISTENCIA: process.env.TIPO_PERSISTENCIA || 'memoria'
+    TIPO_PERSISTENCIA: process.env.TIPO_PERSISTENCIA || 'memoria',
+    FIREBASE_DATABASE_URL: process.env.FIREBASE_DATABASE_URL,
+    FIREBASE_CONFIG_FILE: process.env.FIREBASE_CONFIG_FILE
 }
 
 module.exports = config;
