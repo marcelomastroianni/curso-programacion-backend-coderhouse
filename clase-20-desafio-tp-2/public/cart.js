@@ -1,25 +1,22 @@
 
 
 
-      const get_cart_id = () => {
+      const get_cart_uuid = () => {
         const params = new URLSearchParams(window.location.search);
-        let cart_id = 0;
+        let cart_uuid = '-';
         for (const param of params) {
-          if (param[0] == 'cart_id') {
-            cart_id = param[1];
+          if (param[0] == 'cart_uuid') {
+            cart_uuid = param[1];
           }
         }
-        return cart_id;
+        return cart_uuid;
       }
-  
 
 
-   
-
-      const showCart = (cartId) => {
-        console.log("cartId:", cartId);
+      const showCart = (cartUuid) => {
+        console.log("cartUuid:", cartUuid);
         
-        fetch(`/api/carrito/${cartId}/productos`)
+        fetch(`/api/carrito/${cartUuid}/productos`)
         .then(response => response.json())
         .then(products => {
             // fetch template from server
@@ -34,17 +31,17 @@
         
       }
 
-      const deleteProductFromCart = (productId) => {
-        const cartId = get_cart_id();
-        performDelete(`/api/carrito/${cartId}/productos/${productId}`)
+      const deleteProductFromCart = (productUuid) => {
+        const cartUuid = get_cart_uuid();
+        performDelete(`/api/carrito/${cartUuid}/productos/${productUuid}`)
         .then((data) => {
-            showCart(cartId);
+            showCart(cartUuid);
         });
       }
 
       const deleteCart = () => {
-        const cartId = get_cart_id();
-        performDelete(`/api/carrito/${cartId}`)
+        const cartUuid = get_cart_uuid();
+        performDelete(`/api/carrito/${cartUuid}`)
         .then((data) => {
             window.location.href = `/index.html?is_admin=${is_admin()}`;
         });
@@ -52,11 +49,11 @@
 
 
     const volverAListadoProductos = () => {
-        window.location.href = `/index.html?is_admin=${is_admin()}&cart_id=${get_cart_id()}`;
+        window.location.href = `/index.html?is_admin=${is_admin()}&cart_uuid=${get_cart_uuid()}`;
     }
 
 
-      showCart(get_cart_id());
+    showCart(get_cart_uuid());
 
       
       

@@ -1,5 +1,8 @@
 const fs = require("fs");
 
+const { v4: uuidv4 } = require('uuid');
+
+
 class ContenedorArchivo {
     constructor(fileName) {
         this.fileName = fileName;
@@ -8,15 +11,11 @@ class ContenedorArchivo {
     async save(object) {
         try {
             const data = await this.getAll();
-            let id = 1;
-            if (data && data.length >0) {
-                id = data[data.length - 1].id + 1;
-            }
-            //const id = data.length + 1;
-            const newObject = { id, ...object };
+            let uuid = uuidv4();
+            const newObject = { uuid, ...object };
             data.push(newObject);
             await fs.promises.writeFile(this.fileName, JSON.stringify(data, null, 2));
-            return id;
+            return uuid;
         } catch (error) {
             console.log(error);
         }
@@ -33,19 +32,19 @@ class ContenedorArchivo {
         }
     }
 
-    async getById(id) {
+    async getById(uuid) {
         try {
             const data = await this.getAll();
-            return data.find((object) => object.id === id);
+            return data.find((object) => object.uuid === uuid);
         } catch (error) {
             console.log(error);
         }
     }
 
-    async deleteById(id) {
+    async deleteById(uuid) {
         try {
             const data = await this.getAll();
-            const newData = data.filter((object) => object.id !== id);
+            const newData = data.filter((object) => object.uuid !== uuid);
             await fs.promises.writeFile(this.fileName, JSON.stringify(newData, null, 2));
         } catch (error) {
             console.log(error);
@@ -60,14 +59,14 @@ class ContenedorArchivo {
         }
     }
 
-    async updateById(id, object) {
+    async updateById(uuid, object) {
         try {
             const data = await this.getAll();
             let updated = false;
             const newData = data.map((item) => {
-                if (item.id === id) {
+                if (item.uuid === uuid) {
                     updated = true;
-                    return { id, ...item, ...object };
+                    return { uuid, ...item, ...object };
                 }
                 return item;
             });

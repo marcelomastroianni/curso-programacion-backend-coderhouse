@@ -1,6 +1,6 @@
 class ProductDto {
-  constructor(id, name, timestamp, description, code, price, stock, photo_url) {
-    this.id = id;
+  constructor(uuid, name, timestamp, description, code, price, stock, photo_url) {
+    this.uuid = uuid;
     this.name = name;
     this.timestamp = timestamp;
     this.description = description;

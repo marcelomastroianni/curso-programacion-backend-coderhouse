@@ -2,7 +2,7 @@ const ContenedorArchivo = require("../../contenedores/contenedor_archivo");
 
 class CarritosDaoArchivo extends ContenedorArchivo{
     constructor() {
-        super("carrito.txt");
+        super("carrito.json");
     }
 }
 

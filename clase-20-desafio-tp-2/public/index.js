@@ -1,6 +1,6 @@
 
-      const deleteProduct = (id) => {
-        performDelete(`http://localhost:8080/api/productos/${id}`)
+      const deleteProduct = (uuid) => {
+        performDelete(`http://localhost:8080/api/productos/${uuid}`)
         .then((data) => {
             console.log(data);
             showProductList(is_admin());
@@ -31,27 +31,27 @@
       
 
 
-      const get_cart_id = () => {
+      const get_cart_uuid = () => {
         const params = new URLSearchParams(window.location.search);
-        let cart_id = -1;
+        let cart_uuid = '-';
         for (const param of params) {
-          if (param[0] == 'cart_id') {
-            cart_id = param[1];
+          if (param[0] == 'cart_uuid') {
+            cart_uuid = param[1];
           }
         }
-        return cart_id;
+        return cart_uuid;
       }
   
 
-      let cartId = get_cart_id();
+      let cartUuid = get_cart_uuid();
 
 
-      const buyProduct = (id) => {
-        if (cartId==-1){
+      const buyProduct = (uuid) => {
+        if (cartUuid=='-'){
           performCreate(`/api/carrito`,{})
           .then((data) => {
-            cartId = data.id;
-            performCreate(`/api/carrito/${cartId}/productos`,{product_id:id})
+            cartUuid = data.uuid;
+            performCreate(`/api/carrito/${cartUuid}/productos`,{product_uuid:uuid})
             .then((data) => {
               //console.log(data);
               //showCart(cartId);
@@ -59,7 +59,7 @@
           });
         }
         else{
-          performCreate(`/api/carrito/${cartId}/productos`,{product_id:id})
+          performCreate(`/api/carrito/${cartUuid}/productos`,{product_uuid:uuid})
           .then((data) => {
             //console.log(data);
             //showCart(cartId);
@@ -69,8 +69,8 @@
 
 
       const showCart = () => {
-        console.log("cartId:", cartId);
-        window.location.href = `/cart.html?cart_id=${cartId}&is_admin=${is_admin()}`;
+        console.log("cartUuid:", cartUuid);
+        window.location.href = `/cart.html?cart_uuid=${cartUuid}&is_admin=${is_admin()}`;
       }
 
       

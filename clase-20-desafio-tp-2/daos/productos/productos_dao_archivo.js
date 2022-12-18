@@ -4,7 +4,7 @@ const ContenedorArchivo = require("../../contenedores/contenedor_archivo");
 class ProductosDaoArhivo extends ContenedorArchivo
 {
     constructor() {
-        super("productos.txt");
+        super("productos.json");
     }
 }
 

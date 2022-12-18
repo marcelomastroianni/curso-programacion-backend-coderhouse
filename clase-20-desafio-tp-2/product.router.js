@@ -24,9 +24,9 @@ routerProductos.get("/", async (req, res) => {
     res.send(data);
 });
 
-routerProductos.get("/:id", async (req, res) => {
-   const { id } = req.params;
-   const data = await productService.getOne(Number(id));
+routerProductos.get("/:uuid", async (req, res) => {
+   const { uuid } = req.params;
+   const data = await productService.getOne(uuid);
    if(data){
       res.send(data);
    }else{
@@ -39,28 +39,28 @@ routerProductos.post("/", validateIfAdmin,validateProduct, async (req, res) => {
    const { name, description, code, price, stock, photo_url } = req.body;
    const timestamp = new Date();
    const product = new CreateProductDto(name, timestamp, description, code, price, stock, photo_url);
-   const id = await productService.create(product);
-   product.id = id;
+   const uuid = await productService.create(product);
+   product.uuid = uuid;
    res.send(product);
 });
 
 
-routerProductos.put("/:id",validateIfAdmin,validateProduct, async (req, res) => {
-   const { id } = req.params;
+routerProductos.put("/:uuid",validateIfAdmin,validateProduct, async (req, res) => {
+   const { uuid } = req.params;
    const { name, description, code, price, stock, photo_url } = req.body;
    const product = new UpdateProductDto(name, description, code, price, stock, photo_url);
-   const response = await productService.update(Number(id), product);
+   const response = await productService.update(uuid, product);
    if(response){
-      res.send({id,...product});
+      res.send({uuid,...product});
    }else{
       res.send({error: 'producto no encontrado'});
    }
 });
 
 
-routerProductos.delete("/:id", validateIfAdmin, async (req, res) => {
-   const { id } = req.params;
-   const deleted = await productService.delete(Number(id));
+routerProductos.delete("/:uuid", validateIfAdmin, async (req, res) => {
+   const { uuid } = req.params;
+   const deleted = await productService.delete(uuid);
    if (deleted) {
       res.send({description:"producto eliminado"});
    } else {

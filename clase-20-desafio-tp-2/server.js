@@ -7,12 +7,15 @@ const routerCarrito = require('./shopping_cart.router.js');
 
 
 
+
+
 const config = require('./config');
 
 const main = async () => {
 
 
 
+   
   
 
    app.use(express.static('public'));

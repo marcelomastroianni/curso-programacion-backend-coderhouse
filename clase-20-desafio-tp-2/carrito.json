@@ -1,0 +1,70 @@
+[
+  {
+    "uuid": "ab67acfc-3d34-4e62-9ac2-c5237d25f520",
+    "timestamp": "2022-12-18T13:13:49.456Z",
+    "products": [
+      {
+        "uuid": "a21ac81c-31ba-40d2-9f1c-fe7c92e435c7",
+        "name": "Producto 3",
+        "timestamp": "2022-12-18T13:01:38.229Z",
+        "description": "Desc Producto 3",
+        "code": "CCC",
+        "price": "345",
+        "stock": 1,
+        "photo_url": "https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png"
+      },
+      {
+        "uuid": "a21ac81c-31ba-40d2-9f1c-fe7c92e435c7",
+        "name": "Producto 3",
+        "timestamp": "2022-12-18T13:01:38.229Z",
+        "description": "Desc Producto 3",
+        "code": "CCC",
+        "price": "345",
+        "stock": 1,
+        "photo_url": "https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png"
+      }
+    ]
+  },
+  {
+    "uuid": "f508f2b2-97bf-4e38-b3a8-76e2f83d59b3",
+    "timestamp": "2022-12-18T13:15:42.961Z",
+    "products": [
+      {
+        "uuid": "52a9d72e-e460-40de-b7c9-240e0e9c1125",
+        "name": "Producto 4",
+        "timestamp": "2022-12-18T13:02:07.755Z",
+        "description": "Desc Producto 4",
+        "code": "DDD",
+        "price": "456",
+        "stock": 1,
+        "photo_url": "https://cdn3.iconfinder.com/data/icons/education-209/64/calculator-math-tool-school-256.png"
+      },
+      {
+        "uuid": "52a9d72e-e460-40de-b7c9-240e0e9c1125",
+        "name": "Producto 4",
+        "timestamp": "2022-12-18T13:02:07.755Z",
+        "description": "Desc Producto 4",
+        "code": "DDD",
+        "price": "456",
+        "stock": 1,
+        "photo_url": "https://cdn3.iconfinder.com/data/icons/education-209/64/calculator-math-tool-school-256.png"
+      }
+    ]
+  },
+  {
+    "uuid": "7e9ce81f-ccfc-42e6-8168-7361d2ed60e5",
+    "timestamp": "2022-12-18T13:18:18.815Z",
+    "products": [
+      {
+        "uuid": "0bebbeec-7ce3-4f8f-a3bc-c85cbc838460",
+        "name": "Producto 1 Modif",
+        "timestamp": "2022-12-18T13:04:02.324Z",
+        "description": "Desc Producto 1 AAA",
+        "code": "AAA",
+        "price": "123",
+        "stock": 1,
+        "photo_url": "https://cdn3.iconfinder.com/data/icons/education-209/64/calculator-math-tool-school-256.png"
+      }
+    ]
+  }
+]

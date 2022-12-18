@@ -11,10 +11,10 @@ const validateIfAdmin = require('./middlewares/security.middleware.js');
 
 
 
-routerShoppingCart.post("/:id/productos", async (req, res) => {
-   const { id } = req.params;
-   const { product_id } = req.body;
-   const response = await shoppingCartService.addProduct(Number(id), Number(product_id));
+routerShoppingCart.post("/:uuid/productos", async (req, res) => {
+   const { uuid } = req.params;
+   const { product_uuid } = req.body;
+   const response = await shoppingCartService.addProduct(uuid, product_uuid);
 
    if(response){
       res.send(response);
@@ -23,9 +23,9 @@ routerShoppingCart.post("/:id/productos", async (req, res) => {
    }
 });
 
-routerShoppingCart.delete("/:id/productos/:product_id", async (req, res) => {
-   const { id, product_id } = req.params;
-   const response = await shoppingCartService.deleteProduct(Number(id), Number(product_id));
+routerShoppingCart.delete("/:uuid/productos/:product_uuid", async (req, res) => {
+   const { uuid, product_uuid } = req.params;
+   const response = await shoppingCartService.deleteProduct(uuid, product_uuid);
    if(response){
       res.send(response);
    }else{
@@ -33,9 +33,9 @@ routerShoppingCart.delete("/:id/productos/:product_id", async (req, res) => {
    }
 });
 
-routerShoppingCart.get("/:id/productos", async (req, res) => {
-   const { id } = req.params;
-   const response = await shoppingCartService.getProducts(Number(id));
+routerShoppingCart.get("/:uuid/productos", async (req, res) => {
+   const { uuid } = req.params;
+   const response = await shoppingCartService.getProducts(uuid);
    if(response){
       res.send(response);
    }else{
@@ -47,14 +47,14 @@ routerShoppingCart.get("/:id/productos", async (req, res) => {
 routerShoppingCart.post("/", async (req, res) => {
    const timestamp = new Date();
    const shoppingCart = new CreateShoppingCartDto(timestamp);
-   const id = await shoppingCartService.create(shoppingCart);
-   shoppingCart.id = id;
+   const uuid = await shoppingCartService.create(shoppingCart);
+   shoppingCart.uuid = uuid;
    res.send(shoppingCart);
 });
 
-routerShoppingCart.delete("/:id", async (req, res) => {
-   const { id } = req.params;
-   const deleted = await shoppingCartService.delete(Number(id));
+routerShoppingCart.delete("/:uuid", async (req, res) => {
+   const { uuid } = req.params;
+   const deleted = await shoppingCartService.delete(uuid);
    if (deleted) {
       res.send({description:"carrito eliminado"});
    } else {

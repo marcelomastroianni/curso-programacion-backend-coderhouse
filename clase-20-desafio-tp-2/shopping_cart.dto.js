@@ -2,8 +2,8 @@
 
 class ShoppingCartDto {
 
-    constructor(id, timestamp, product_list) {
-        this.id = id;
+    constructor(uuid, timestamp, product_list) {
+        this.uuid = uuid;
         this.timestamp = timestamp;
         this.product_list = product_list;
     }
@@ -13,7 +13,7 @@ class ShoppingCartDto {
     }
 
     removeProduct(product) {
-        this.product_list = this.product_list.filter((p) => p.id !== product.id);
+        this.product_list = this.product_list.filter((p) => p.uuid !== product.uuid);
     }
 
 }

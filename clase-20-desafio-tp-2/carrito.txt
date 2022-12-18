@@ -413,5 +413,10 @@
         "photo_url": "https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png"
       }
     ]
+  },
+  {
+    "id": 21,
+    "timestamp": "2022-12-12T20:46:06.152Z",
+    "products": []
   }
 ]

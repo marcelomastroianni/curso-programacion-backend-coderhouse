@@ -13,25 +13,25 @@ class ProductService {
         return data;
     }
 
-    getOne = async (id) => {
-        const data = await this.productDao.getById(Number(id));
+    getOne = async (uuid) => {
+        const data = await this.productDao.getById(uuid);
         return data;
     }
 
     create = async (product) => {
-        const id = await this.productDao.save(product);
-        return id;
+        const uuid = await this.productDao.save(product);
+        return uuid;
     }
 
-    update = async (id, product) => {
-        const response = await this.productDao.updateById(Number(id), product);
+    update = async (uuid, product) => {
+        const response = await this.productDao.updateById(uuid, product);
         return response;
     }
 
-    delete = async (id) => {
-        const data = await this.productDao.getById(Number(id));
+    delete = async (uuid) => {
+        const data = await this.productDao.getById(uuid);
         if (data) {
-            await this.productDao.deleteById(Number(id));
+            await this.productDao.deleteById(uuid);
             return true;
         } else {
             return false;

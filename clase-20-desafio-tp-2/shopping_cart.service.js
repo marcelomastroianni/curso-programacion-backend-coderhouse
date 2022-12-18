@@ -9,55 +9,55 @@ class ShoppingCartService {
         this.productService = new ProductService();
     }
 
-    getOne = async (id) => {
-        const data = await this.cartDao.getById(Number(id));
+    getOne = async (uuid) => {
+        const data = await this.cartDao.getById(uuid);
         return data;
     }
 
     create = async (shoppingCart) => {
-        const id = await this.cartDao.save(shoppingCart);
-        return id;
+        const uuid = await this.cartDao.save(shoppingCart);
+        return uuid;
     }
 
-    delete = async (id) => {
-        const data = await this.cartDao.getById(Number(id));
+    delete = async (uuid) => {
+        const data = await this.cartDao.getById(uuid);
         if (data) {
-            await this.cartDao.deleteById(Number(id));
+            await this.cartDao.deleteById(uuid);
             return true;
         } else {
             return false;
         }
     }
 
-    addProduct = async (id, product_id) => {
-        const shoppingCart = await this.cartDao.getById(Number(id));
-        const product = await this.productService.getOne(Number(product_id));
+    addProduct = async (uuid, product_uuid) => {
+        const shoppingCart = await this.cartDao.getById(uuid);
+        const product = await this.productService.getOne(product_uuid);
         if (shoppingCart && product) {
             product.stock = 1;
             if (shoppingCart.products) {
-                const productIndex = shoppingCart.products.findIndex(p => p.id == product.id);
+                const productIndex = shoppingCart.products.findIndex(p => p.uuid == product.uuid);
                 if (productIndex >= 0) {
                     shoppingCart.products[productIndex].stock++;
                 } else {
                     shoppingCart.products.push(product);
                 }
             } 
-            await this.cartDao.updateById(Number(id), shoppingCart);
+            await this.cartDao.updateById(uuid, shoppingCart);
             return shoppingCart;
         } else {
             return false;
         }
     }
 
-    deleteProduct = async (id, product_id) => {
-        const shoppingCart = await this.cartDao.getById(Number(id));
+    deleteProduct = async (uuid, product_uuid) => {
+        const shoppingCart = await this.cartDao.getById(uuid);
         if (shoppingCart) {
-            const product = await this.productService.getOne(Number(product_id));
+            const product = await this.productService.getOne(product_uuid);
             if (product) {
-                const index = shoppingCart.products.findIndex(p => p.id === product.id);
+                const index = shoppingCart.products.findIndex(p => p.uuid === product.uuid);
                 if (index >= 0) {
                     shoppingCart.products.splice(index, 1);
-                    await this.cartDao.updateById(Number(id), shoppingCart);
+                    await this.cartDao.updateById(uuid, shoppingCart);
                     return shoppingCart;
                 } else {
                     return false;
@@ -70,8 +70,8 @@ class ShoppingCartService {
         }
     }
 
-    getProducts = async (id) => {
-        const shoppingCart = await this.cartDao.getById(Number(id));
+    getProducts = async (uuid) => {
+        const shoppingCart = await this.cartDao.getById(uuid);
         if (shoppingCart) {
             return shoppingCart.products;
         } else {

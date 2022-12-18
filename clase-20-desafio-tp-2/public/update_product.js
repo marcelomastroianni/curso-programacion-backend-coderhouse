@@ -1,17 +1,17 @@
 
-      const get_product_id = () => {
+      const get_product_uuid = () => {
         const params = new URLSearchParams(window.location.search);
-        let product_id = 0;
+        let product_uuid = '-';
         for (const param of params) {
-          if (param[0] == 'product_id') {
-            product_id = param[1];
+          if (param[0] == 'product_uuid') {
+            product_uuid = param[1];
           }
         }
-        return product_id;
+        return product_uuid;
       }
 
 
-      const bindProductForm = (prdoduct_id) => {
+      const bindProductForm = (prdoduct_uuid) => {
         let productForm = document.getElementById('product_form');
 
         productForm.addEventListener('submit', function(e) {
@@ -26,7 +26,7 @@
               let photo_url = document.forms["product_form"]["photo_url"].value;
     
 
-              performUpdate(`/api/productos/${prdoduct_id}`, { name, description, code, price, stock, photo_url})
+              performUpdate(`/api/productos/${prdoduct_uuid}`, { name, description, code, price, stock, photo_url})
               .then((data) => {
                 window.location.href = `/index.html?is_admin=${is_admin()}`;
               });
@@ -41,12 +41,12 @@
           const template = Handlebars.compile(templateStr); // compila la plantilla
           const html = template({product}); // genera el html
           document.getElementById("divUpdateProduct").innerHTML = html; // inyecta el html
-          bindProductForm(product.id);
+          bindProductForm(product.uuid);
         });
       }
 
-      const getProductInfo = (id) => {
-          performGet(`http://localhost:8080/api/productos/${id}`)
+      const getProductInfo = (uuid) => {
+          performGet(`http://localhost:8080/api/productos/${uuid}`)
           .then((data) => {
             console.log(data);
             showProductForm(data);
@@ -56,7 +56,7 @@
 
 
       if(is_admin()){
-        getProductInfo(get_product_id());
+        getProductInfo(get_product_uuid());
       }
 
 
