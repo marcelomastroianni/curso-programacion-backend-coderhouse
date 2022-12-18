@@ -16,7 +16,7 @@ class FirebaseFactory{
                         credential: admin.credential.cert(serviceAccount),
                         databaseURL: config.FIREBASE_DATABASE_URL
                     });
-                    console.log('Base de datos Firebase conectada');
+                    //console.log('Base de datos Firebase conectada');
 
                 }else{
 

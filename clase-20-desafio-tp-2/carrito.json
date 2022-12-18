@@ -66,5 +66,21 @@
         "photo_url": "https://cdn3.iconfinder.com/data/icons/education-209/64/calculator-math-tool-school-256.png"
       }
     ]
+  },
+  {
+    "uuid": "bba6c21e-319b-44f1-9523-6d24787148ac",
+    "timestamp": "2022-12-18T20:56:47.732Z",
+    "products": [
+      {
+        "uuid": "7d96c66d-eb4f-4119-9713-2716e23d6091",
+        "name": "Producto 2",
+        "timestamp": "2022-12-18T13:00:52.684Z",
+        "description": "Desc Producto 2",
+        "code": "BBB",
+        "price": "234",
+        "stock": 1,
+        "photo_url": "https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-256.png"
+      }
+    ]
   }
 ]

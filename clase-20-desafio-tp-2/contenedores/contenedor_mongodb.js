@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 
 const { v4: uuidv4 } = require('uuid');
 
+const config = require('../config.js');
+
 
 class ContenedorMongoDB {
     constructor(modelo) {
@@ -12,11 +14,11 @@ class ContenedorMongoDB {
 
     async conectar() {
         try {
-            await mongoose.connect('mongodb://localhost:27017/ecommerce', {
+            await mongoose.connect(config.MONGODB_DATABASE_URL, {
                 useNewUrlParser: true,
                 useUnifiedTopology: true
             });
-            console.log('Base de datos conectada');
+            //console.log('Base de datos conectada');
         } catch (error) {
             console.log(error);
         }
