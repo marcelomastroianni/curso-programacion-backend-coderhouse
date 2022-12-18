@@ -7,6 +7,7 @@ class CarritosDaoMongo extends ContenedorMongoDB {
 
         var itemSchema = new mongoose.Schema({
             id : mongoose.Schema.Types.ObjectId,
+            uuid: String,
             name: String,
             timestamp: String,
             description: String,
@@ -18,8 +19,9 @@ class CarritosDaoMongo extends ContenedorMongoDB {
 
         const schema = new mongoose.Schema({
             id : mongoose.Schema.Types.ObjectId,
+            uuid: String,
             timestamp: String,
-            product_list: [itemSchema],
+            products: [{}],
         });
         const modelo = mongoose.model('carritos', schema);
         super(modelo);

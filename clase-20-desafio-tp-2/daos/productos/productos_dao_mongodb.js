@@ -6,6 +6,7 @@ class ProductosDaoMongo extends ContenedorMongoDB {
     constructor() {
         const schema = new mongoose.Schema({
             id : mongoose.Schema.Types.ObjectId,
+            uuid: String,
             name: String,
             timestamp: String,
             description: String,

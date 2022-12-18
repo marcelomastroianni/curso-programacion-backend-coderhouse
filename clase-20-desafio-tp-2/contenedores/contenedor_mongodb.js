@@ -1,6 +1,8 @@
 
 const mongoose = require('mongoose');
 
+const { v4: uuidv4 } = require('uuid');
+
 
 class ContenedorMongoDB {
     constructor(modelo) {
@@ -24,21 +26,27 @@ class ContenedorMongoDB {
         return await this.modelo.find();
     }
 
-    async getById(id) {
-        return await this.modelo.findById(new mongo.ObjectID(id));
+    async getById(uuid){
+        return await this.modelo.findOne({uuid: uuid});
     }
 
     async save(object) {
+        console.log(object);
+        let uuid = uuidv4();
+        object.uuid = uuid;
         const newObject = new this.modelo(object);
-        return await newObject.save();
+        await newObject.save();
+        return uuid;
     }
     
-    async updateById(id, object) {
-        return await this.modelo.findByIdAndUpdate(new mongo.ObjectID(id), object, {new: true});
-    }  
 
-    async deleteById(id) {
-        return await this.modelo.findByIdAndDelete(new mongo.ObjectID(id));
+    async updateById(uuid, object) {
+        return await this.modelo.findOneAndUpdate({uuid: uuid}, object, {new: true});
+    }
+
+
+    async deleteById(uuid) {
+        return await this.modelo.findOneAndDelete({uuid: uuid});
     }
 
 }
