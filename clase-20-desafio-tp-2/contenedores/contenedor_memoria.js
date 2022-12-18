@@ -1,3 +1,4 @@
+const { v4: uuidv4 } = require('uuid');
 
 
 class ContenedorMemoria {
@@ -7,25 +8,22 @@ class ContenedorMemoria {
     }
 
     async save(objeto) {
-        if (this.datos.length >0) {
-            objeto.id = this.datos[this.datos.length - 1].id + 1;
-        } else {
-            objeto.id = 1;
-        }
+        let uuid = uuidv4();
+        objeto.uuid = uuid;
         this.datos.push(objeto);
-        return objeto.id;
+        return objeto.uuid;
     }
 
-    async getById(id) {
-        return this.datos.find((objeto) => objeto.id === id);
+    async getById(uuid) {
+        return this.datos.find((objeto) => objeto.uuid === uuid);
     }
 
     async getAll() {
         return this.datos;
     }
 
-    async deleteById(id) {
-        const index = this.datos.findIndex((objeto) => objeto.id === id);
+    async deleteById(uuid) {
+        const index = this.datos.findIndex((objeto) => objeto.uuid === uuid);
         if (index === -1) {
             return null;
         }
@@ -37,8 +35,8 @@ class ContenedorMemoria {
         this.datos = [];
     }
 
-    async updateById(id, objeto) {
-        const index = this.datos.findIndex((objeto) => objeto.id === id);
+    async updateById(uuid, objeto) {
+        const index = this.datos.findIndex((objeto) => objeto.uuid === uuid);
         if (index === -1) {
             return null;
         }
