@@ -31,7 +31,6 @@ class ContenedorMongoDB {
     }
 
     async save(object) {
-        console.log(object);
         let uuid = uuidv4();
         object.uuid = uuid;
         const newObject = new this.modelo(object);
