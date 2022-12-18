@@ -1,7 +1,7 @@
 # curso-programacion-backend-coderhouse-clase-16-desafio
 
 
-## Docker Command
+## Docker Command:
 
 Para levantar el contenedor de Mongodb se debe ejecutar el siguiente comando:
 
@@ -21,3 +21,11 @@ MONGODB_DATABASE_URL: URL de la base de datos de Mongodb
 
 TIPO_PERSISTENCIA: En esta variable se indica el tipo de persistencia. Valores posibles: archivo, memoria, mongodb o firebase.
 
+
+## Correr aplicacion:
+
+Para correr la aplicacion en modo admin se debe ir a la siguiente url en un navegador web:
+
+http://localhost:8080/?is_admin=true
+
+De lo contrario no se podrian dar de alta productos o modificarlos.
