@@ -3,16 +3,10 @@ const express = require('express')
 const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
-const getRouterProductos = require('./product.router.js');
 const getRouterProductosTest = require('./product-test.router.js');
 const PORT = 8080;
 const dotenv = require('dotenv');
-
 const getMessageStore = require('./message.store.js');
-
-
-
-
 
 
 const main = async () => {
@@ -24,8 +18,6 @@ const main = async () => {
 
 
    const messageStore = await getMessageStore();
-
-   const routerProductos = await getRouterProductos();
    const routerProductosTest = await getRouterProductosTest();
 
 
@@ -35,12 +27,6 @@ const main = async () => {
     
 
    //Configuración de socket.io
-
-   const sendProductsToClient = async (products) => {
-      //Send productos to client
-      io.emit('new product', products);
-   }
-   routerProductos.setSendProductsToClient(sendProductsToClient);
 
 
    io.on('connection', async (socket) => {
@@ -72,7 +58,6 @@ const main = async () => {
    //Configuración de rutas
    app.use(express.json());//para poder usar req.body
    app.use(express.urlencoded({ extended: true }));
-   app.use('/api/productos', routerProductos);
    app.use('/api/productos-test', routerProductosTest);
    //End Configuración de rutas
 
