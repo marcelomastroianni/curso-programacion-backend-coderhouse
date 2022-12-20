@@ -3,9 +3,10 @@
 {{#if messages.length}}
     {{#each messages}}
         <p>
-            <span style="font-weight:bold;color:blue">{{this.email}}</span>
+            <span style="font-weight:bold;color:blue">{{this.author.id}}</span>
             <span>[<span style="color:brown" >{{this.created_at}}</span>]:</span>
-            <span style="color:green;font-style: italic;">{{this.msg}}</span>
+            <span style="color:green;font-style: italic;">{{this.text}}</span>
+            <span><img src="{{this.author.avatar}}" style="width: 80px" /></span>
         </p>
     {{/each}}
 

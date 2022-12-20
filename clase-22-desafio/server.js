@@ -7,6 +7,7 @@ const getRouterProductosTest = require('./product-test.router.js');
 const PORT = 8080;
 const dotenv = require('dotenv');
 const getMessageStore = require('./message.store.js');
+const MensajesDaoArchivo = require('./daos/mensajes_dao_archivo.js');
 
 
 const main = async () => {
@@ -20,6 +21,8 @@ const main = async () => {
    const messageStore = await getMessageStore();
    const routerProductosTest = await getRouterProductosTest();
 
+   const mensajesDao = new MensajesDaoArchivo();
+
 
    //Configuracion de express
    app.use(express.static('public'));
@@ -32,7 +35,8 @@ const main = async () => {
    io.on('connection', async (socket) => {
 
       //Send chat history to client when connect
-      io.emit('all messages', await messageStore.getAll());
+      //io.emit('all messages', await messageStore.getAll());
+      io.emit('all messages', await mensajesDao.getAll());
 
       //Save message to file storage and send all messages to client when receive a new message
       socket.on('chat message', async msg => {
@@ -45,8 +49,10 @@ const main = async () => {
                msg.created_at = new Date();
                console.log(err);
             }
-            await messageStore.save(msg);
-            io.emit('all messages', await messageStore.getAll());
+            //await messageStore.save(msg);
+            await mensajesDao.save(msg);
+            //io.emit('all messages', await messageStore.getAll());
+            io.emit('all messages', await mensajesDao.getAll());
          }
       });
     });
