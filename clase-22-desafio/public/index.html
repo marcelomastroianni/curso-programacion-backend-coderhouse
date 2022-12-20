@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="./style.css" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <script src="./client_validations.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/normalizr@3.6.1/dist/normalizr.browser.min.js"></script>
   </head>
   <body>
     <div style="background-color:white;padding:20px">
@@ -177,11 +178,41 @@
     }
   });
 
-  socket.on('all messages', function(lstMessages) {
+
+  const perform_denormalize = (normalizedMensajes) =>{
+
+
+
+    // Definimos un esquema de usuarios (autores y comentadores)
+    const authorSchema = new normalizr.schema.Entity("authors");
+
+    // Definimos un esquema de artículos
+    const mensajeSchema = new normalizr.schema.Entity("mensajes", {
+    author: authorSchema,
+    }, { idAttribute: "uuid" });
+
+
+    const globalSchema= new normalizr.schema.Entity("global",{
+      mensajes:[mensajeSchema]
+    });
+
+
+
+    
+    const denormalizedMensajes = normalizr.denormalize(normalizedMensajes.result, globalSchema , normalizedMensajes.entities);
+    //console.log(JSON.stringify(denormalizedMensajes).length)
+
+    return denormalizedMensajes;
+
+  }
+
+
+  socket.on('all messages', function(normalizedMessages) {
     fetch('/messageList.hbs')
       .then(response => response.text())
       .then(templateStr => {
         const template = Handlebars.compile(templateStr); // compila la plantilla
+        const lstMessages = perform_denormalize(normalizedMessages).mensajes;
         const html = template({messages:lstMessages}); // genera el html
         messages.innerHTML = "";
         messages.innerHTML = html; // inyecta el resultado en la vista

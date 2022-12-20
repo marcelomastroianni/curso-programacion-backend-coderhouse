@@ -60,6 +60,28 @@ const test_normalizr = async (mensajesDao) => {
 }
 
 
+const perform_normalize = (obj_mensajes) => {
+
+    // Definimos un esquema de usuarios (autores y comentadores)
+    const authorSchema = new schema.Entity("authors");
+
+    // Definimos un esquema de artículos
+    const mensajeSchema = new schema.Entity("mensajes", {
+    author: authorSchema,
+    }, { idAttribute: "uuid" });
+ 
+ 
+    const globalSchema= new schema.Entity("global",{
+       mensajes:[mensajeSchema]
+     });
+
+
+    const normalizedMensajes = normalize(obj_mensajes, globalSchema);
+  
+    return normalizedMensajes;
+}
+
+
 
 
 
@@ -95,7 +117,11 @@ const main = async () => {
 
       //Send chat history to client when connect
       //io.emit('all messages', await messageStore.getAll());
-      io.emit('all messages', await mensajesDao.getAll());
+      //io.emit('all messages', await mensajesDao.getAll());
+
+      const array_mensajes = await mensajesDao.getAll();
+      const obj_mensajes = { id: "mensajes", mensajes: array_mensajes};
+      io.emit('all messages', perform_normalize(obj_mensajes));
 
       //Save message to file storage and send all messages to client when receive a new message
       socket.on('chat message', async msg => {
@@ -111,7 +137,13 @@ const main = async () => {
             //await messageStore.save(msg);
             await mensajesDao.save(msg);
             //io.emit('all messages', await messageStore.getAll());
-            io.emit('all messages', await mensajesDao.getAll());
+            //io.emit('all messages', await mensajesDao.getAll());
+
+            const array_mensajes = await mensajesDao.getAll();
+            const obj_mensajes = { id: "mensajes", mensajes: array_mensajes};
+            io.emit('all messages', perform_normalize(obj_mensajes));
+
+
          }
       });
     });
