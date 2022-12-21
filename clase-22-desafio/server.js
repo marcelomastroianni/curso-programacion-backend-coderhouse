@@ -6,7 +6,6 @@ const io = require('socket.io')(http);
 const getRouterProductosTest = require('./product-test.router.js');
 const PORT = 8080;
 const dotenv = require('dotenv');
-const getMessageStore = require('./message.store.js');
 const MensajesDaoArchivo = require('./daos/mensajes_dao_archivo.js');
 
 
@@ -87,7 +86,6 @@ const main = async () => {
    //End Configuracion de dotenv
 
 
-   const messageStore = await getMessageStore();
    const routerProductosTest = await getRouterProductosTest();
 
    const mensajesDao = new MensajesDaoArchivo();
