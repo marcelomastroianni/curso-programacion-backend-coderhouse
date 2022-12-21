@@ -85,6 +85,7 @@
 
 
         <h1 style="color:blue">Centro de Mensajes</h1>
+        <h1 id="txtCompresion" style="color:blue">Centro de Mensajes</h1>
 
         <form name="message_form" id="message_form" action="">
       
@@ -153,6 +154,7 @@
   let txtEdad = document.getElementById('txtEdad');
   let txtAlias = document.getElementById('txtAlias');
   let txtAvatar = document.getElementById('txtAvatar');
+  let txtCompresion = document.getElementById('txtCompresion');
 
   message_form.addEventListener('submit', function(e) {
     e.preventDefault();
@@ -179,6 +181,8 @@
   });
 
 
+
+
   const perform_denormalize = (normalizedMensajes) =>{
 
 
@@ -196,11 +200,15 @@
       mensajes:[mensajeSchema]
     });
 
-
-
-    
     const denormalizedMensajes = normalizr.denormalize(normalizedMensajes.result, globalSchema , normalizedMensajes.entities);
-    //console.log(JSON.stringify(denormalizedMensajes).length)
+
+    const normalizedLength = JSON.stringify(normalizedMensajes).length;  
+    const denormalizedLength = JSON.stringify(denormalizedMensajes).length; 
+
+    const compressionPercent = normalizedLength * 100 / denormalizedLength;
+
+    txtCompresion.innerHTML = `(Compresión: ${compressionPercent.toFixed(2)}%)`;
+
 
     return denormalizedMensajes;
 

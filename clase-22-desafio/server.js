@@ -22,10 +22,8 @@ const test_normalizr = async (mensajesDao) => {
    const obj_mensajes = { id: "mensajes", mensajes: array_mensajes};
 
 
-   // Definimos un esquema de usuarios (autores y comentadores)
    const authorSchema = new schema.Entity("authors");
 
-   // Definimos un esquema de artículos
    const mensajeSchema = new schema.Entity("mensajes", {
    author: authorSchema,
    }, { idAttribute: "uuid" });
@@ -62,10 +60,8 @@ const test_normalizr = async (mensajesDao) => {
 
 const perform_normalize = (obj_mensajes) => {
 
-    // Definimos un esquema de usuarios (autores y comentadores)
     const authorSchema = new schema.Entity("authors");
 
-    // Definimos un esquema de artículos
     const mensajeSchema = new schema.Entity("mensajes", {
     author: authorSchema,
     }, { idAttribute: "uuid" });
@@ -80,14 +76,6 @@ const perform_normalize = (obj_mensajes) => {
   
     return normalizedMensajes;
 }
-
-
-
-
-
-
-
-
 
 
 
@@ -115,9 +103,6 @@ const main = async () => {
 
    io.on('connection', async (socket) => {
 
-      //Send chat history to client when connect
-      //io.emit('all messages', await messageStore.getAll());
-      //io.emit('all messages', await mensajesDao.getAll());
 
       const array_mensajes = await mensajesDao.getAll();
       const obj_mensajes = { id: "mensajes", mensajes: array_mensajes};
@@ -127,17 +112,13 @@ const main = async () => {
       socket.on('chat message', async msg => {
          if (msg){
             try{
-               //msg.created_at = new Date().toLocaleDateString("es-AR",{dateStyle: 'short', timeStyle: 'medium'});
                msg.created_at = new Intl.DateTimeFormat('es-AR', { dateStyle: "short", timeStyle: "medium" }).format(new Date());  
             }
             catch(err){
                msg.created_at = new Date();
                console.log(err);
             }
-            //await messageStore.save(msg);
             await mensajesDao.save(msg);
-            //io.emit('all messages', await messageStore.getAll());
-            //io.emit('all messages', await mensajesDao.getAll());
 
             const array_mensajes = await mensajesDao.getAll();
             const obj_mensajes = { id: "mensajes", mensajes: array_mensajes};
@@ -159,7 +140,7 @@ const main = async () => {
    //End Configuración de rutas
 
 
-   test_normalizr(mensajesDao);
+   //test_normalizr(mensajesDao);
 
    let server = http.listen(PORT, function () {
        console.log(`Server running on port ${PORT}`);
