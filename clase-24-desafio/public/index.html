@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit-cover">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>My awesome App</title>
+    <link rel="stylesheet" href="./style.css" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="./client_validations.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/normalizr@3.6.1/dist/normalizr.browser.min.js"></script>
+  </head>
+  <body>
+    <div style="background-color:white;padding:20px">
+      <div style="background-color:lightgreen;padding:20px;height: auto;height: 80px;">
+        <h1 style="color:green;float:left">Bienvenido Daniel</h1>
+
+        <button type="button" style="float:right" class="btn btn-warning">Desloguear</button>
+
+      </div>
+      <div style="background-color:LightGray;padding:20px;height: auto;margin-top: 20px;">
+         
+
+          <form action="/api/productos" style="display: none" name="product_form" id="product_form"  method="POST">
+            <div class="m-4">
+
+                <div class="text-left">
+
+
+                    <div class="row">
+                        <div class="col-12">
+                            <h1 style="color:blue">Ingrese Producto</h1>
+                        </div>
+
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="title" class="form-label">Nombre</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                        <input type="text" class="form-control" name="title" id="title" />
+                        </div>
+                    
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-12">
+                                <label for="price" class="form-label">Precio</label> 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <input type="number" class="form-control"  name="price" id="price" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="thumbnail" class="form-label">Foto Url</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <input type="text" class="form-control" name="thumbnail" id="thumbnail" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <br/>
+                            <button type="submit" class="btn btn-success">Enviar</button>
+                        </div> 
+                    </div>
+
+
+                </div>
+
+                <br/>
+            </div>
+          </form>
+          <span></span> <!-- para inyectar el resultado -->
+      </div>
+
+      <div style="background-color:LightGray;padding:20px;height: auto;margin-top: 20px;">
+
+
+        <h1 style="color:blue">Centro de Mensajes</h1>
+        <h1 id="txtCompresion" style="color:blue">Centro de Mensajes</h1>
+
+        <form name="message_form" id="message_form" action="">
+      
+            <input id="txtEmail" name="email" class="form-control" style="width: 500px;margin-top:20px" placeholder="Ingresá un email"  autocomplete="off" />
+            <input id="txtNombre" name="nombre" class="form-control" style="width: 500px;margin-top:20px" placeholder="Ingresá un nombre"  autocomplete="off" />
+            <input id="txtApellido" name="apellido" class="form-control" style="width: 500px;margin-top:20px" placeholder="Ingresá un apellido"  autocomplete="off" />
+            <input id="txtEdad" name="edad" class="form-control" style="width: 500px;margin-top:20px" placeholder="Ingresá una edad"  autocomplete="off" />
+            <input id="txtAlias" name="alias" class="form-control" style="width: 500px;margin-top:20px" placeholder="Ingresá un alias"  autocomplete="off" />
+            <input id="txtAvatar" name="avatar" class="form-control" style="width: 500px;margin-top:20px" placeholder="Ingresá un avatar"  autocomplete="off" />
+
+    
+          <br/>
+          <div class="row">
+            <div class="col-3">
+              <input id="input" name="message" class="form-control" style="width: 300px" placeholder="Ingresá un mensaje..."  autocomplete="off" />
+            </div>
+            <div class="col-9">
+              <button type="submit" class="btn btn-primary">Enviar!</button>
+            </div>  
+          </div>
+
+          <br/>
+          <hr/>
+          <ul id="messages"></ul>
+
+        </form>
+
+
+      </div>
+
+    </div>
+
+
+  <!-- incluir handlebars desde el CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+  <script>
+
+
+    fetch('/api/productos-test')
+    .then(response => response.json())
+    .then(products => {
+        // fetch template from server
+        fetch('/productList.hbs')
+          .then(response => response.text())
+          .then(templateStr => {
+            const template = Handlebars.compile(templateStr); // compila la plantilla
+            const html = template({products}); // genera el html
+            document.querySelector('span').innerHTML = html; // inyecta el resultado en la vista
+          });
+    });
+
+  </script>
+
+<script src="/socket.io/socket.io.js"></script>
+
+<script>
+  let socket = io();
+
+  let messages = document.getElementById('messages');
+  let message_form = document.getElementById('message_form');
+  let productForm = document.getElementById('product_form');
+  let input = document.getElementById('input');
+  let txtEmail = document.getElementById('txtEmail');
+  let txtNombre = document.getElementById('txtNombre');
+  let txtApellido = document.getElementById('txtApellido');
+  let txtEdad = document.getElementById('txtEdad');
+  let txtAlias = document.getElementById('txtAlias');
+  let txtAvatar = document.getElementById('txtAvatar');
+  let txtCompresion = document.getElementById('txtCompresion');
+
+  message_form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    if(validateMessageForm()){
+      if (input.value) {
+        socket.emit('chat message', 
+        
+        { author:{
+            id:txtEmail.value, 
+            nombre:txtNombre.value, 
+            apellido:txtApellido.value, 
+            edad:txtEdad.value, 
+            alias:txtAlias.value, 
+            avatar:txtAvatar.value, 
+          },
+          text:input.value}
+        
+        //{email:txtEmail.value, msg:input.value}
+        
+        );
+        input.value = '';
+      }
+    }
+  });
+
+
+
+
+  const perform_denormalize = (normalizedMensajes) =>{
+
+
+
+    // Definimos un esquema de usuarios (autores y comentadores)
+    const authorSchema = new normalizr.schema.Entity("authors");
+
+    // Definimos un esquema de artículos
+    const mensajeSchema = new normalizr.schema.Entity("mensajes", {
+    author: authorSchema,
+    }, { idAttribute: "uuid" });
+
+
+    const globalSchema= new normalizr.schema.Entity("global",{
+      mensajes:[mensajeSchema]
+    });
+
+    const denormalizedMensajes = normalizr.denormalize(normalizedMensajes.result, globalSchema , normalizedMensajes.entities);
+
+    const normalizedLength = JSON.stringify(normalizedMensajes).length;  
+    const denormalizedLength = JSON.stringify(denormalizedMensajes).length; 
+
+    const compressionPercent = normalizedLength * 100 / denormalizedLength;
+
+    txtCompresion.innerHTML = `(Compresión: ${compressionPercent.toFixed(2)}%)`;
+
+
+    return denormalizedMensajes;
+
+  }
+
+
+  socket.on('all messages', function(normalizedMessages) {
+    fetch('/messageList.hbs')
+      .then(response => response.text())
+      .then(templateStr => {
+        const template = Handlebars.compile(templateStr); // compila la plantilla
+        const lstMessages = perform_denormalize(normalizedMessages).mensajes;
+        const html = template({messages:lstMessages}); // genera el html
+        messages.innerHTML = "";
+        messages.innerHTML = html; // inyecta el resultado en la vista
+      });
+  });
+
+  socket.on('new product', function(products) {
+    fetch('/productList.hbs')
+      .then(response => response.text())
+      .then(templateStr => {
+        const template = Handlebars.compile(templateStr); // compila la plantilla
+        const html = template({products}); // genera el html
+        document.querySelector('span').innerHTML = html; // inyecta el resultado en la vista
+      });
+  });
+
+  async function postData(url = '', data = {}) {
+    const response = await fetch(url, {
+      method: 'POST',
+      mode: 'cors', 
+      cache: 'no-cache',
+      credentials: 'same-origin', 
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      redirect: 'follow', 
+      referrerPolicy: 'no-referrer',
+      body: JSON.stringify(data) 
+    });
+    return response.json();
+  }
+
+  productForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    if (validateForm()) {
+
+      let title = document.forms["product_form"]["title"].value;
+      let price = document.forms["product_form"]["price"].value;
+      let thumbnail = document.forms["product_form"]["thumbnail"].value;
+
+      postData('/api/productos', { title, price, thumbnail})
+      .then((data) => {
+        document.forms["product_form"]["title"].value = '';
+        document.forms["product_form"]["price"].value = '';
+        document.forms["product_form"]["thumbnail"].value = '';
+      });
+
+    }
+  });
+
+</script>
+
+  
+  </body>
+</html>
