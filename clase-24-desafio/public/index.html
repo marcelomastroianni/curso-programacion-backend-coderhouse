@@ -12,10 +12,10 @@
   </head>
   <body>
     <div style="background-color:white;padding:20px">
-      <div style="background-color:lightgreen;padding:20px;height: auto;height: 80px;">
-        <h1 style="color:green;float:left">Bienvenido Daniel</h1>
+      <div id="divWelcomeMessage" style="background-color:lightgreen;padding:20px;height: auto;height: 80px;">
+        <h1 id="txtWelcomeMessage" style="color:green;float:left"></h1>
 
-        <button type="button" style="float:right" class="btn btn-warning">Desloguear</button>
+        <button id="btnLogout" type="button" style="float:right" class="btn btn-warning">Desloguear</button>
 
       </div>
       <div style="background-color:LightGray;padding:20px;height: auto;margin-top: 20px;">
@@ -259,6 +259,21 @@
     return response.json();
   }
 
+  async function getData(url = '') {
+    const response = await fetch(url, {
+      method: 'GET',
+      mode: 'cors', 
+      cache: 'no-cache',
+      credentials: 'same-origin', 
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      redirect: 'follow', 
+      referrerPolicy: 'no-referrer'
+    });
+    return response.json();
+  }
+
   productForm.addEventListener('submit', function(e) {
     e.preventDefault();
     if (validateForm()) {
@@ -276,6 +291,38 @@
 
     }
   });
+
+
+
+  divWelcomeMessage.style.display = "none";
+
+  //Se consulta el usuario logueado, en caso de no estar logueado se redirecciona al login
+  getData("api/users/profile")
+  .then((data) => {
+    let divWelcomeMessage = document.getElementById('divWelcomeMessage');
+    let txtWelcomeMessage = document.getElementById('txtWelcomeMessage');
+    if (data.body.username){
+      divWelcomeMessage.style.display = "block";
+      txtWelcomeMessage.innerHTML = `Bienvenido ${data.body.username}`;
+    }else{
+      divWelcomeMessage.style.display = "none";
+      window.location.href = "/login.html";
+    }
+  
+  });
+
+  let btnLogout = document.getElementById('btnLogout');
+  btnLogout.addEventListener('click', function(e) {
+    e.preventDefault();
+    postData('/api/users/logout', {})
+    .then((data) => {
+      window.location.href = "/login.html";
+    });
+  });
+
+
+
+
 
 </script>
 

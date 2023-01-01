@@ -4,10 +4,12 @@ const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const getRouterProductosTest = require('./product-test.router.js');
+const getRouterUsers = require('./user.router.js');
 const PORT = 8080;
 const dotenv = require('dotenv');
 const MensajesDaoArchivo = require('./daos/mensajes_dao_archivo.js');
 
+const session = require('express-session');
 
 
 const { normalize, denormalize, schema } = require( "normalizr");
@@ -88,6 +90,8 @@ const main = async () => {
 
    const routerProductosTest = await getRouterProductosTest();
 
+   const routerUsers = await getRouterUsers();
+
    const mensajesDao = new MensajesDaoArchivo();
 
 
@@ -131,12 +135,22 @@ const main = async () => {
    //End configuración de socket.io
    
 
+    //Session
+    app.use(session({
+      secret: 'secret',
+      resave: true,
+      saveUninitialized: true
+   }));
+   //End Session
+   
    //Configuración de rutas
    app.use(express.json());//para poder usar req.body
    app.use(express.urlencoded({ extended: true }));
    app.use('/api/productos-test', routerProductosTest);
+   app.use('/api/users', routerUsers);
    //End Configuración de rutas
 
+  
 
    //test_normalizr(mensajesDao);
 
