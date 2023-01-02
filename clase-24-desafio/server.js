@@ -10,6 +10,7 @@ const dotenv = require('dotenv');
 const MensajesDaoArchivo = require('./daos/mensajes_dao_archivo.js');
 
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 
 
 const { normalize, denormalize, schema } = require( "normalizr");
@@ -137,12 +138,13 @@ const main = async () => {
 
     //Session
     app.use(session({
-      secret: 'secret',
-      resave: true,
-      saveUninitialized: true
+      store: MongoStore.create({ mongoUrl: process.env.MONGO_URL }),
+      secret: process.env.SESSION_SECRET,
+      resave: false,
+      saveUninitialized: false
    }));
    //End Session
-   
+
    //Configuración de rutas
    app.use(express.json());//para poder usar req.body
    app.use(express.urlencoded({ extended: true }));
