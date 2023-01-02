@@ -24,6 +24,12 @@ const getRouterUsers = async () => {
 
       req.session.username = username;
 
+      
+
+      const expirationDate = new Date(Date.now() + 1000 * 60 * process.env.SESSION_INACTIVITY_TIMEOUT_MINUTES);
+      req.session.expirationDate = expirationDate;
+      req.session.cookie.expires = expirationDate;
+
       //res.send("Login success!");
       res.send({status:"ok", body: {message:"Login success!"}});
 
