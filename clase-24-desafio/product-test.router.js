@@ -7,7 +7,7 @@ faker.locale = "es"
 const { Router } = express
 
 
-
+const auth = require('./auth.middleware.js');
 
 
 
@@ -18,7 +18,7 @@ const getRouterProductosTest = async () => {
    const routerProductos = Router()
 
 
-   routerProductos.get("/", async (req, res) => {
+   routerProductos.get("/", auth, async (req, res) => {
 
       const dataList = [];
 

@@ -6,6 +6,7 @@ faker.locale = "es"
 
 const { Router } = express
 
+const auth = require('./auth.middleware.js');
 
 
 
@@ -43,7 +44,7 @@ const getRouterUsers = async () => {
       )
    });
 
-   routerUsers.get("/profile", (req, res) => {
+   routerUsers.get("/profile",auth, (req, res) => {
       const { username } = req.session;
       if (username){
          res.send({status:"ok", body: {username}});
