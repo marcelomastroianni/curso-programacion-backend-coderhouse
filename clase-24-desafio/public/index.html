@@ -304,6 +304,18 @@
     if (data.body.username){
       divWelcomeMessage.style.display = "block";
       txtWelcomeMessage.innerHTML = `Bienvenido ${data.body.username}`;
+
+
+      let btnLogout = document.getElementById('btnLogout');
+      btnLogout.addEventListener('click', function(e) {
+        e.preventDefault();
+        postData('/api/users/logout', {})
+        .then((data_logout) => {
+          window.location.href = "/logout.html?username="+data.body.username;
+        });
+      });
+
+
     }else{
       divWelcomeMessage.style.display = "none";
       window.location.href = "/login.html";
@@ -311,14 +323,7 @@
   
   });
 
-  let btnLogout = document.getElementById('btnLogout');
-  btnLogout.addEventListener('click', function(e) {
-    e.preventDefault();
-    postData('/api/users/logout', {})
-    .then((data) => {
-      window.location.href = "/login.html";
-    });
-  });
+
 
 
 

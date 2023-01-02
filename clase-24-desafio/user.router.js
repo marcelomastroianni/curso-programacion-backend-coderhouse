@@ -41,6 +41,7 @@ const getRouterUsers = async () => {
             if (!err){
                //res.send("Logout ok!!");
                res.send({status:"ok", body: {message:"Logout ok!!"}});
+               //res.redirect("/logout.html")
 
             }
             else{
