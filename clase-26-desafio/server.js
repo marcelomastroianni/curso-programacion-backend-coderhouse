@@ -12,9 +12,12 @@ const MensajesDaoArchivo = require('./daos/mensajes_dao_archivo.js');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 
 const { normalize, denormalize, schema } = require( "normalizr");
 const { inspect } = require('util');
+
 
 
 const test_normalizr = async (mensajesDao) => {
@@ -80,6 +83,39 @@ const perform_normalize = (obj_mensajes) => {
 }
 
 
+//Begin Copilot
+
+
+
+//app.use('/api/productos', routerProductosTest);
+//app.use('/api/users', routerUsers);
+
+//app.get('/login', (req, res) => {
+//   res.sendFile(__dirname + '/public/login.html');
+//});
+
+
+//app.get('/signup', (req, res) => {
+//   res.sendFile(__dirname + '/public/signup.html');
+//});
+
+
+
+/*
+app.get('/logout', function(req, res){
+   req.logout();
+   res.redirect('/');
+});
+
+app.get('/profile', function(req, res){
+   res.send('profile');
+});
+*/
+
+
+
+
+//End Copilot
 
 const main = async () => {
 
@@ -88,10 +124,27 @@ const main = async () => {
    dotenv.config();
    //End Configuracion de dotenv
 
+   //Configuracion de passport
+
+    app.use(session({
+      //store: MongoStore.create({ mongoUrl: process.env.MONGODB_DATABASE_URL }),
+      secret: process.env.SESSION_SECRET,
+      resave: false,
+      rolling: true,
+      saveUninitialized: false
+   }));
+ 
+
+   app.use(passport.initialize());
+
+   app.use(passport.session());
+
+   //End Configuracion de passport
+
 
    const routerProductosTest = await getRouterProductosTest();
 
-   const routerUsers = await getRouterUsers();
+   const routerUsers = await getRouterUsers(passport,LocalStrategy);
 
    const mensajesDao = new MensajesDaoArchivo();
 
@@ -137,12 +190,14 @@ const main = async () => {
    
 
     //Session
+    /*
     app.use(session({
-      store: MongoStore.create({ mongoUrl: process.env.MONGO_URL }),
+      store: MongoStore.create({ mongoUrl: process.env.MONGODB_DATABASE_URL }),
       secret: process.env.SESSION_SECRET,
       resave: false,
       saveUninitialized: false
    }));
+   */
    //End Session
 
    //Configuración de rutas
