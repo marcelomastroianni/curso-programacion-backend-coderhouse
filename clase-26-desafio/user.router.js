@@ -29,9 +29,6 @@ const getRouterUsers = async (passport,LocalStrategy) => {
          if (!isValidPassword(user, password)) {
             return done(null, false, { message: 'Incorrect password.' });
          }
-         //if (user.password != password) {
-         //   return done(null, false, { message: 'Incorrect password.' });
-         //}
          return done(null, user);
       }
    ));
@@ -74,7 +71,6 @@ const getRouterUsers = async (passport,LocalStrategy) => {
          req.session.expirationDate = expirationDate;
          req.session.cookie.expires = expirationDate;
    
-         //res.send("Login success!");
          res.send({status:"ok", body: {message:"Login success!"}});
 
       });
@@ -89,39 +85,11 @@ const getRouterUsers = async (passport,LocalStrategy) => {
          req.session.expirationDate = expirationDate;
          req.session.cookie.expires = expirationDate;
 
-         //res.send("Register success!");
          res.send({status:"ok", body: {message:"Register success!"}});
 
       });
 
 
-   routerUsers.get('/successjson', function(req, res) {
-      req.session.username = "Marcelo M";
-
-      res.send({status:"ok", body: {message:"Login success!"}});
-  });
-  
-  routerUsers.get('/failurejson', function(req, res) {
-      res.json({ message: 'hello' });
-  });
-  
-
-   /*
-   routerUsers.post("/login", (req, res) => {
-      const { username } = req.body;
-
-      req.session.username = username;
-
-      
-
-      const expirationDate = new Date(Date.now() + 1000 * 60 * process.env.SESSION_INACTIVITY_TIMEOUT_MINUTES);
-      req.session.expirationDate = expirationDate;
-      req.session.cookie.expires = expirationDate;
-
-      //res.send("Login success!");
-      res.send({status:"ok", body: {message:"Login success!"}});
-
-   });*/
 
    routerUsers.post("/logout", (req, res) => {
       req.session.destroy(
