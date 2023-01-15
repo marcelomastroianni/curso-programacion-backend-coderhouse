@@ -15,12 +15,17 @@
             },
             body: JSON.stringify({ username,password })
         });
-        const data = await response.json();
-        if (data.status === 'ok') {
-            window.location.href = '/';
+        if (response.redirected) {
+            window.location.href = response.url;
+        }else{
+            const data = await response.json();
+            if (data.status === 'ok') {
+                window.location.href = '/';
+            }
+            else {
+                alert(data.body.error);
+            }
         }
-        else {
-            alert(data.body.error);
-        }
+  
     }
     );

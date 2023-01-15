@@ -63,7 +63,7 @@ const getRouterUsers = async (passport,LocalStrategy) => {
    const routerUsers = Router()
 
 
-   routerUsers.post('/login', passport.authenticate('login', {  failureRedirect: '/login.html' }),
+   routerUsers.post('/login', passport.authenticate('login', {  failureRedirect: '/loginfail.html' }),
       function(req, res) {
          const { username } = req.body;
 
@@ -78,7 +78,7 @@ const getRouterUsers = async (passport,LocalStrategy) => {
 
       });
 
-   routerUsers.post('/register', passport.authenticate('signup', { failureRedirect: '/register.html' }),
+   routerUsers.post('/register', passport.authenticate('signup', { failureRedirect: '/registerfail.html' }),
       function(req, res) {
          const { username } = req.body;
 
