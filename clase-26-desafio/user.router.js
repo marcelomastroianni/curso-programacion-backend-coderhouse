@@ -1,17 +1,8 @@
 const express = require('express')
-
-
-
 const { Router } = express
-
 const auth = require('./auth.middleware.js');
-
-
 const UsuariosDaoMongo = require('./daos/usuarios_dao_mongodb.js');
-
-
-
-
+const bcrypt = require('bcrypt');
 
 
 
@@ -20,6 +11,13 @@ const getRouterUsers = async (passport,LocalStrategy) => {
 
    const usersDao = new UsuariosDaoMongo();
 
+   const isValidPassword =  (user, password) => {
+      return  bcrypt.compareSync(password, user.password);
+   }
+
+   const createHash = (password) => {
+      return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
+   }
 
 
    passport.use('login', new LocalStrategy(
@@ -28,9 +26,12 @@ const getRouterUsers = async (passport,LocalStrategy) => {
          if (!user) {
             return done(null, false, { message: 'Incorrect username.' });
          }
-         if (user.password != password) {
+         if (!isValidPassword(user, password)) {
             return done(null, false, { message: 'Incorrect password.' });
          }
+         //if (user.password != password) {
+         //   return done(null, false, { message: 'Incorrect password.' });
+         //}
          return done(null, user);
       }
    ));
@@ -41,7 +42,7 @@ const getRouterUsers = async (passport,LocalStrategy) => {
          if (user) {
             return done(null, false, { message: 'Username already taken.' });
          }
-         const newUser = await usersDao.save({ username, password });
+         const newUser = await usersDao.save({ username, password:createHash(password) });
          const createdUser = await usersDao.getByUsername(username);
          return done(null, createdUser);
       }
