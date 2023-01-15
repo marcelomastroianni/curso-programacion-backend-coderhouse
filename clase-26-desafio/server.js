@@ -127,7 +127,7 @@ const main = async () => {
    //Configuracion de passport
 
     app.use(session({
-      //store: MongoStore.create({ mongoUrl: process.env.MONGODB_DATABASE_URL }),
+      store: MongoStore.create({ mongoUrl: process.env.MONGODB_DATABASE_URL }),
       secret: process.env.SESSION_SECRET,
       resave: false,
       rolling: true,
