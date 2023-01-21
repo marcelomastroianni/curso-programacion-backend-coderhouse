@@ -83,39 +83,6 @@ const perform_normalize = (obj_mensajes) => {
 }
 
 
-//Begin Copilot
-
-
-
-//app.use('/api/productos', routerProductosTest);
-//app.use('/api/users', routerUsers);
-
-//app.get('/login', (req, res) => {
-//   res.sendFile(__dirname + '/public/login.html');
-//});
-
-
-//app.get('/signup', (req, res) => {
-//   res.sendFile(__dirname + '/public/signup.html');
-//});
-
-
-
-/*
-app.get('/logout', function(req, res){
-   req.logout();
-   res.redirect('/');
-});
-
-app.get('/profile', function(req, res){
-   res.send('profile');
-});
-*/
-
-
-
-
-//End Copilot
 
 const main = async () => {
 
