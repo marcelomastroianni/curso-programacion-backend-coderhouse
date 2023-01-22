@@ -5,7 +5,7 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const getRouterProductosTest = require('./product-test.router.js');
 const getRouterUsers = require('./user.router.js');
-const PORT = 8080;
+//const PORT = 8080;
 const dotenv = require('dotenv');
 const MensajesDaoArchivo = require('./daos/mensajes_dao_archivo.js');
 
@@ -82,9 +82,30 @@ const perform_normalize = (obj_mensajes) => {
     return normalizedMensajes;
 }
 
+const getInfoObject = () => {
+   return {
+      "Argumetos de entrada": process.argv.slice(2),
+      "Nombre de la plataforma": process.platform,
+      "Version de node": process.version,
+      "Memoria total reservada": process.memoryUsage().rss,
+      "Path de ejecucion": process.execPath,//???
+      "Process Id": process.pid,
+      "Carpeta del proyecto": process.cwd()
+   }
+}
 
 
 const main = async () => {
+
+
+   const parseargv = require('minimist');
+   const args  = parseargv(process.argv.slice(2));
+
+   const PORT = args.port || 8080;
+
+
+
+   console.log(getInfoObject());
 
 
    //Configuracion de dotenv
