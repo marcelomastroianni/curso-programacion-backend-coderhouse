@@ -5,6 +5,8 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const getRouterProductosTest = require('./product-test.router.js');
 const getRouterUsers = require('./user.router.js');
+const getRouterRandom = require('./random.router.js');
+
 //const PORT = 8080;
 const dotenv = require('dotenv');
 const MensajesDaoArchivo = require('./daos/mensajes_dao_archivo.js');
@@ -134,6 +136,8 @@ const main = async () => {
 
    const routerUsers = await getRouterUsers(passport,LocalStrategy);
 
+   const routerRandom = await getRouterRandom();
+
    const mensajesDao = new MensajesDaoArchivo();
 
 
@@ -193,6 +197,7 @@ const main = async () => {
    app.use(express.urlencoded({ extended: true }));
    app.use('/api/productos-test', routerProductosTest);
    app.use('/api/users', routerUsers);
+   app.use('/api/randoms', routerRandom);
    //End Configuración de rutas
 
   
