@@ -6,6 +6,8 @@ const io = require('socket.io')(http);
 const getRouterProductosTest = require('./product-test.router.js');
 const getRouterUsers = require('./user.router.js');
 const getRouterRandom = require('./random.router.js');
+const getRouterInfo = require('./info.router.js');
+
 
 //const PORT = 8080;
 const dotenv = require('dotenv');
@@ -84,17 +86,6 @@ const perform_normalize = (obj_mensajes) => {
     return normalizedMensajes;
 }
 
-const getInfoObject = () => {
-   return {
-      "Argumetos de entrada": process.argv.slice(2),
-      "Nombre de la plataforma": process.platform,
-      "Version de node": process.version,
-      "Memoria total reservada": process.memoryUsage().rss,
-      "Path de ejecucion": process.execPath,//???
-      "Process Id": process.pid,
-      "Carpeta del proyecto": process.cwd()
-   }
-}
 
 
 const main = async () => {
@@ -106,8 +97,6 @@ const main = async () => {
    const PORT = args.port || 8080;
 
 
-
-   console.log(getInfoObject());
 
 
    //Configuracion de dotenv
@@ -137,6 +126,8 @@ const main = async () => {
    const routerUsers = await getRouterUsers(passport,LocalStrategy);
 
    const routerRandom = await getRouterRandom();
+
+   const routerInfo = await getRouterInfo();
 
    const mensajesDao = new MensajesDaoArchivo();
 
@@ -198,6 +189,7 @@ const main = async () => {
    app.use('/api/productos-test', routerProductosTest);
    app.use('/api/users', routerUsers);
    app.use('/api/randoms', routerRandom);
+   app.use('/api/info', routerInfo);
    //End Configuración de rutas
 
   
