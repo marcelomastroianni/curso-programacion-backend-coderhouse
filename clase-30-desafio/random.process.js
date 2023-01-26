@@ -1,11 +1,11 @@
 
 
-
+/*
 process.on('message', (cantidad_numeros) => {
     
     calcularNumerosRandom(cantidad_numeros);
 });
-
+*/
 
 const calcularNumerosRandom = (cantidad_numeros) => {
     let numeros = {};
@@ -23,9 +23,11 @@ const calcularNumerosRandom = (cantidad_numeros) => {
         }
     
     }
-    //return numeros;
-    process.send(numeros);
+    return numeros;
+    //process.send(numeros);
 }   
+
+module.exports = calcularNumerosRandom;
 
 
 //console.log(calcularNumerosRandom(10000));
