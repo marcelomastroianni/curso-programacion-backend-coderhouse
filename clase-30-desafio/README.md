@@ -209,3 +209,125 @@ Procesos Node:
 
 
 * Por lo que se ve el comando list de forever no lista los procesos workers cuando se corre la app en modo cluster.
+
+
+
+# Pruebas pm2
+
+Pm2 modo fork
+
+pm2 start server.js -- --port 8082 --modo fork
+
+
+<pre><font color="#26A269"><b>marcelo@marcelo-SmartPro-Q6</b></font>:<font color="#12488B"><b>~/Desktop/desarrollo/curso-programacion-backend-coderhouse-ssh/clase-30-desafio</b></font>$ pm2 start server.js -- --port 8082 --modo fork
+<font color="#26A269">[PM2] </font>Starting /home/marcelo/Desktop/desarrollo/curso-programacion-backend-coderhouse-ssh/clase-30-desafio/server.js in fork_mode (1 instance)
+<font color="#26A269">[PM2] </font>Done.
+<font color="#5E5C64">┌─────┬───────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐</font>
+<font color="#5E5C64">│</font><font color="#2AA1B3"><b> id  </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> name      </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> namespace   </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> version </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> mode    </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> pid      </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> uptime </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> ↺    </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> status    </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> cpu      </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> mem      </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> user     </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> watching </b></font><font color="#5E5C64">│</font>
+<font color="#5E5C64">├─────┼───────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤</font>
+<font color="#5E5C64">│</font><font color="#2AA1B3"><b> 0   </b></font><font color="#5E5C64">│</font> server    <font color="#5E5C64">│</font> default     <font color="#5E5C64">│</font> 1.0.0   <font color="#5E5C64">│</font> <span style="background-color:#FFFFFF"><font color="#300A24"><b>fork</b></font></span>    <font color="#5E5C64">│</font> 119012   <font color="#5E5C64">│</font> 0s     <font color="#5E5C64">│</font> 0    <font color="#5E5C64">│</font> <font color="#26A269"><b>online</b></font>    <font color="#5E5C64">│</font> 0%       <font color="#5E5C64">│</font> 37.1mb   <font color="#5E5C64">│</font> <b>marcelo</b>  <font color="#5E5C64">│</font> <font color="#5E5C64">disabled</font> <font color="#5E5C64">│</font>
+<font color="#5E5C64">└─────┴───────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘</font></pre>
+
+
+
+Procesos Node:
+
+<pre><font color="#26A269"><b>marcelo@marcelo-SmartPro-Q6</b></font>:<font color="#12488B"><b>~</b></font>$ ps -e|grep node
+ 119012 ?        00:00:02 <font color="#C01C28"><b>node</b></font> /home/marc
+</pre>
+
+
+<pre><font color="#26A269"><b>marcelo@marcelo-SmartPro-Q6</b></font>:<font color="#12488B"><b>~/Desktop/desarrollo/curso-programacion-backend-coderhouse-ssh/clase-30-desafio</b></font>$ pm2 list
+<font color="#5E5C64">┌─────┬───────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐</font>
+<font color="#5E5C64">│</font><font color="#2AA1B3"><b> id  </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> name      </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> namespace   </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> version </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> mode    </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> pid      </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> uptime </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> ↺    </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> status    </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> cpu      </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> mem      </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> user     </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> watching </b></font><font color="#5E5C64">│</font>
+<font color="#5E5C64">├─────┼───────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤</font>
+<font color="#5E5C64">│</font><font color="#2AA1B3"><b> 0   </b></font><font color="#5E5C64">│</font> server    <font color="#5E5C64">│</font> default     <font color="#5E5C64">│</font> 1.0.0   <font color="#5E5C64">│</font> <span style="background-color:#FFFFFF"><font color="#300A24"><b>fork</b></font></span>    <font color="#5E5C64">│</font> 119012   <font color="#5E5C64">│</font> 3m     <font color="#5E5C64">│</font> 0    <font color="#5E5C64">│</font> <font color="#26A269"><b>online</b></font>    <font color="#5E5C64">│</font> 0%       <font color="#5E5C64">│</font> 115.1mb  <font color="#5E5C64">│</font> <b>marcelo</b>  <font color="#5E5C64">│</font> <font color="#5E5C64">disabled</font> <font color="#5E5C64">│</font>
+<font color="#5E5C64">└─────┴───────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘</font>
+</pre>
+
+
+
+<pre><font color="#26A269"><b>marcelo@marcelo-SmartPro-Q6</b></font>:<font color="#12488B"><b>~/Desktop/desarrollo/curso-programacion-backend-coderhouse-ssh/clase-30-desafio</b></font>$ pm2 stop all
+<font color="#26A269">[PM2] </font>Applying action stopProcessId on app [all](ids: [ 0 ])
+<font color="#26A269">[PM2] </font>[server](0) ✓
+<font color="#5E5C64">┌─────┬───────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐</font>
+<font color="#5E5C64">│</font><font color="#2AA1B3"><b> id  </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> name      </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> namespace   </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> version </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> mode    </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> pid      </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> uptime </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> ↺    </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> status    </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> cpu      </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> mem      </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> user     </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> watching </b></font><font color="#5E5C64">│</font>
+<font color="#5E5C64">├─────┼───────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤</font>
+<font color="#5E5C64">│</font><font color="#2AA1B3"><b> 0   </b></font><font color="#5E5C64">│</font> server    <font color="#5E5C64">│</font> default     <font color="#5E5C64">│</font> 1.0.0   <font color="#5E5C64">│</font> <span style="background-color:#FFFFFF"><font color="#300A24"><b>fork</b></font></span>    <font color="#5E5C64">│</font> 0        <font color="#5E5C64">│</font> 0      <font color="#5E5C64">│</font> 0    <font color="#5E5C64">│</font> <font color="#C01C28"><b>stopped</b></font>   <font color="#5E5C64">│</font> 0%       <font color="#5E5C64">│</font> 0b       <font color="#5E5C64">│</font> <b>marcelo</b>  <font color="#5E5C64">│</font> <font color="#5E5C64">disabled</font> <font color="#5E5C64">│</font>
+<font color="#5E5C64">└─────┴───────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘</font>
+<font color="#26A269"><b>marcelo@marcelo-SmartPro-Q6</b></font>:<font color="#12488B"><b>~/Desktop/desarrollo/curso-programacion-backend-coderhouse-ssh/clase-30-desafio</b></font>$ pm2 list
+<font color="#5E5C64">┌─────┬───────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐</font>
+<font color="#5E5C64">│</font><font color="#2AA1B3"><b> id  </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> name      </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> namespace   </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> version </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> mode    </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> pid      </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> uptime </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> ↺    </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> status    </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> cpu      </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> mem      </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> user     </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> watching </b></font><font color="#5E5C64">│</font>
+<font color="#5E5C64">├─────┼───────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤</font>
+<font color="#5E5C64">│</font><font color="#2AA1B3"><b> 0   </b></font><font color="#5E5C64">│</font> server    <font color="#5E5C64">│</font> default     <font color="#5E5C64">│</font> 1.0.0   <font color="#5E5C64">│</font> <span style="background-color:#FFFFFF"><font color="#300A24"><b>fork</b></font></span>    <font color="#5E5C64">│</font> 0        <font color="#5E5C64">│</font> 0      <font color="#5E5C64">│</font> 0    <font color="#5E5C64">│</font> <font color="#C01C28"><b>stopped</b></font>   <font color="#5E5C64">│</font> 0%       <font color="#5E5C64">│</font> 0b       <font color="#5E5C64">│</font> <b>marcelo</b>  <font color="#5E5C64">│</font> <font color="#5E5C64">disabled</font> <font color="#5E5C64">│</font>
+<font color="#5E5C64">└─────┴───────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘</font>
+<font color="#26A269"><b>marcelo@marcelo-SmartPro-Q6</b></font>:<font color="#12488B"><b>~/Desktop/desarrollo/curso-programacion-backend-coderhouse-ssh/clase-30-desafio</b></font>$ pm2 delete all
+<font color="#26A269">[PM2] </font>Applying action deleteProcessId on app [all](ids: [ 0 ])
+<font color="#26A269">[PM2] </font>[server](0) ✓
+<font color="#5E5C64">┌─────┬───────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐</font>
+<font color="#5E5C64">│</font><font color="#2AA1B3"><b> id  </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> name      </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> namespace   </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> version </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> mode    </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> pid      </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> uptime </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> ↺    </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> status    </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> cpu      </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> mem      </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> user     </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> watching </b></font><font color="#5E5C64">│</font>
+<font color="#5E5C64">└─────┴───────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘</font>
+<font color="#26A269"><b>marcelo@marcelo-SmartPro-Q6</b></font>:<font color="#12488B"><b>~/Desktop/desarrollo/curso-programacion-backend-coderhouse-ssh/clase-30-desafio</b></font>$ pm2 list
+<font color="#5E5C64">┌─────┬───────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐</font>
+<font color="#5E5C64">│</font><font color="#2AA1B3"><b> id  </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> name      </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> namespace   </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> version </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> mode    </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> pid      </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> uptime </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> ↺    </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> status    </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> cpu      </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> mem      </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> user     </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> watching </b></font><font color="#5E5C64">│</font>
+<font color="#5E5C64">└─────┴───────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘</font>
+</pre>
+
+
+Pm2 modo cluster
+
+pm2 start server.js -- --port 8082 --modo cluster
+
+<pre><font color="#26A269"><b>marcelo@marcelo-SmartPro-Q6</b></font>:<font color="#12488B"><b>~/Desktop/desarrollo/curso-programacion-backend-coderhouse-ssh/clase-30-desafio</b></font>$ pm2 start server.js -- --port 8082 --modo cluster
+<font color="#26A269">[PM2] </font>Starting /home/marcelo/Desktop/desarrollo/curso-programacion-backend-coderhouse-ssh/clase-30-desafio/server.js in fork_mode (1 instance)
+<font color="#26A269">[PM2] </font>Done.
+<font color="#5E5C64">┌─────┬───────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐</font>
+<font color="#5E5C64">│</font><font color="#2AA1B3"><b> id  </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> name      </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> namespace   </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> version </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> mode    </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> pid      </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> uptime </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> ↺    </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> status    </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> cpu      </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> mem      </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> user     </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> watching </b></font><font color="#5E5C64">│</font>
+<font color="#5E5C64">├─────┼───────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤</font>
+<font color="#5E5C64">│</font><font color="#2AA1B3"><b> 0   </b></font><font color="#5E5C64">│</font> server    <font color="#5E5C64">│</font> default     <font color="#5E5C64">│</font> 1.0.0   <font color="#5E5C64">│</font> <span style="background-color:#FFFFFF"><font color="#300A24"><b>fork</b></font></span>    <font color="#5E5C64">│</font> 119439   <font color="#5E5C64">│</font> 0s     <font color="#5E5C64">│</font> 0    <font color="#5E5C64">│</font> <font color="#26A269"><b>online</b></font>    <font color="#5E5C64">│</font> 0%       <font color="#5E5C64">│</font> 21.3mb   <font color="#5E5C64">│</font> <b>marcelo</b>  <font color="#5E5C64">│</font> <font color="#5E5C64">disabled</font> <font color="#5E5C64">│</font>
+<font color="#5E5C64">└─────┴───────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘</font>
+</pre>
+
+
+Procesos Node:
+
+<pre><font color="#26A269"><b>marcelo@marcelo-SmartPro-Q6</b></font>:<font color="#12488B"><b>~/Desktop/desarrollo/curso-programacion-backend-coderhouse-ssh/clase-30-desafio</b></font>$ pm2 list
+<font color="#5E5C64">┌─────┬───────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐</font>
+<font color="#5E5C64">│</font><font color="#2AA1B3"><b> id  </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> name      </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> namespace   </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> version </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> mode    </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> pid      </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> uptime </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> ↺    </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> status    </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> cpu      </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> mem      </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> user     </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> watching </b></font><font color="#5E5C64">│</font>
+<font color="#5E5C64">├─────┼───────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤</font>
+<font color="#5E5C64">│</font><font color="#2AA1B3"><b> 0   </b></font><font color="#5E5C64">│</font> server    <font color="#5E5C64">│</font> default     <font color="#5E5C64">│</font> 1.0.0   <font color="#5E5C64">│</font> <span style="background-color:#FFFFFF"><font color="#300A24"><b>fork</b></font></span>    <font color="#5E5C64">│</font> 119439   <font color="#5E5C64">│</font> 13s    <font color="#5E5C64">│</font> 0    <font color="#5E5C64">│</font> <font color="#26A269"><b>online</b></font>    <font color="#5E5C64">│</font> 0%       <font color="#5E5C64">│</font> 140.7mb  <font color="#5E5C64">│</font> <b>marcelo</b>  <font color="#5E5C64">│</font> <font color="#5E5C64">disabled</font> <font color="#5E5C64">│</font>
+<font color="#5E5C64">└─────┴───────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘</font>
+</pre>
+
+<pre><font color="#26A269"><b>marcelo@marcelo-SmartPro-Q6</b></font>:<font color="#12488B"><b>~</b></font>$ ps -e|grep node
+ 119439 ?        00:00:01 <font color="#C01C28"><b>node</b></font> /home/marc
+ 119454 ?        00:00:02 <font color="#C01C28"><b>node</b></font> /home/marc
+ 119455 ?        00:00:02 <font color="#C01C28"><b>node</b></font> /home/marc
+ 119461 ?        00:00:02 <font color="#C01C28"><b>node</b></font> /home/marc
+ 119467 ?        00:00:02 <font color="#C01C28"><b>node</b></font> /home/marc
+ 119474 ?        00:00:02 <font color="#C01C28"><b>node</b></font> /home/marc
+ 119481 ?        00:00:02 <font color="#C01C28"><b>node</b></font> /home/marc
+ 119488 ?        00:00:02 <font color="#C01C28"><b>node</b></font> /home/marc
+ 119495 ?        00:00:02 <font color="#C01C28"><b>node</b></font> /home/marc</pre>
+
+
+
+* Por lo que se ve el comando list de pm2 no lista los procesos workers cuando se corre la app en modo cluster.
+
+
+
+<pre><font color="#26A269"><b>marcelo@marcelo-SmartPro-Q6</b></font>:<font color="#12488B"><b>~/Desktop/desarrollo/curso-programacion-backend-coderhouse-ssh/clase-30-desafio</b></font>$ pm2 stop all
+<font color="#26A269">[PM2] </font>Applying action stopProcessId on app [all](ids: [ 0 ])
+<font color="#26A269">[PM2] </font>[server](0) ✓
+<font color="#5E5C64">┌─────┬───────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐</font>
+<font color="#5E5C64">│</font><font color="#2AA1B3"><b> id  </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> name      </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> namespace   </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> version </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> mode    </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> pid      </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> uptime </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> ↺    </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> status    </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> cpu      </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> mem      </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> user     </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> watching </b></font><font color="#5E5C64">│</font>
+<font color="#5E5C64">├─────┼───────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤</font>
+<font color="#5E5C64">│</font><font color="#2AA1B3"><b> 0   </b></font><font color="#5E5C64">│</font> server    <font color="#5E5C64">│</font> default     <font color="#5E5C64">│</font> 1.0.0   <font color="#5E5C64">│</font> <span style="background-color:#FFFFFF"><font color="#300A24"><b>fork</b></font></span>    <font color="#5E5C64">│</font> 0        <font color="#5E5C64">│</font> 0      <font color="#5E5C64">│</font> 0    <font color="#5E5C64">│</font> <font color="#C01C28"><b>stopped</b></font>   <font color="#5E5C64">│</font> 0%       <font color="#5E5C64">│</font> 0b       <font color="#5E5C64">│</font> <b>marcelo</b>  <font color="#5E5C64">│</font> <font color="#5E5C64">disabled</font> <font color="#5E5C64">│</font>
+<font color="#5E5C64">└─────┴───────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘</font>
+<font color="#26A269"><b>marcelo@marcelo-SmartPro-Q6</b></font>:<font color="#12488B"><b>~/Desktop/desarrollo/curso-programacion-backend-coderhouse-ssh/clase-30-desafio</b></font>$ pm2 delete all
+<font color="#26A269">[PM2] </font>Applying action deleteProcessId on app [all](ids: [ 0 ])
+<font color="#26A269">[PM2] </font>[server](0) ✓
+<font color="#5E5C64">┌─────┬───────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐</font>
+<font color="#5E5C64">│</font><font color="#2AA1B3"><b> id  </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> name      </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> namespace   </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> version </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> mode    </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> pid      </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> uptime </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> ↺    </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> status    </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> cpu      </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> mem      </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> user     </b></font><font color="#5E5C64">│</font><font color="#2AA1B3"><b> watching </b></font><font color="#5E5C64">│</font>
+<font color="#5E5C64">└─────┴───────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘</font>
+</pre>
