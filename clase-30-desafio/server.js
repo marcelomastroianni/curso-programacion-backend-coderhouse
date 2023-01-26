@@ -20,51 +20,8 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
 const { normalize, denormalize, schema } = require( "normalizr");
-const { inspect } = require('util');
 
 
-
-const test_normalizr = async (mensajesDao) => {
-
-   const array_mensajes = await mensajesDao.getAll();
-
-   const obj_mensajes = { id: "mensajes", mensajes: array_mensajes};
-
-
-   const authorSchema = new schema.Entity("authors");
-
-   const mensajeSchema = new schema.Entity("mensajes", {
-   author: authorSchema,
-   }, { idAttribute: "uuid" });
-
-
-   const globalSchema= new schema.Entity("global",{
-      mensajes:[mensajeSchema]
-    });
-
-   /* ---------------------------------------------------------------------------------------- */
-
-   function print(objeto) {
-   console.log(inspect(objeto, false, 12, true))
-   }
-
-   console.log(' ------------- OBJETO ORIGINAL --------------- ')
-   print(obj_mensajes)
-   console.log(JSON.stringify(obj_mensajes).length)
-
-   console.log(' ------------- OBJETO NORMALIZADO --------------- ')
-   const normalizedMensajes = normalize(obj_mensajes, globalSchema);
-   print(normalizedMensajes)
-   console.log(JSON.stringify(normalizedMensajes).length)
-   // 
-   console.log(' ------------- OBJETO DENORMALIZADO --------------- ')
-   const denormalizedMensajes = denormalize(normalizedMensajes.result, globalSchema , normalizedMensajes.entities);
-   print(denormalizedMensajes)
-   console.log(JSON.stringify(denormalizedMensajes).length)
-
-
-
-}
 
 
 const perform_normalize = (obj_mensajes) => {
@@ -88,16 +45,38 @@ const perform_normalize = (obj_mensajes) => {
 
 
 
-const main = async () => {
+const main = async (PORT,MODO) => {
 
+   //console.log("Modo: " + MODO);
 
-   const parseargv = require('minimist');
-   const args  = parseargv(process.argv.slice(2));
+   if (MODO == 'cluster'){
+      const cluster = require('cluster');
+      const numCPUs = require('os').cpus().length;
+      if (cluster.isMaster) {
+         console.log(`Master ${process.pid} is running`);
+         // Fork workers.
+         for (let i = 0; i < numCPUs; i++) {
+            cluster.fork();
+         }
+         cluster.on('exit', (worker, code, signal) => {
+            console.log(`worker ${worker.process.pid} died`);
+         });
+      } else {
+         console.log(`Worker ${process.pid} started`);
+         await startServer(PORT);
+         //console.log(`Worker ${process.pid} finished`);
+      }
+   }
+   else{
+      //Fork
+      console.log(`Worker ${process.pid} started`);
+      await startServer(PORT);
+      //console.log(`Worker ${process.pid} finished`);  
+   }
 
-   const PORT = args.port || 8080;
+}
 
-
-
+const startServer = async (PORT) => {
 
    //Configuracion de dotenv
    dotenv.config();
@@ -172,16 +151,7 @@ const main = async () => {
    //End configuración de socket.io
    
 
-    //Session
-    /*
-    app.use(session({
-      store: MongoStore.create({ mongoUrl: process.env.MONGODB_DATABASE_URL }),
-      secret: process.env.SESSION_SECRET,
-      resave: false,
-      saveUninitialized: false
-   }));
-   */
-   //End Session
+
 
    //Configuración de rutas
    app.use(express.json());//para poder usar req.body
@@ -192,9 +162,6 @@ const main = async () => {
    app.use('/api/info', routerInfo);
    //End Configuración de rutas
 
-  
-
-   //test_normalizr(mensajesDao);
 
    let server = http.listen(PORT, function () {
        console.log(`Server running on port ${PORT}`);
@@ -203,4 +170,11 @@ const main = async () => {
    server.on("error", (error) => console.log(`Error en servidor ${error}`));
 }
 
-main();
+
+const parseargv = require('minimist');
+const args  = parseargv(process.argv.slice(2));
+
+const PORT = args.port || 8080;
+const MODO = args.modo || 'fork';
+
+main(PORT,MODO);

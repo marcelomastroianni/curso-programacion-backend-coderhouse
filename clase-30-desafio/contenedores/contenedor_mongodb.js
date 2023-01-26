@@ -14,6 +14,8 @@ class ContenedorMongoDB {
 
     async conectar() {
         try {
+            await mongoose.set('strictQuery', true);
+
             await mongoose.connect(config.MONGODB_DATABASE_URL, {
                 useNewUrlParser: true,
                 useUnifiedTopology: true
