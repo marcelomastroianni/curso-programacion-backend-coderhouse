@@ -6,6 +6,7 @@ let txtMemoriaTotalReservada = document.getElementById('txtMemoriaTotalReservada
 let txtPathEjecucion = document.getElementById('txtPathEjecucion');
 let txtProcessId = document.getElementById('txtProcessId');
 let txtCarpetaProyecto = document.getElementById('txtCarpetaProyecto');
+let txtCantidadCPUs = document.getElementById('txtCantidadCPUs');
 
 fetch('/api/info')
 .then(response => response.json())
@@ -19,18 +20,8 @@ fetch('/api/info')
     txtPathEjecucion.innerHTML = "Path ejecución: " + info.pathEjecucion;
     txtProcessId.innerHTML = "Process ID: " + info.processId;
     txtCarpetaProyecto.innerHTML = "Carpeta proyecto: " + info.carpetaProyecto;
+    txtCantidadCPUs.innerHTML = "Cantidad CPUs: " + info.numsCpu;
     
-    
-    /*
-    {"argumentosEntrada":["--port","8082"],
-    "nombrePlataforma":"linux",
-    "versionNode":"v18.12.1",
-    "memoriaTotalReservada":117792768,
-    "pathEjecucion":"/usr/bin/node",
-    "processId":41418,
-    "carpetaProyecto":"/home/marcelo/Desktop/desarrollo/curso-programacion-backend-coderhouse-ssh/clase-28-desafio"}
-
-        */
 
 
 });
