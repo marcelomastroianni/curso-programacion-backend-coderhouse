@@ -43,3 +43,69 @@ http://localhost:8082/info.html
 
 GET
 http://localhost:8082/api/randoms?cant=5000
+
+
+
+# Pruebas Nodemon
+
+Nodemon Modo Fork:
+
+<pre><font color="#26A269"><b>marcelo@marcelo-SmartPro-Q6</b></font>:<font color="#12488B"><b>~/Desktop/desarrollo/curso-programacion-backend-coderhouse-ssh/clase-30-desafio</b></font>$ nodemon server.js --port 8082 --modo fork
+<font color="#A2734C">[nodemon] 2.0.20</font>
+<font color="#A2734C">[nodemon] to restart at any time, enter `rs`</font>
+<font color="#A2734C">[nodemon] watching path(s): *.*</font>
+<font color="#A2734C">[nodemon] watching extensions: js,mjs,json</font>
+<font color="#26A269">[nodemon] starting `node server.js --port 8082 --modo fork`</font>
+Worker 113147 started
+Server running on port 8082
+</pre>
+
+
+Procesos Node:
+
+<pre><font color="#26A269"><b>marcelo@marcelo-SmartPro-Q6</b></font>:<font color="#12488B"><b>~</b></font>$ ps -e|grep node
+ 113134 pts/0    00:00:00 <font color="#C01C28"><b>node</b></font>
+ 113147 pts/0    00:00:01 <font color="#C01C28"><b>node</b></font>
+</pre>
+
+Nodemon Modo Cluster:
+
+<pre><font color="#26A269"><b>marcelo@marcelo-SmartPro-Q6</b></font>:<font color="#12488B"><b>~/Desktop/desarrollo/curso-programacion-backend-coderhouse-ssh/clase-30-desafio</b></font>$ nodemon server.js --port 8082 --modo cluster
+<font color="#A2734C">[nodemon] 2.0.20</font>
+<font color="#A2734C">[nodemon] to restart at any time, enter `rs`</font>
+<font color="#A2734C">[nodemon] watching path(s): *.*</font>
+<font color="#A2734C">[nodemon] watching extensions: js,mjs,json</font>
+<font color="#26A269">[nodemon] starting `node server.js --port 8082 --modo cluster`</font>
+Master 113431 is running
+Worker 113445 started
+Worker 113439 started
+Worker 113478 started
+Server running on port 8082
+Worker 113472 started
+Server running on port 8082
+Worker 113458 started
+Worker 113438 started
+Worker 113465 started
+Server running on port 8082
+Server running on port 8082
+Server running on port 8082
+Server running on port 8082
+Server running on port 8082
+Worker 113451 started
+Server running on port 8082
+</pre>
+
+Procesos Node:
+
+<pre><font color="#26A269"><b>marcelo@marcelo-SmartPro-Q6</b></font>:<font color="#12488B"><b>~</b></font>$ ps -e|grep node
+ 113418 pts/0    00:00:00 <font color="#C01C28"><b>node</b></font>
+ 113431 pts/0    00:00:01 <font color="#C01C28"><b>node</b></font>
+ 113438 pts/0    00:00:02 <font color="#C01C28"><b>node</b></font>
+ 113439 pts/0    00:00:02 <font color="#C01C28"><b>node</b></font>
+ 113445 pts/0    00:00:02 <font color="#C01C28"><b>node</b></font>
+ 113451 pts/0    00:00:03 <font color="#C01C28"><b>node</b></font>
+ 113458 pts/0    00:00:02 <font color="#C01C28"><b>node</b></font>
+ 113465 pts/0    00:00:02 <font color="#C01C28"><b>node</b></font>
+ 113472 pts/0    00:00:02 <font color="#C01C28"><b>node</b></font>
+ 113478 pts/0    00:00:03 <font color="#C01C28"><b>node</b></font>
+</pre>
