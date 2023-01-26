@@ -50,6 +50,8 @@ http://localhost:8082/api/randoms?cant=5000
 
 Nodemon Modo Fork:
 
+nodemon server.js --port 8082 --modo fork
+
 <pre><font color="#26A269"><b>marcelo@marcelo-SmartPro-Q6</b></font>:<font color="#12488B"><b>~/Desktop/desarrollo/curso-programacion-backend-coderhouse-ssh/clase-30-desafio</b></font>$ nodemon server.js --port 8082 --modo fork
 <font color="#A2734C">[nodemon] 2.0.20</font>
 <font color="#A2734C">[nodemon] to restart at any time, enter `rs`</font>
@@ -69,6 +71,9 @@ Procesos Node:
 </pre>
 
 Nodemon Modo Cluster:
+
+nodemon server.js --port 8082 --modo cluster
+
 
 <pre><font color="#26A269"><b>marcelo@marcelo-SmartPro-Q6</b></font>:<font color="#12488B"><b>~/Desktop/desarrollo/curso-programacion-backend-coderhouse-ssh/clase-30-desafio</b></font>$ nodemon server.js --port 8082 --modo cluster
 <font color="#A2734C">[nodemon] 2.0.20</font>
@@ -108,4 +113,75 @@ Procesos Node:
  113465 pts/0    00:00:02 <font color="#C01C28"><b>node</b></font>
  113472 pts/0    00:00:02 <font color="#C01C28"><b>node</b></font>
  113478 pts/0    00:00:03 <font color="#C01C28"><b>node</b></font>
+</pre>
+
+
+
+# Pruebas Forever
+
+Forever modo fork
+
+forever server.js --port 8082 --modo fork
+
+<pre><font color="#26A269"><b>marcelo@marcelo-SmartPro-Q6</b></font>:<font color="#12488B"><b>~/Desktop/desarrollo/curso-programacion-backend-coderhouse-ssh/clase-30-desafio</b></font>$ forever server.js --port 8082 --modo fork
+<font color="#A2734C">warn</font>:    --minUptime not set. Defaulting to: 1000ms
+<font color="#A2734C">warn</font>:    --spinSleepTime not set. Your script will exit if it does not stay up for at least 1000ms
+(node:117025) Warning: Accessing non-existent property &apos;padLevels&apos; of module exports inside circular dependency
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:117025) Warning: Accessing non-existent property &apos;padLevels&apos; of module exports inside circular dependency
+Worker 117036 started
+Server running on port 8082
+
+</pre>
+
+Procesos Node:
+
+<pre><font color="#26A269"><b>marcelo@marcelo-SmartPro-Q6</b></font>:<font color="#12488B"><b>~</b></font>$ ps -e|grep node
+ 117025 pts/0    00:00:00 <font color="#C01C28"><b>node</b></font>
+ 117036 pts/0    00:00:01 <font color="#C01C28"><b>node</b></font></pre>
+
+
+Forever modo cluster
+
+forever server.js --port 8082 --modo cluster
+
+<pre><font color="#26A269"><b>marcelo@marcelo-SmartPro-Q6</b></font>:<font color="#12488B"><b>~/Desktop/desarrollo/curso-programacion-backend-coderhouse-ssh/clase-30-desafio</b></font>$ forever server.js --port 8082 --modo cluster
+<font color="#A2734C">warn</font>:    --minUptime not set. Defaulting to: 1000ms
+<font color="#A2734C">warn</font>:    --spinSleepTime not set. Your script will exit if it does not stay up for at least 1000ms
+(node:117245) Warning: Accessing non-existent property &apos;padLevels&apos; of module exports inside circular dependency
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:117245) Warning: Accessing non-existent property &apos;padLevels&apos; of module exports inside circular dependency
+Master 117256 is running
+Worker 117271 started
+Worker 117264 started
+Worker 117284 started
+Worker 117265 started
+Worker 117291 started
+Worker 117298 started
+Server running on port 8082
+Server running on port 8082
+Worker 117304 started
+Server running on port 8082
+Server running on port 8082
+Server running on port 8082
+Server running on port 8082
+Worker 117277 started
+Server running on port 8082
+Server running on port 8082
+
+</pre>
+
+Procesos Node:
+
+<pre><font color="#26A269"><b>marcelo@marcelo-SmartPro-Q6</b></font>:<font color="#12488B"><b>~</b></font>$ ps -e|grep node
+ 117245 pts/0    00:00:00 <font color="#C01C28"><b>node</b></font>
+ 117256 pts/0    00:00:01 <font color="#C01C28"><b>node</b></font>
+ 117264 pts/0    00:00:02 <font color="#C01C28"><b>node</b></font>
+ 117265 pts/0    00:00:02 <font color="#C01C28"><b>node</b></font>
+ 117271 pts/0    00:00:02 <font color="#C01C28"><b>node</b></font>
+ 117277 pts/0    00:00:02 <font color="#C01C28"><b>node</b></font>
+ 117284 pts/0    00:00:02 <font color="#C01C28"><b>node</b></font>
+ 117291 pts/0    00:00:02 <font color="#C01C28"><b>node</b></font>
+ 117298 pts/0    00:00:02 <font color="#C01C28"><b>node</b></font>
+ 117304 pts/0    00:00:02 <font color="#C01C28"><b>node</b></font>
 </pre>
