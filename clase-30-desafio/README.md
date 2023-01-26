@@ -126,19 +126,31 @@ forever server.js --port 8082 --modo fork
 <pre><font color="#26A269"><b>marcelo@marcelo-SmartPro-Q6</b></font>:<font color="#12488B"><b>~/Desktop/desarrollo/curso-programacion-backend-coderhouse-ssh/clase-30-desafio</b></font>$ forever server.js --port 8082 --modo fork
 <font color="#A2734C">warn</font>:    --minUptime not set. Defaulting to: 1000ms
 <font color="#A2734C">warn</font>:    --spinSleepTime not set. Your script will exit if it does not stay up for at least 1000ms
-(node:117025) Warning: Accessing non-existent property &apos;padLevels&apos; of module exports inside circular dependency
+(node:117736) Warning: Accessing non-existent property &apos;padLevels&apos; of module exports inside circular dependency
 (Use `node --trace-warnings ...` to show where the warning was created)
-(node:117025) Warning: Accessing non-existent property &apos;padLevels&apos; of module exports inside circular dependency
-Worker 117036 started
+(node:117736) Warning: Accessing non-existent property &apos;padLevels&apos; of module exports inside circular dependency
+Worker 117751 started
 Server running on port 8082
+</pre>
 
 </pre>
 
 Procesos Node:
 
 <pre><font color="#26A269"><b>marcelo@marcelo-SmartPro-Q6</b></font>:<font color="#12488B"><b>~</b></font>$ ps -e|grep node
- 117025 pts/0    00:00:00 <font color="#C01C28"><b>node</b></font>
- 117036 pts/0    00:00:01 <font color="#C01C28"><b>node</b></font></pre>
+ 117736 pts/0    00:00:00 <font color="#C01C28"><b>node</b></font>
+ 117751 pts/0    00:00:01 <font color="#C01C28"><b>node</b></font>
+</pre>
+
+
+<pre><font color="#26A269"><b>marcelo@marcelo-SmartPro-Q6</b></font>:<font color="#12488B"><b>~</b></font>$ forever list
+(node:117810) Warning: Accessing non-existent property &apos;padLevels&apos; of module exports inside circular dependency
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:117810) Warning: Accessing non-existent property &apos;padLevels&apos; of module exports inside circular dependency
+<font color="#26A269">info</font>:    Forever processes running
+<font color="#5E5C64">data</font>:    <font color="#D0CFCC">   </font> <font color="#D0CFCC">uid</font>  <font color="#5E5C64">command</font>       <font color="#5E5C64">script</font>                            <font color="#D0CFCC">forever</font> <font color="#D0CFCC">pid</font>    <font color="#D0CFCC">id</font> <font color="#A347BA">logfile</font>                         <font color="#A2734C">uptime</font>                  
+<font color="#5E5C64">data</font>:    [0] tagK <font color="#5E5C64">/usr/bin/node</font> <font color="#5E5C64">server.js --port 8082 --modo fork</font> 117736  117751    <font color="#A347BA">/home/marcelo/.forever/tagK.log</font> <font color="#A2734C">0:0:1:7.501000000000005</font></pre>
+
 
 
 Forever modo cluster
@@ -148,40 +160,52 @@ forever server.js --port 8082 --modo cluster
 <pre><font color="#26A269"><b>marcelo@marcelo-SmartPro-Q6</b></font>:<font color="#12488B"><b>~/Desktop/desarrollo/curso-programacion-backend-coderhouse-ssh/clase-30-desafio</b></font>$ forever server.js --port 8082 --modo cluster
 <font color="#A2734C">warn</font>:    --minUptime not set. Defaulting to: 1000ms
 <font color="#A2734C">warn</font>:    --spinSleepTime not set. Your script will exit if it does not stay up for at least 1000ms
-(node:117245) Warning: Accessing non-existent property &apos;padLevels&apos; of module exports inside circular dependency
+(node:117868) Warning: Accessing non-existent property &apos;padLevels&apos; of module exports inside circular dependency
 (Use `node --trace-warnings ...` to show where the warning was created)
-(node:117245) Warning: Accessing non-existent property &apos;padLevels&apos; of module exports inside circular dependency
-Master 117256 is running
-Worker 117271 started
-Worker 117264 started
-Worker 117284 started
-Worker 117265 started
-Worker 117291 started
-Worker 117298 started
-Server running on port 8082
-Server running on port 8082
-Worker 117304 started
+(node:117868) Warning: Accessing non-existent property &apos;padLevels&apos; of module exports inside circular dependency
+Master 117879 is running
+Worker 117886 started
+Worker 117899 started
+Worker 117906 started
+Worker 117893 started
+Worker 117920 started
 Server running on port 8082
 Server running on port 8082
 Server running on port 8082
+Worker 117887 started
 Server running on port 8082
-Worker 117277 started
 Server running on port 8082
 Server running on port 8082
-
+Worker 117913 started
+Worker 117932 started
+Server running on port 8082
+Server running on port 8082
 </pre>
+
 
 Procesos Node:
 
 <pre><font color="#26A269"><b>marcelo@marcelo-SmartPro-Q6</b></font>:<font color="#12488B"><b>~</b></font>$ ps -e|grep node
- 117245 pts/0    00:00:00 <font color="#C01C28"><b>node</b></font>
- 117256 pts/0    00:00:01 <font color="#C01C28"><b>node</b></font>
- 117264 pts/0    00:00:02 <font color="#C01C28"><b>node</b></font>
- 117265 pts/0    00:00:02 <font color="#C01C28"><b>node</b></font>
- 117271 pts/0    00:00:02 <font color="#C01C28"><b>node</b></font>
- 117277 pts/0    00:00:02 <font color="#C01C28"><b>node</b></font>
- 117284 pts/0    00:00:02 <font color="#C01C28"><b>node</b></font>
- 117291 pts/0    00:00:02 <font color="#C01C28"><b>node</b></font>
- 117298 pts/0    00:00:02 <font color="#C01C28"><b>node</b></font>
- 117304 pts/0    00:00:02 <font color="#C01C28"><b>node</b></font>
+ 117868 pts/0    00:00:00 <font color="#C01C28"><b>node</b></font>
+ 117879 pts/0    00:00:01 <font color="#C01C28"><b>node</b></font>
+ 117886 pts/0    00:00:02 <font color="#C01C28"><b>node</b></font>
+ 117887 pts/0    00:00:02 <font color="#C01C28"><b>node</b></font>
+ 117893 pts/0    00:00:02 <font color="#C01C28"><b>node</b></font>
+ 117899 pts/0    00:00:02 <font color="#C01C28"><b>node</b></font>
+ 117906 pts/0    00:00:02 <font color="#C01C28"><b>node</b></font>
+ 117913 pts/0    00:00:02 <font color="#C01C28"><b>node</b></font>
+ 117920 pts/0    00:00:02 <font color="#C01C28"><b>node</b></font>
+ 117932 pts/0    00:00:02 <font color="#C01C28"><b>node</b></font>
 </pre>
+
+
+<pre><font color="#26A269"><b>marcelo@marcelo-SmartPro-Q6</b></font>:<font color="#12488B"><b>~</b></font>$ forever list
+(node:118053) Warning: Accessing non-existent property &apos;padLevels&apos; of module exports inside circular dependency
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:118053) Warning: Accessing non-existent property &apos;padLevels&apos; of module exports inside circular dependency
+<font color="#26A269">info</font>:    Forever processes running
+<font color="#5E5C64">data</font>:    <font color="#D0CFCC">   </font> <font color="#D0CFCC">uid</font>  <font color="#5E5C64">command</font>       <font color="#5E5C64">script</font>                               <font color="#D0CFCC">forever</font> <font color="#D0CFCC">pid</font>    <font color="#D0CFCC">id</font> <font color="#A347BA">logfile</font>                         <font color="#A2734C">uptime</font>       
+<font color="#5E5C64">data</font>:    [0] Cn4N <font color="#5E5C64">/usr/bin/node</font> <font color="#5E5C64">server.js --port 8082 --modo cluster</font> 117868  117879    <font color="#A347BA">/home/marcelo/.forever/Cn4N.log</font> <font color="#A2734C">0:0:0:36.785</font></pre>
+
+
+* Por lo que se ve el comando list de forever no lista los procesos workers cuando se corre la app en modo cluster.
