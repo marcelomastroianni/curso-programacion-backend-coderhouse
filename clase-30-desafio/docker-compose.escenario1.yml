@@ -1,25 +1,24 @@
 
-# sudo docker-compose up
-# sudo docker-compose down --rmi all -v
+# sudo docker-compose -f docker-compose.escenario1.yml up
+# sudo docker-compose -f docker-compose.escenario1.yml down --rmi all -v 
 # sudo docker rmi $(sudo docker images -a -q) 
-
 
 version: "3"
 services:
   web:
     build:
       context: .
-      dockerfile: Dockerfile.nginx
+      dockerfile: Dockerfile.nginx.escenario1
     ports:
       - "80:80"
     networks:
       - webnet
     depends_on:
-      - app
-  app:
+      - app_2
+  app_1:
     build:
       context: .
-      dockerfile: Dockerfile.app
+      dockerfile: Dockerfile.app.escenario1_1
     ports:
       - "8080:8080"
     volumes:
@@ -28,6 +27,18 @@ services:
       - webnet
     depends_on:
       - db
+  app_2:
+    build:
+      context: .
+      dockerfile: Dockerfile.app.escenario1_2
+    ports:
+      - "8081:8081"
+    volumes:
+      - ./app:/app
+    networks:
+      - webnet
+    depends_on:
+      - app_1
   db:
     build:
       context: .
