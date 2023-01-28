@@ -510,5 +510,48 @@ Al finalizar un proceso worker pm2 crea un nuevo proceso para reemplazar al proc
 
 # Pruebas Nginx
 
+## Escenario 1
 
-pm2 start server.js --watch -i max -- --port 8082 --modo fork --serve_public false
+Descripcion Escenario 1:
+
+Configurar Nginx para balancear cargas de nuestro servidor de la siguiente manera:
+Redirigir todas las consultas a /api/randoms a un cluster de servidores escuchando en el puerto 8081. El cluster será creado desde node utilizando el módulo nativo cluster.
+El resto de las consultas, redirigirlas a un servidor individual escuchando en el puerto 8080.
+
+
+<br/>
+
+
+
+Para iniciar los contenedores (app node + nginx + mongodb) para el escenario 1: 
+
+```sudo docker-compose -f docker-compose.escenario1.yml up```
+
+Para bajar y borrar los contenedores e imagenes creadas por docker compose:
+
+```sudo docker-compose -f docker-compose.escenario1.yml down --rmi all -v ```
+
+
+## Escenario 2
+
+
+Descripcion Escenario 2:
+
+
+Luego, modificar la configuración para que todas las consultas a /api/randoms sean redirigidas a un cluster de servidores gestionado desde nginx, repartiéndolas equitativamente entre 4 instancias escuchando en los puertos 8082, 8083, 8084 y 8085 respectivamente.
+
+
+<br/>
+
+
+
+Para iniciar los contenedores (app node + nginx + mongodb) para el escenario 2: 
+
+```sudo docker-compose -f docker-compose.escenario2.yml up```
+
+Para bajar y borrar los contenedores e imagenes creadas por docker compose:
+
+```sudo docker-compose -f docker-compose.escenario2.yml down --rmi all -v ```
+
+
+
