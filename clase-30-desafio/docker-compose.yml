@@ -1,6 +1,4 @@
 
-#app-nodejs takes Dockerfile.app from current directory
-
 # sudo docker-compose up
 # sudo docker-compose down --rmi all -v
 
