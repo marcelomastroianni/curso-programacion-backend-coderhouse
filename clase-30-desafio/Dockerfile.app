@@ -37,5 +37,10 @@ COPY . .
 
 #COPY .env ./
 
+RUN npm install pm2 -g
+
+
 EXPOSE 8080
-CMD [ "node", "server.js" ]
+
+#CMD [ "node", "server.js" ]
+CMD ["pm2-runtime", "server.js","--", "--port", "8080" ,"--modo" ,"cluster", "--serve_public" , "false"]
