@@ -1,2 +1,4 @@
 ecommerce/*.sqlite
 node_modules
+app
+db

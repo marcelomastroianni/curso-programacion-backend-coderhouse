@@ -45,7 +45,7 @@ const perform_normalize = (obj_mensajes) => {
 
 
 
-const main = async (PORT,MODO) => {
+const main = async (PORT,MODO,SERVE_PUBLIC) => {
 
    //console.log("Modo: " + MODO);
 
@@ -63,20 +63,20 @@ const main = async (PORT,MODO) => {
          });
       } else {
          console.log(`Worker ${process.pid} started`);
-         await startServer(PORT);
+         await startServer(PORT,SERVE_PUBLIC);
          //console.log(`Worker ${process.pid} finished`);
       }
    }
    else{
       //Fork
       console.log(`Worker ${process.pid} started`);
-      await startServer(PORT);
+      await startServer(PORT,SERVE_PUBLIC);
       //console.log(`Worker ${process.pid} finished`);  
    }
 
 }
 
-const startServer = async (PORT) => {
+const startServer = async (PORT,SERVE_PUBLIC) => {
 
    //Configuracion de dotenv
    dotenv.config();
@@ -112,7 +112,9 @@ const startServer = async (PORT) => {
 
 
    //Configuracion de express
-   app.use(express.static('public'));
+   if (SERVE_PUBLIC){
+      app.use(express.static('public'));
+   }
    //End Configuracion de express
     
 
@@ -177,4 +179,13 @@ const args  = parseargv(process.argv.slice(2));
 const PORT = args.port || 8080;
 const MODO = args.modo || 'fork';
 
-main(PORT,MODO);
+let SERVE_PUBLIC = true;
+
+if (args.serve_public=="false"){
+   SERVE_PUBLIC = false;
+}
+
+
+
+
+main(PORT,MODO,SERVE_PUBLIC);

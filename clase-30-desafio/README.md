@@ -505,3 +505,10 @@ Al realizar cambios en el codigo pm2 relanza los procesos workers con nuevos pro
 </pre>
 
 Al finalizar un proceso worker pm2 crea un nuevo proceso para reemplazar al proceso finalizado.
+
+
+
+# Pruebas Nginx
+
+
+pm2 start server.js --watch -i max -- --port 8082 --modo fork --serve_public false
