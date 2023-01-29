@@ -1,0 +1,24 @@
+#--------------------------------
+# Crear imagen y contendedor:
+#--------------------------------
+# sudo docker build -t coderhouse-db-image -f Dockerfile.db .
+# sudo docker run --name coderhouse-db -p 27017:27017 -d coderhouse-db-image 
+
+#--------------------------------
+# Ver logs contenedor:
+#--------------------------------
+# sudo docker logs coderhouse-db
+
+#--------------------------------
+# Borrar contenedor e imagen:
+#--------------------------------
+# sudo docker stop coderhouse-db
+# sudo docker rm coderhouse-db
+# sudo docker image rm coderhouse-db-image
+
+
+
+FROM mongo
+
+
+EXPOSE 27017
