@@ -7,6 +7,7 @@ const getRouterProductosTest = require('./product-test.router.js');
 const getRouterUsers = require('./user.router.js');
 const getRouterRandom = require('./random.router.js');
 const getRouterInfo = require('./info.router.js');
+const compression = require('compression');
 
 
 //const PORT = 8080;
@@ -45,7 +46,7 @@ const perform_normalize = (obj_mensajes) => {
 
 
 
-const main = async (PORT,MODO,SERVE_PUBLIC) => {
+const main = async (PORT,MODO,SERVE_PUBLIC,COMPRESSION) => {
 
    //console.log("Modo: " + MODO);
 
@@ -63,20 +64,20 @@ const main = async (PORT,MODO,SERVE_PUBLIC) => {
          });
       } else {
          console.log(`Worker ${process.pid} started`);
-         await startServer(PORT,SERVE_PUBLIC);
+         await startServer(PORT,SERVE_PUBLIC,COMPRESSION);
          //console.log(`Worker ${process.pid} finished`);
       }
    }
    else{
       //Fork
       console.log(`Worker ${process.pid} started`);
-      await startServer(PORT,SERVE_PUBLIC);
+      await startServer(PORT,SERVE_PUBLIC,COMPRESSION);
       //console.log(`Worker ${process.pid} finished`);  
    }
 
 }
 
-const startServer = async (PORT,SERVE_PUBLIC) => {
+const startServer = async (PORT,SERVE_PUBLIC,COMPRESSION) => {
 
    //Configuracion de dotenv
    dotenv.config();
@@ -116,7 +117,15 @@ const startServer = async (PORT,SERVE_PUBLIC) => {
       app.use(express.static('public'));
    }
    //End Configuracion de express
-    
+   
+
+   //Configuracion compression gzip
+   if (COMPRESSION){
+      app.use(compression());
+   }
+   //End Configuracion compression gzip
+
+
 
    //Configuración de socket.io
 
@@ -185,7 +194,12 @@ if (args.serve_public=="false"){
    SERVE_PUBLIC = false;
 }
 
+let COMPRESSION = false;
+
+if (args.compression=="true"){
+   SERVE_PUBLIC = true;
+}
 
 
 
-main(PORT,MODO,SERVE_PUBLIC);
+main(PORT,MODO,SERVE_PUBLIC,COMPRESSION);
