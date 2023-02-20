@@ -154,5 +154,18 @@
     },
     "text": "Mensaje 12",
     "created_at": "20/12/22, 23:13:11"
+  },
+  {
+    "uuid": "5e53c021-d000-43dc-80ea-dc4e17c8718a",
+    "author": {
+      "id": "mail@gmail.com",
+      "nombre": "Marcelo",
+      "apellido": "Mastroianni",
+      "edad": "35",
+      "alias": "mmastroianni",
+      "avatar": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
+    },
+    "text": " mensaje 1234",
+    "created_at": "20/2/23, 15:20:46"
   }
 ]
