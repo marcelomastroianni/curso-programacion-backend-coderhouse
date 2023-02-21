@@ -45,20 +45,6 @@ GET
 http://localhost:8082/api/randoms?cant=5000
 
 
-# Pruebas compression
-
-``` node server.js --port 8082 --modo fork --serve_public true --compression true  ```
-
-![plot](./get_info_compression_on.png)
-
-Tamaño pagina info.html : 265 bytes
-
-
-``` node server.js --port 8082 --modo fork --serve_public true --compression false  ```
-
-![plot](./get_info_compression_off.png)
-
-Tamaño pagina info.html : 2.2 KB
 
 
 
