@@ -210,7 +210,6 @@ const startServer = async (PORT,SERVE_PUBLIC,COMPRESSION) => {
 
 
 const parseargv = require('minimist');
-const { lookup } = require('dns/promises');
 const args  = parseargv(process.argv.slice(2));
 
 const PORT = args.port || 8080;
