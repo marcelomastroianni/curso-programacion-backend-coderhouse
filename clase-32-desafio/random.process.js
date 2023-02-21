@@ -30,5 +30,4 @@ const calcularNumerosRandom = (cantidad_numeros) => {
 module.exports = calcularNumerosRandom;
 
 
-//console.log(calcularNumerosRandom(10000));
 

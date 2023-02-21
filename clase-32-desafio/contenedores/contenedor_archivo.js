@@ -2,6 +2,7 @@ const fs = require("fs");
 
 const { v4: uuidv4 } = require('uuid');
 
+const logger = require("../logger.js");
 
 class ContenedorArchivo {
     constructor(fileName) {
@@ -17,7 +18,8 @@ class ContenedorArchivo {
             await fs.promises.writeFile(this.fileName, JSON.stringify(data, null, 2));
             return uuid;
         } catch (error) {
-            console.log(error);
+            logger.error(error);
+            //console.log(error);
         }
     }
 
@@ -37,7 +39,8 @@ class ContenedorArchivo {
             const data = await this.getAll();
             return data.find((object) => object.uuid === uuid);
         } catch (error) {
-            console.log(error);
+            logger.error(error);
+            //console.log(error);
         }
     }
 
@@ -47,7 +50,8 @@ class ContenedorArchivo {
             const newData = data.filter((object) => object.uuid !== uuid);
             await fs.promises.writeFile(this.fileName, JSON.stringify(newData, null, 2));
         } catch (error) {
-            console.log(error);
+            //console.log(error);
+            logger.error(error);
         }
     }
 
@@ -55,7 +59,8 @@ class ContenedorArchivo {
         try {
             await fs.promises.writeFile(this.fileName, JSON.stringify([], null, 2));
         } catch (error) {
-            console.log(error);
+            //console.log(error);
+            logger.error(error);
         }
     }
 
@@ -73,7 +78,9 @@ class ContenedorArchivo {
             await fs.promises.writeFile(this.fileName, JSON.stringify(newData, null, 2));
             return updated;
         } catch (error) {
-            console.log(error);
+            //console.log(error);
+            logger.error(error);
+
         }
     }    
 

@@ -5,6 +5,7 @@ const { v4: uuidv4 } = require('uuid');
 
 const config = require('../config.js');
 
+const logger = require('../logger.js');
 
 class ContenedorMongoDB {
     constructor(modelo) {
@@ -22,7 +23,8 @@ class ContenedorMongoDB {
             });
             //console.log('Base de datos conectada');
         } catch (error) {
-            console.log(error);
+            logger.error(error);
+            //console.log(error);
         }
     }
 

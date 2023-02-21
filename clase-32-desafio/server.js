@@ -22,7 +22,9 @@ const LocalStrategy = require('passport-local').Strategy;
 
 const { normalize, denormalize, schema } = require( "normalizr");
 
+//const log4js = require('log4js');
 
+const logger = require('./logger.js');
 
 
 const perform_normalize = (obj_mensajes) => {
@@ -54,23 +56,27 @@ const main = async (PORT,MODO,SERVE_PUBLIC,COMPRESSION) => {
       const cluster = require('cluster');
       const numCPUs = require('os').cpus().length;
       if (cluster.isMaster) {
-         console.log(`Master ${process.pid} is running`);
+         logger.info(`Master ${process.pid} is running`);
+         //console.log(`Master ${process.pid} is running`);
          // Fork workers.
          for (let i = 0; i < numCPUs; i++) {
             cluster.fork();
          }
          cluster.on('exit', (worker, code, signal) => {
-            console.log(`worker ${worker.process.pid} died`);
+            logger.info(`worker ${worker.process.pid} died`);  
+            //console.log(`worker ${worker.process.pid} died`);
          });
       } else {
-         console.log(`Worker ${process.pid} started`);
+         logger.info(`Worker ${process.pid} started`);
+         //console.log(`Worker ${process.pid} started`);
          await startServer(PORT,SERVE_PUBLIC,COMPRESSION);
          //console.log(`Worker ${process.pid} finished`);
       }
    }
    else{
       //Fork
-      console.log(`Worker ${process.pid} started`);
+      logger.info(`Worker ${process.pid} started`);
+      //console.log(`Worker ${process.pid} started`);
       await startServer(PORT,SERVE_PUBLIC,COMPRESSION);
       //console.log(`Worker ${process.pid} finished`);  
    }
@@ -79,9 +85,14 @@ const main = async (PORT,MODO,SERVE_PUBLIC,COMPRESSION) => {
 
 const startServer = async (PORT,SERVE_PUBLIC,COMPRESSION) => {
 
+
+
+
    //Configuracion de dotenv
    dotenv.config();
    //End Configuracion de dotenv
+
+
 
    //Configuracion de passport
 
@@ -117,7 +128,7 @@ const startServer = async (PORT,SERVE_PUBLIC,COMPRESSION) => {
       app.use(express.static('public'));
    }
    //End Configuracion de express
-   
+
 
    //Configuracion compression gzip
    if (COMPRESSION){
@@ -144,8 +155,9 @@ const startServer = async (PORT,SERVE_PUBLIC,COMPRESSION) => {
                msg.created_at = new Intl.DateTimeFormat('es-AR', { dateStyle: "short", timeStyle: "medium" }).format(new Date());  
             }
             catch(err){
+               logger.error(err);
                msg.created_at = new Date();
-               console.log(err);
+               //console.log(err);
             }
             await mensajesDao.save(msg);
 
@@ -173,16 +185,32 @@ const startServer = async (PORT,SERVE_PUBLIC,COMPRESSION) => {
    app.use('/api/info', routerInfo);
    //End Configuración de rutas
 
+   
+
+   //Configuración de rutas no implementadas
+   app.all('*', (req, res) => {
+      const { url, method } = req
+      logger.warn(`Ruta ${method} ${url} no implementada`)
+      res.send(`Ruta ${method} ${url} no está implementada`)
+   });
+   //End Configuración de rutas no implementadas
+    
+
 
    let server = http.listen(PORT, function () {
-       console.log(`Server running on port ${PORT}`);
+       //console.log(`Server running on port ${PORT}`);
+       logger.info(`Server running on port ${PORT}`);
    }
    );
-   server.on("error", (error) => console.log(`Error en servidor ${error}`));
+   server.on("error", (error) => {
+      logger.error(`Error en servidor ${error}`);
+      //onsole.log(`Error en servidor ${error}`)
+   });
 }
 
 
 const parseargv = require('minimist');
+const { lookup } = require('dns/promises');
 const args  = parseargv(process.argv.slice(2));
 
 const PORT = args.port || 8080;

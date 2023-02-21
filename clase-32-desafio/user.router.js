@@ -3,6 +3,7 @@ const { Router } = express
 const auth = require('./auth.middleware.js');
 const UsuariosDaoMongo = require('./daos/usuarios_dao_mongodb.js');
 const bcrypt = require('bcrypt');
+const logger = require('./logger.js');
 
 
 
@@ -24,9 +25,11 @@ const getRouterUsers = async (passport,LocalStrategy) => {
       async function(username, password, done) {
          const user = await usersDao.getByUsername(username);
          if (!user) {
+            logger.error(`Incorrect username.`);
             return done(null, false, { message: 'Incorrect username.' });
          }
          if (!isValidPassword(user, password)) {
+            logger.error(`Incorrect password.`);
             return done(null, false, { message: 'Incorrect password.' });
          }
          return done(null, user);
@@ -37,6 +40,7 @@ const getRouterUsers = async (passport,LocalStrategy) => {
       async function(username, password, done) {
          const user = await usersDao.getByUsername(username);
          if (user) {
+            logger.error(`Username already taken.`);
             return done(null, false, { message: 'Username already taken.' });
          }
          const newUser = await usersDao.save({ username, password:createHash(password) });
@@ -113,6 +117,7 @@ const getRouterUsers = async (passport,LocalStrategy) => {
          res.send({status:"ok", body: {username}});
       }
       else{
+         logger.error(`No user logged in.`);
          res.send({status:"error", body: {error:"No user logged in"}});
       }
    });
