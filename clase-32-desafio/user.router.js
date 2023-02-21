@@ -67,6 +67,10 @@ const getRouterUsers = async (passport,LocalStrategy) => {
 
    routerUsers.post('/login', passport.authenticate('login', {  failureRedirect: '/loginfail.html' }),
       function(req, res) {
+
+         const { url, method } = req
+         logger.info(`Ruta ${method} ${url}`)
+
          const { username } = req.body;
 
          req.session.username = username;
@@ -83,6 +87,9 @@ const getRouterUsers = async (passport,LocalStrategy) => {
       function(req, res) {
          const { username } = req.body;
 
+         const { url, method } = req
+         logger.info(`Ruta ${method} ${url}`)
+
          req.session.username = username;
 
          const expirationDate = new Date(Date.now() + 1000 * 60 * process.env.SESSION_INACTIVITY_TIMEOUT_MINUTES);
@@ -96,6 +103,10 @@ const getRouterUsers = async (passport,LocalStrategy) => {
 
 
    routerUsers.post("/logout", (req, res) => {
+
+      const { url, method } = req
+      logger.info(`Ruta ${method} ${url}`)
+
       req.session.destroy(
          function (err) {
             if (!err){
@@ -112,6 +123,10 @@ const getRouterUsers = async (passport,LocalStrategy) => {
    });
 
    routerUsers.get("/profile",auth, (req, res) => {
+
+      const { url, method } = req
+      logger.info(`Ruta ${method} ${url}`)
+      
       const { username } = req.session;
       if (username){
          res.send({status:"ok", body: {username}});

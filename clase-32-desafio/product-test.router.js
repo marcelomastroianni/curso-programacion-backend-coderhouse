@@ -9,6 +9,8 @@ const { Router } = express
 
 const auth = require('./auth.middleware.js');
 
+const logger = require('./logger.js');
+
 
 
 const getRouterProductosTest = async () => {
@@ -19,6 +21,9 @@ const getRouterProductosTest = async () => {
 
 
    routerProductos.get("/", auth, async (req, res) => {
+
+      const { url, method } = req
+      logger.info(`Ruta ${method} ${url}`)
 
       const dataList = [];
 

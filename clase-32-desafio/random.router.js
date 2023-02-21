@@ -4,6 +4,7 @@ const { Router } = express
 
 const calcularNumerosRandom = require('./random.process.js')
 
+const logger = require('./logger')
 
 //const {fork} = require('child_process');
 
@@ -18,6 +19,9 @@ const getRouterRandom = async () => {
 
    routerRandom.get("/", async (req, res) => {
 
+
+      const { url, method } = req
+      logger.info(`Ruta ${method} ${url}`)
 
       //const forked = fork('random.process.js');
       const count = req.query.cant || CANTIDAD_NUMEROS_DEFAULT;

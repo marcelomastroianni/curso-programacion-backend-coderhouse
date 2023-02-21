@@ -5,6 +5,9 @@ const os = require('os')
 const { Router } = express
 
 
+const logger = require('./logger')
+
+
 const getInfoObject = () => {
     return {
        argumentosEntrada: process.argv.slice(2),
@@ -29,7 +32,10 @@ const getRouterInfo = async () => {
 
    routerInfo.get("/", async (req, res) => {
 
-    res.send(getInfoObject());
+      const { url, method } = req
+      logger.info(`Ruta ${method} ${url}`)
+
+      res.send(getInfoObject());
    
    });
 
