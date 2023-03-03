@@ -1,0 +1,5 @@
+ecommerce/*.sqlite
+node_modules
+app
+db
+logs

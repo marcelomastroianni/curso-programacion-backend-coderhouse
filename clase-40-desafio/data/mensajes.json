@@ -1,0 +1,171 @@
+[
+  {
+    "uuid": "6d75040b-cf78-4caa-917d-53c4df11ab48",
+    "author": {
+      "id": "mm@mail.com",
+      "nombre": "",
+      "apellido": "",
+      "edad": "",
+      "alias": "",
+      "avatar": "https://pickaface.net/gallery/avatar/unr_random_180410_1905_z1exb.png"
+    },
+    "text": "Mensaje 1",
+    "created_at": "20/12/22, 16:31:55"
+  },
+  {
+    "uuid": "2c949d60-542e-4fe8-aec3-8740de490a44",
+    "author": {
+      "id": "mm@mail.com",
+      "nombre": "",
+      "apellido": "",
+      "edad": "",
+      "alias": "",
+      "avatar": "https://pickaface.net/gallery/avatar/unr_random_180410_1905_z1exb.png"
+    },
+    "text": "Mensaje 2",
+    "created_at": "20/12/22, 16:36:18"
+  },
+  {
+    "uuid": "22d26df0-c321-4ef5-b977-19e9b8707893",
+    "author": {
+      "id": "mail2@mail.com",
+      "nombre": "",
+      "apellido": "",
+      "edad": "",
+      "alias": "",
+      "avatar": "https://pickaface.net/gallery/avatar/creezgr528768b7186c1.png"
+    },
+    "text": "Mensaje 3",
+    "created_at": "20/12/22, 16:37:08"
+  },
+  {
+    "uuid": "1235040b-cf78-4caa-917d-53c4df11ab48",
+    "author": {
+      "id": "mm@mail.com",
+      "nombre": "",
+      "apellido": "",
+      "edad": "",
+      "alias": "",
+      "avatar": "https://pickaface.net/gallery/avatar/unr_random_180410_1905_z1exb.png"
+    },
+    "text": "Mensaje 4",
+    "created_at": "20/12/22, 16:31:55"
+  },
+  {
+    "uuid": "43749d60-542e-4fe8-aec3-8740de490a44",
+    "author": {
+      "id": "mm@mail.com",
+      "nombre": "",
+      "apellido": "",
+      "edad": "",
+      "alias": "",
+      "avatar": "https://pickaface.net/gallery/avatar/unr_random_180410_1905_z1exb.png"
+    },
+    "text": "Mensaje 5",
+    "created_at": "20/12/22, 16:36:18"
+  },
+  {
+    "uuid": "33d26df0-c321-4ef5-b977-19e9b8707893",
+    "author": {
+      "id": "mail2@mail.com",
+      "nombre": "",
+      "apellido": "",
+      "edad": "",
+      "alias": "",
+      "avatar": "https://pickaface.net/gallery/avatar/creezgr528768b7186c1.png"
+    },
+    "text": "Mensaje 6",
+    "created_at": "20/12/22, 16:37:08"
+  },
+  {
+    "uuid": "44226df0-c321-4ef5-b977-19e9b8707893",
+    "author": {
+      "id": "mail2@mail.com",
+      "nombre": "",
+      "apellido": "",
+      "edad": "",
+      "alias": "",
+      "avatar": "https://pickaface.net/gallery/avatar/creezgr528768b7186c1.png"
+    },
+    "text": "Mensaje 7",
+    "created_at": "20/12/22, 16:37:08"
+  },
+  {
+    "uuid": "99926df0-c321-4ef5-b977-19e9b8707893",
+    "author": {
+      "id": "mail2@mail.com",
+      "nombre": "",
+      "apellido": "",
+      "edad": "",
+      "alias": "",
+      "avatar": "https://pickaface.net/gallery/avatar/creezgr528768b7186c1.png"
+    },
+    "text": "Mensaje 8",
+    "created_at": "20/12/22, 16:37:08"
+  },
+  {
+    "uuid": "8875040b-cf78-4caa-917d-53c4df11ab48",
+    "author": {
+      "id": "mm@mail.com",
+      "nombre": "",
+      "apellido": "",
+      "edad": "",
+      "alias": "",
+      "avatar": "https://pickaface.net/gallery/avatar/unr_random_180410_1905_z1exb.png"
+    },
+    "text": "Mensaje 9",
+    "created_at": "20/12/22, 16:31:55"
+  },
+  {
+    "uuid": "7875040b-cf78-4caa-917d-53c4df11ab48",
+    "author": {
+      "id": "mm@mail.com",
+      "nombre": "",
+      "apellido": "",
+      "edad": "",
+      "alias": "",
+      "avatar": "https://pickaface.net/gallery/avatar/unr_random_180410_1905_z1exb.png"
+    },
+    "text": "Mensaje 10",
+    "created_at": "20/12/22, 16:31:55"
+  },
+  {
+    "uuid": "9f5207c1-ac33-4a30-bb23-5d40a8f63e28",
+    "author": {
+      "id": "mm@mail.com",
+      "nombre": "MM",
+      "apellido": "MM",
+      "edad": "34",
+      "alias": "MM",
+      "avatar": "https://pickaface.net/gallery/avatar/unr_random_180410_1905_z1exb.png"
+    },
+    "text": "Mensaje 11",
+    "created_at": "20/12/22, 23:12:41"
+  },
+  {
+    "uuid": "d8c9976d-9c04-422c-a91a-56fe1b26e435",
+    "author": {
+      "id": "mm@mail.com",
+      "nombre": "MM",
+      "apellido": "MM",
+      "edad": "34",
+      "alias": "MM",
+      "avatar": "https://pickaface.net/gallery/avatar/unr_random_180410_1905_z1exb.png"
+    },
+    "text": "Mensaje 12",
+    "created_at": "20/12/22, 23:13:11"
+  },
+  {
+    "uuid": "5e53c021-d000-43dc-80ea-dc4e17c8718a",
+    "author": {
+      "id": "mail@gmail.com",
+      "nombre": "Marcelo",
+      "apellido": "Mastroianni",
+      "edad": "35",
+      "alias": "mmastroianni",
+      "avatar": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
+    },
+    "text": " mensaje 1234",
+    "created_at": "20/2/23, 15:20:46"
+  }
+]
