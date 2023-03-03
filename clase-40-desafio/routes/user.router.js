@@ -2,13 +2,20 @@ const express = require('express')
 const { Router } = express
 const auth = require('../middleware/auth.middleware.js');
 
+const {getPassportMiddlewares}  = require('../middleware/passport.middleware.js');
 
-const { serializeUserPassportMiddleware, deserializeUserPassportMiddleware, loginPassportMiddleware, signupPassportMiddleware} = require('../middleware/passport.middleware.js');
+//const { serializeUserPassportMiddleware, deserializeUserPassportMiddleware, loginPassportMiddleware, signupPassportMiddleware} = require('../middleware/passport.middleware.js');
 
 const { profileUserGetController , logoutUserPostController , registerUserPostController , loginUserPostController} = require('../controllers/user.controller.js');
 
 
 const getRouterUsers = async (passport,LocalStrategy) => {
+
+
+   console.log(getPassportMiddlewares);
+
+   const { serializeUserPassportMiddleware, deserializeUserPassportMiddleware, loginPassportMiddleware, signupPassportMiddleware} = await getPassportMiddlewares();
+
 
    //Config passport
    passport.use('login', new LocalStrategy(

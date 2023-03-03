@@ -6,7 +6,8 @@ dotenv.config();
 
 config = {
     PORT: process.env.PORT || 8080,
-    MONGODB_DATABASE_URL: process.env.MONGODB_DATABASE_URL
+    MONGODB_DATABASE_URL: process.env.MONGODB_DATABASE_URL,
+    PERSISTENCE: process.env.PERSISTENCE
 }
 
 module.exports = config;

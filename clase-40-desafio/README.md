@@ -16,10 +16,10 @@ SESSION_INACTIVITY_TIMEOUT_MINUTES: Tiempo de expiracion de la sesion en minutos
 
 ### Debe haber una instancia de mongodb levantada localmente:
 
-sudo docker run --name mongodb -d -p 27017:27017 mongo
+sudo 
 
 
-
+docker run --name mongodb -d -p 27017:27017 mongo
 ## Para correr el proyecto:
 
 node server.js --port 8082
