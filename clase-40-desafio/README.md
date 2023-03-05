@@ -1,4 +1,4 @@
-# curso-programacion-backend-coderhouse-clase-24-desafio
+# curso-programacion-backend-coderhouse-clase-40-desafio
 
 ## Variables de entorn
 
