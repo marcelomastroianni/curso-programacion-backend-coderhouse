@@ -10,7 +10,6 @@ const getRouterInfo = require('./routes/info.router.js');
 const compression = require('compression');
 
 const dotenv = require('dotenv');
-const MensajesDaoArchivo = require('./persistencia/daos/mensajes_dao_archivo.js');
 
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
@@ -118,8 +117,6 @@ const startServer = async (PORT,SERVE_PUBLIC,COMPRESSION) => {
    const routerRandom = await getRouterRandom();
 
    const routerInfo = await getRouterInfo();
-
-   //const mensajesDao = new MensajesDaoArchivo();
 
    const mensajesService = new MensajesService();
 

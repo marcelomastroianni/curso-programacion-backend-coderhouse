@@ -1,4 +1,3 @@
-const UsuariosDaoMongo = require('../persistencia/daos/usuarios_dao_mongodb.js');
 const bcrypt = require('bcrypt');
 const logger = require('../logger/logger.js');
 
@@ -9,7 +8,7 @@ const PersistenceFactory =  require('../persistencia/daos/persistence_factory.js
 const getPassportMiddlewares = async () => {
 
 
-   //const usersDao = new UsuariosDaoMongo();
+
    const usersDao = await PersistenceFactory.getPersistence("usuarios")
 
 
