@@ -22,6 +22,9 @@ const { normalize, denormalize, schema } = require( "normalizr");
 
 const logger = require('./logger/logger.js');
 
+const MensajesService = require('./service/mensajes.service.js');
+
+
 
 const perform_normalize = (obj_mensajes) => {
 
@@ -116,7 +119,9 @@ const startServer = async (PORT,SERVE_PUBLIC,COMPRESSION) => {
 
    const routerInfo = await getRouterInfo();
 
-   const mensajesDao = new MensajesDaoArchivo();
+   //const mensajesDao = new MensajesDaoArchivo();
+
+   const mensajesService = new MensajesService();
 
 
    //Configuracion de express
@@ -140,7 +145,7 @@ const startServer = async (PORT,SERVE_PUBLIC,COMPRESSION) => {
    io.on('connection', async (socket) => {
 
 
-      const array_mensajes = await mensajesDao.getAll();
+      const array_mensajes = await mensajesService.getMensajes();
       const obj_mensajes = { id: "mensajes", mensajes: array_mensajes};
       io.emit('all messages', perform_normalize(obj_mensajes));
 
@@ -155,9 +160,9 @@ const startServer = async (PORT,SERVE_PUBLIC,COMPRESSION) => {
                msg.created_at = new Date();
                //console.log(err);
             }
-            await mensajesDao.save(msg);
+            await mensajesService.saveMensaje(msg);
 
-            const array_mensajes = await mensajesDao.getAll();
+            const array_mensajes = await mensajesService.getMensajes();
             const obj_mensajes = { id: "mensajes", mensajes: array_mensajes};
             io.emit('all messages', perform_normalize(obj_mensajes));
 

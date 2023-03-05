@@ -10,7 +10,7 @@ const getPassportMiddlewares = async () => {
 
 
    //const usersDao = new UsuariosDaoMongo();
-   const usersDao = await PersistenceFactory.getPersistence()
+   const usersDao = await PersistenceFactory.getPersistence("usuarios")
 
 
    const isValidPassword =  (user, password) => {
