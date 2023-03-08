@@ -1,7 +1,7 @@
 
 var admin = require("firebase-admin");
 
-const config = require('../config.js');
+const config = require('../config/config.js');
 
 var serviceAccount = require("../" + config.FIREBASE_CONFIG_FILE);
 

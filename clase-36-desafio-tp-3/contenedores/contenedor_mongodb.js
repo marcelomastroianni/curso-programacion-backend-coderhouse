@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 const { v4: uuidv4 } = require('uuid');
 
-const config = require('../config.js');
+const config = require('../config/config.js');
 
 
 class ContenedorMongoDB {

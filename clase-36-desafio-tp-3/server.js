@@ -2,14 +2,14 @@
 const express = require('express')
 const app = express();
 const http = require('http').Server(app);
-const routerProductos = require('./product.router.js');
-const routerCarrito = require('./shopping_cart.router.js');
+const routerProductos = require('./routes/product.router.js');
+const routerCarrito = require('./routes/shopping_cart.router.js');
 
 
 
 
 
-const config = require('./config');
+const config = require('./config/config');
 
 const main = async () => {
 

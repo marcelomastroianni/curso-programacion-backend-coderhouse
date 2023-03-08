@@ -1,6 +1,6 @@
 const ProductService = require('./product.service');
 
-const DaoFactory = require('./daos');
+const DaoFactory = require('../daos');
 
 class ShoppingCartService {
 

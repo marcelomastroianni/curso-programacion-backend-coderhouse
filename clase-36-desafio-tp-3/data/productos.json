@@ -38,5 +38,15 @@
     "price": "123",
     "stock": "40",
     "photo_url": "https://cdn3.iconfinder.com/data/icons/education-209/64/calculator-math-tool-school-256.png"
+  },
+  {
+    "uuid": "1f5edc49-ca0b-4fff-aa54-7d9a23bb277a",
+    "name": "Producto ABC",
+    "timestamp": "2023-03-06T21:52:58.667Z",
+    "description": "Desc Producto ABC",
+    "code": "ABC_ABC",
+    "price": "14",
+    "stock": "40",
+    "photo_url": "https://cdn3.iconfinder.com/data/icons/education-209/64/calculator-math-tool-school-256.png"
   }
 ]

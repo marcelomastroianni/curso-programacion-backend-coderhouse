@@ -2,11 +2,11 @@ const express = require('express')
 const { Router } = express
 const routerProductos = Router()
 
-const CreateProductDto = require('./product.dto.js').CreateProductDto;
-const UpdateProductDto = require('./product.dto.js').UpdateProductDto;
-const ProductService = require('./product.service');
+const CreateProductDto = require('../dtos/product.dto.js').CreateProductDto;
+const UpdateProductDto = require('../dtos/product.dto.js').UpdateProductDto;
+const ProductService = require('../services/product.service');
 const productService = new ProductService();
-const validateIfAdmin = require('./middlewares/security.middleware.js');
+const validateIfAdmin = require('../middlewares/security.middleware.js');
 
 
 

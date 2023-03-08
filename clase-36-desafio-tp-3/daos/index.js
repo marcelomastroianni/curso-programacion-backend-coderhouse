@@ -22,7 +22,7 @@ let instanciaCarritosDaoFirebase = null;
 
 
 
-const config = require('../config.js');
+const config = require('../config/config.js');
 
 
 //Esta clase nos permite obtener una instancia de un dao en particular

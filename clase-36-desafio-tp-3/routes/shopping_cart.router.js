@@ -2,12 +2,12 @@ const express = require('express')
 const { Router } = express
 const routerShoppingCart = Router()
 
-const CreateShoppingCartDto = require('./shopping_cart.dto.js').CreateShoppingCartDto;
+const CreateShoppingCartDto = require('../dtos/shopping_cart.dto.js').CreateShoppingCartDto;
 
-const ShoppingCartService = require('./shopping_cart.service.js');
+const ShoppingCartService = require('../services/shopping_cart.service.js');
 const shoppingCartService = new ShoppingCartService();
 
-const validateIfAdmin = require('./middlewares/security.middleware.js');
+const validateIfAdmin = require('../middlewares/security.middleware.js');
 
 
 

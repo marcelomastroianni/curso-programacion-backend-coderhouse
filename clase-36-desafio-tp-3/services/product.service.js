@@ -1,4 +1,4 @@
-const DaoFactory = require('./daos');
+const DaoFactory = require('../daos');
 
 
 class ProductService {
