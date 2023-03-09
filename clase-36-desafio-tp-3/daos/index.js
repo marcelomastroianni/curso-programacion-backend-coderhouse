@@ -7,6 +7,10 @@ const CarritosDaoArchivo = require('./carritos/carritos_dao_archivo');
 const CarritosDaoMemoria = require('./carritos/carritos_dao_memoria');
 const CarritosDaoMongo = require('./carritos/carritos_dao_mongodb');
 const CarritosDaoFirebase = require('./carritos/carritos_dao_firebase');
+const UsuariosDaoArchivo = require('./usuarios/usuarios_dao_archivo');
+const UsuariosDaoMemoria = require('./usuarios/usuarios_dao_memoria');
+const UsuariosDaoMongo = require('./usuarios/usuarios_dao_mongodb');
+const UsuariosDaoFirebase = require('./usuarios/usuarios_dao_firebase');
 
 
 //Usamos el patron de diseño singleton para que solo exista una instancia de cada dao
@@ -18,6 +22,10 @@ let instanciaCarritosDaoArchivo = null;
 let instanciaCarritosDaoMemoria = null;
 let instanciaCarritosDaoMongo = null;
 let instanciaCarritosDaoFirebase = null;
+let instanciaUsuariosDaoArchivo = null;
+let instanciaUsuariosDaoMemoria = null;
+let instanciaUsuariosDaoMongo = null;
+let instanciaUsuariosDaoFirebase = null;
 
 
 
@@ -84,6 +92,30 @@ class DaoFactory {
                     instanciaCarritosDaoFirebase = new CarritosDaoFirebase();
                 }
                 return instanciaCarritosDaoFirebase;
+            }
+        } else if (tipo === 'usuarios') {
+            if (tipoPersistencia === 'archivo') {
+                if (!instanciaUsuariosDaoArchivo) {
+                    instanciaUsuariosDaoArchivo = new UsuariosDaoArchivo();
+                }
+                return instanciaUsuariosDaoArchivo;
+            } else if (tipoPersistencia === 'memoria') {
+                if (!instanciaUsuariosDaoMemoria) {
+                    instanciaUsuariosDaoMemoria = new UsuariosDaoMemoria();
+                }
+                return instanciaUsuariosDaoMemoria;
+            }
+            else if (tipoPersistencia === 'mongodb') {
+                if (!instanciaUsuariosDaoMongo) {
+                    instanciaUsuariosDaoMongo = new UsuariosDaoMongo();
+                }
+                return instanciaUsuariosDaoMongo;
+            }
+            else if (tipoPersistencia === 'firebase') {
+                if (!instanciaUsuariosDaoFirebase) {
+                    instanciaUsuariosDaoFirebase = new UsuariosDaoFirebase();
+                }
+                return instanciaUsuariosDaoFirebase;
             }
         }
     }

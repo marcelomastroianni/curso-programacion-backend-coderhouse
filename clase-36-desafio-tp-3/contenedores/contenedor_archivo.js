@@ -41,6 +41,17 @@ class ContenedorArchivo {
         }
     }
 
+    async getByUsername(username) {
+        try {
+            const data = await this.getAll();
+            return data.find((object) => object.username === username);
+        } catch (error) {
+            //logger.error(error);
+            console.log(error);
+        }
+    }
+
+
     async deleteById(uuid) {
         try {
             const data = await this.getAll();
