@@ -2,3 +2,6 @@ https://github.com/cr1337-sudo/CoderHouse_32160
 https://github.com/alexmarinmendez/server-express
 OK https://github.com/alexmarinmendez/coder-backend-32160
 https://github.com/alexmarinmendez/32210-clase-42-apiTest
+
+https://github.com/alexmarinmendez/32160-clase-43-generator
+https://github.com/alexmarinmendez/32160-clase-43-swagger-demo-1
