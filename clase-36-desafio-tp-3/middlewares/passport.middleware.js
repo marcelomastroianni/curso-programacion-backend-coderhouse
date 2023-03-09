@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const logger = require('../logger/logger.js');
 
-const PersistenceFactory =  require('../persistencia/daos/persistence_factory.js');
+//const PersistenceFactory =  require('../persistencia/daos/persistence_factory.js');
 
 const DaoFactory = require('../daos');
 
