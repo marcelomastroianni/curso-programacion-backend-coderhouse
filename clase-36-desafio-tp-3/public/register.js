@@ -6,6 +6,8 @@
         e.preventDefault();
         const username = document.getElementById('txtNombre').value;
         const password = document.getElementById('txtPassword').value;
+        const email = document.getElementById('txtEmail').value;
+
 
 
         const response = await fetch('/api/users/register', {
@@ -13,7 +15,7 @@
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ username,password })
+            body: JSON.stringify({ username,password,email })
         });
         if (response.redirected) {
             window.location.href = response.url;

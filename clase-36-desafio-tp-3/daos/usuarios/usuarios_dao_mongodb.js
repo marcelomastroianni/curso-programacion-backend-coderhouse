@@ -8,7 +8,7 @@ class UsuariosDaoMongo extends ContenedorMongoDB {
             id : mongoose.Schema.Types.ObjectId,
             uuid: String,
             username: String,
-            //email: String,
+            email: String,
             password: String
         });
         const modelo = mongoose.model('usuarios', schema);

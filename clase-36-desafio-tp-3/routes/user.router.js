@@ -22,7 +22,9 @@ const getRouterUsers = async (passport,LocalStrategy) => {
       loginPassportMiddleware
    ));
 
-   passport.use('signup', new LocalStrategy(
+   passport.use('signup', new LocalStrategy({
+      passReqToCallback : true
+      },
       signupPassportMiddleware
    ));
 

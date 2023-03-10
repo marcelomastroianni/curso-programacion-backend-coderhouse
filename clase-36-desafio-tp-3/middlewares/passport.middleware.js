@@ -48,13 +48,21 @@ const getPassportMiddlewares = async () => {
    }
 
 
-   const signupPassportMiddleware = async function(username, password, done) {
+   const signupPassportMiddleware = async function(req, username, password, done) {
       const user = await usersDao.getByUsername(username);
       if (user) {
          logger.error(`Username already taken.`);
          return done(null, false, { message: 'Username already taken.' });
       }
-      const newUser = await usersDao.save({ username, password:createHash(password) });
+      const newUser = await usersDao.save({ username, 
+                                          password:createHash(password),
+                                          email: req.body.email,
+                                          edad: req.body.edad,
+                                          address: req.body.address,
+                                          phone: req.body.phone,
+                                          alias: req.body.alias,
+                                          avatar: req.body.avatar,
+                                        });
       const createdUser = await usersDao.getByUsername(username);
       return done(null, createdUser);
    }
