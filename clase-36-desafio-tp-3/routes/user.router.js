@@ -3,10 +3,8 @@ const { Router } = express
 const auth = require('../middlewares/auth.middleware.js');
 
 const {getPassportMiddlewares}  = require('../middlewares/passport.middleware.js');
-
-//const { serializeUserPassportMiddleware, deserializeUserPassportMiddleware, loginPassportMiddleware, signupPassportMiddleware} = require('../middleware/passport.middleware.js');
-
-const { profileUserGetController , logoutUserPostController , registerUserPostController , loginUserPostController} = require('../controllers/user.controller.js');
+const UserController = require('../controllers/user.controller.js');
+const userController = new UserController();
 
 
 const getRouterUsers = async (passport,LocalStrategy) => {
@@ -39,16 +37,13 @@ const getRouterUsers = async (passport,LocalStrategy) => {
 
    routerUsers.post('/login', 
                      passport.authenticate('login', {  failureRedirect: '/loginfail.html' }),
-                     loginUserPostController
+                     userController.login
                      );
-
    routerUsers.post('/register', 
                      passport.authenticate('signup', { failureRedirect: '/registerfail.html' }),
-                     registerUserPostController);
-
-   routerUsers.post("/logout", logoutUserPostController);
-
-   routerUsers.get("/profile",auth, profileUserGetController);
+                     userController.register);
+   routerUsers.post("/logout", userController.logout);
+   routerUsers.get("/profile",auth, userController.getProfile);
 
    return routerUsers;
 }
