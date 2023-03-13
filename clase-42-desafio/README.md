@@ -22,10 +22,17 @@ MONGODB_DATABASE_URL: URL de la base de datos de Mongodb
 TIPO_PERSISTENCIA: En esta variable se indica el tipo de persistencia. Valores posibles: archivo, memoria, mongodb o firebase.
 
 
-## Correr aplicacion:
+## Correr test :
 
-Para correr la aplicacion en modo admin se debe ir a la siguiente url en un navegador web:
+Antes de correr los test la aplicacion debe estar ejecutandose. Para levantar el servidor se debe ejecutar el siguiente comando:
 
-http://localhost:8080/?is_admin=true
+node server.js
 
-De lo contrario no se podrian dar de alta productos o modificarlos.
+Para correr los test con mocha, chai y supertest se debe ejecutar el siguiente comando:
+
+npm run test
+
+
+Para correr los test de axios se debe ejecutar el siguiente comando:
+
+npm run test-axios
