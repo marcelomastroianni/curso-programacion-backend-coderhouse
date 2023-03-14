@@ -100,7 +100,13 @@
     if (data.body.username){
       //divWelcomeMessage.style.display = "block";
       //txtWelcomeMessage.innerHTML = `Bienvenido ${data.body.username}`;
-      alert(`Bienvenido ${data.body.username}`);
+      //console.log("Bienvenido", data);
+      //alert(`Bienvenido ${data.body.username}`);
+      //alert(`Bienvenido is_admin ${data.body.is_admin}`);
+
+      window.sessionStorage.setItem("username", data.body.username);
+      window.sessionStorage.setItem("is_admin", data.body.is_admin);
+
 
       //let btnLogout = document.getElementById('btnLogout');
       //btnLogout.addEventListener('click', function(e) {

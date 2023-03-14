@@ -1,20 +1,32 @@
 
 const logger = require('../logger/logger.js');
 
+const DaoFactory = require('../daos');
+const usersDao = DaoFactory.getDao('usuarios')
+
+
+const UserDto = require('../dtos/user.dto.js');
+
+
 
 class UserController {
 
    constructor() {
    }
 
-   getProfile = (req, res) => {
+   getProfile = async (req, res) => {
 
       const { url, method } = req
       logger.info(`Ruta ${method} ${url}`)
       
       const { username } = req.session;
+      
+      const user_uuid  = req.session.passport.user;
+
+      const user = await usersDao.getById(user_uuid);
+
       if (username){
-         res.send({status:"ok", body: {username}});
+         res.send({status:"ok", body: {...( new UserDto(user) ), username:username}});
       }
       else{
          logger.error(`No user logged in.`);
