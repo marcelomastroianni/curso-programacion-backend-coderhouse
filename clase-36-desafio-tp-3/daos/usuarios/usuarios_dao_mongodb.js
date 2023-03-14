@@ -9,7 +9,14 @@ class UsuariosDaoMongo extends ContenedorMongoDB {
             uuid: String,
             username: String,
             email: String,
-            password: String
+            password: String,
+            edad: Number,
+            address: String,
+            phone: String,
+            alias: String,
+            avatar: String,
+            is_admin: Boolean
+
         });
         const modelo = mongoose.model('usuarios', schema);
         super(modelo);

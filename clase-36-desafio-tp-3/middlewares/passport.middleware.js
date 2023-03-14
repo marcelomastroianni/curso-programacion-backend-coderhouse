@@ -62,6 +62,7 @@ const getPassportMiddlewares = async () => {
                                           phone: req.body.phone,
                                           alias: req.body.alias,
                                           avatar: req.body.avatar,
+                                          is_admin: req.body.is_admin
                                         });
       const createdUser = await usersDao.getByUsername(username);
       return done(null, createdUser);
