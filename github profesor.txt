@@ -5,3 +5,4 @@ https://github.com/alexmarinmendez/32210-clase-42-apiTest
 
 https://github.com/alexmarinmendez/32160-clase-43-generator
 https://github.com/alexmarinmendez/32160-clase-43-swagger-demo-1
+https://github.com/alexmarinmendez/32160-clase-44-graphql
