@@ -20,7 +20,15 @@
   </head>
   <body>
     <div style="background-color:white;padding:20px">
-      <div style="background-color:LightGray;padding:20px;height: auto;"> 
+
+      <div id="divWelcomeMessage" style="background-color:lightgreen;padding:20px;height: auto;height: 80px;">
+        <h1 id="txtWelcomeMessage" style="color:green;float:left"></h1>
+
+        <button id="btnLogout" type="button" style="float:right" class="btn btn-warning">Desloguear</button>
+
+      </div>
+
+      <div style="background-color:LightGray;padding:20px;height: auto;margin-top: 20px;"> 
         <div id="lstProductos"></div> <!-- para inyectar el resultado -->
         <br/>
       </div>

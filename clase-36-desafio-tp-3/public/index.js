@@ -25,7 +25,7 @@
       }
 
       
-      showProductList(is_admin());
+      
 
 
       
@@ -90,17 +90,32 @@
       }
 
       
+  async function postData(url = '', data = {}) {
+    const response = await fetch(url, {
+      method: 'POST',
+      mode: 'cors', 
+      cache: 'no-cache',
+      credentials: 'same-origin', 
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      redirect: 'follow', 
+      referrerPolicy: 'no-referrer',
+      body: JSON.stringify(data) 
+    });
+    return response.json();
+  }
       
 
   //Se consulta el usuario logueado, en caso de no estar logueado se redirecciona al login
   getData("api/users/profile")
   .then((data) => {
-    //let divWelcomeMessage = document.getElementById('divWelcomeMessage');
-    //let txtWelcomeMessage = document.getElementById('txtWelcomeMessage');
+    let divWelcomeMessage = document.getElementById('divWelcomeMessage');
+    let txtWelcomeMessage = document.getElementById('txtWelcomeMessage');
     if (data.body.username){
-      //divWelcomeMessage.style.display = "block";
-      //txtWelcomeMessage.innerHTML = `Bienvenido ${data.body.username}`;
-      //console.log("Bienvenido", data);
+      divWelcomeMessage.style.display = "block";
+      txtWelcomeMessage.innerHTML = `Bienvenido ${data.body.username}`;
+      console.log("Bienvenido", data);
       //alert(`Bienvenido ${data.body.username}`);
       //alert(`Bienvenido is_admin ${data.body.is_admin}`);
 
@@ -108,18 +123,20 @@
       window.sessionStorage.setItem("is_admin", data.body.is_admin);
 
 
-      //let btnLogout = document.getElementById('btnLogout');
-      //btnLogout.addEventListener('click', function(e) {
-      //  e.preventDefault();
-      //  postData('/api/users/logout', {})
-      //  .then((data_logout) => {
-      //    window.location.href = "/logout.html?username="+data.body.username;
-      //  });
-      //});
+      let btnLogout = document.getElementById('btnLogout');
+      btnLogout.addEventListener('click', function(e) {
+        e.preventDefault();
+        postData('/api/users/logout', {})
+        .then((data_logout) => {
+          window.location.href = "/logout.html?username="+data.body.username;
+        });
+      });
+
+      showProductList(is_admin());
 
 
     }else{
-      //divWelcomeMessage.style.display = "none";
+      divWelcomeMessage.style.display = "none";
       window.location.href = "/login.html";
     }
   
