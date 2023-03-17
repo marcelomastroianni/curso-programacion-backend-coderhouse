@@ -14,7 +14,7 @@
 
               performCreate(`/api/productos`, { name, description, code, price, stock, photo_url})
               .then((data) => {
-                window.location.href = `/index.html?is_admin=${is_admin()}`;
+                window.location.href = `/index.html`;
               });
             }
           });

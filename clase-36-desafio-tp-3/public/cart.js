@@ -43,13 +43,13 @@
         const cartUuid = get_cart_uuid();
         performDelete(`/api/carrito/${cartUuid}`)
         .then((data) => {
-            window.location.href = `/index.html?is_admin=${is_admin()}`;
+            window.location.href = `/index.html`;
         });
     }
 
 
     const volverAListadoProductos = () => {
-        window.location.href = `/index.html?is_admin=${is_admin()}&cart_uuid=${get_cart_uuid()}`;
+        window.location.href = `/index.html?cart_uuid=${get_cart_uuid()}`;
     }
 
 

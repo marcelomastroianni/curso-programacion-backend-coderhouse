@@ -5,8 +5,8 @@ async function performCreate(url = '', data = {}) {
       cache: 'no-cache',
       credentials: 'same-origin', 
       headers: {
-        'Content-Type': 'application/json',
-        'is_admin': is_admin()
+        'Content-Type': 'application/json'
+
       },
       redirect: 'follow', 
       referrerPolicy: 'no-referrer',
@@ -23,8 +23,7 @@ async function performCreate(url = '', data = {}) {
       cache: 'no-cache',
       credentials: 'same-origin', 
       headers: {
-        'Content-Type': 'application/json',
-        'is_admin': is_admin()
+        'Content-Type': 'application/json'
       },
       redirect: 'follow', 
       referrerPolicy: 'no-referrer',
@@ -41,8 +40,7 @@ async function performCreate(url = '', data = {}) {
       cache: 'no-cache',
       credentials: 'same-origin', 
       headers: {
-        'Content-Type': 'application/json',
-        'is_admin': is_admin()
+        'Content-Type': 'application/json'
       },
       redirect: 'follow', 
       referrerPolicy: 'no-referrer',
@@ -58,8 +56,7 @@ async function performCreate(url = '', data = {}) {
       cache: 'no-cache',
       credentials: 'same-origin', 
       headers: {
-        'Content-Type': 'application/json',
-        'is_admin': is_admin()
+        'Content-Type': 'application/json'
       },
       redirect: 'follow', 
       referrerPolicy: 'no-referrer',

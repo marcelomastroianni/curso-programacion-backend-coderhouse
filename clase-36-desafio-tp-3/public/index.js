@@ -70,7 +70,7 @@
 
       const showCart = () => {
         console.log("cartUuid:", cartUuid);
-        window.location.href = `/cart.html?cart_uuid=${cartUuid}&is_admin=${is_admin()}`;
+        window.location.href = `/cart.html?cart_uuid=${cartUuid}`;
       }
 
       
