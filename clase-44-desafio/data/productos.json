@@ -1,0 +1,52 @@
+[
+  {
+    "uuid": "7d96c66d-eb4f-4119-9713-2716e23d6091",
+    "name": "Producto 2",
+    "timestamp": "2022-12-18T13:00:52.684Z",
+    "description": "Desc Producto 2",
+    "code": "BBB",
+    "price": "234",
+    "stock": "30",
+    "photo_url": "https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-256.png"
+  },
+  {
+    "uuid": "a21ac81c-31ba-40d2-9f1c-fe7c92e435c7",
+    "name": "Producto 3",
+    "timestamp": "2022-12-18T13:01:38.229Z",
+    "description": "Desc Producto 3",
+    "code": "CCC",
+    "price": "345",
+    "stock": "50",
+    "photo_url": "https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png"
+  },
+  {
+    "uuid": "52a9d72e-e460-40de-b7c9-240e0e9c1125",
+    "name": "Producto 4",
+    "timestamp": "2022-12-18T13:02:07.755Z",
+    "description": "Desc Producto 4",
+    "code": "DDD",
+    "price": "456",
+    "stock": "60",
+    "photo_url": "https://cdn3.iconfinder.com/data/icons/education-209/64/calculator-math-tool-school-256.png"
+  },
+  {
+    "uuid": "0bebbeec-7ce3-4f8f-a3bc-c85cbc838460",
+    "name": "Producto 1 Modif",
+    "timestamp": "2022-12-18T13:04:02.324Z",
+    "description": "Desc Producto 1 AAA",
+    "code": "AAA",
+    "price": "123",
+    "stock": "40",
+    "photo_url": "https://cdn3.iconfinder.com/data/icons/education-209/64/calculator-math-tool-school-256.png"
+  },
+  {
+    "uuid": "1f5edc49-ca0b-4fff-aa54-7d9a23bb277a",
+    "name": "Producto ABC",
+    "timestamp": "2023-03-06T21:52:58.667Z",
+    "description": "Desc Producto ABC",
+    "code": "ABC_ABC",
+    "price": "14",
+    "stock": "40",
+    "photo_url": "https://cdn3.iconfinder.com/data/icons/education-209/64/calculator-math-tool-school-256.png"
+  }
+]
