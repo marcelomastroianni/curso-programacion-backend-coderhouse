@@ -97,13 +97,7 @@ const queryGetProduct = (uuid) => {
           showProductForm(data.product);
         });
 
-        /*
-          performGet(`http://localhost:8080/api/productos/${uuid}`)
-          .then((data) => {
-            console.log(data);
-            showProductForm(data);
-          });
-        */
+
       }
             
 
