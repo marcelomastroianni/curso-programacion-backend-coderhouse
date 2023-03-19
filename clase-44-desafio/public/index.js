@@ -1,28 +1,69 @@
 
-      const deleteProduct = (uuid) => {
-        performDelete(`http://localhost:8080/api/productos/${uuid}`)
-        .then((data) => {
-            console.log(data);
-            showProductList(is_admin());
-         });
-       }
+ //graphql execute query
+ const executeGraphqlQuery = (query,callback) => {
+  fetch('/graphql', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ query }),
+  })
+  .then(res => res.json())
+  .then(res => {
+    callback(res.data);
+  });
+}
 
-      const showProductList = (is_admin) => {
-        fetch('/api/productos')
-        .then(response => response.json())
-        .then(products => {
-            // fetch template from server
-            fetch('/product_list.hbs')
-                .then(response => response.text())
-                .then(templateStr => {
-                const template = Handlebars.compile(templateStr); // compila la plantilla
-                //const is_admin = is_admin();
-                products.map(product => product.is_admin = is_admin);
-                const html = template({products,is_admin}); // genera el html
-                document.getElementById("lstProductos").innerHTML = html; // inyecta el html
-                });
-        });     
-      }
+
+const deleteProduct = (uuid) => {
+
+
+
+  const queryDeleteProduct = `
+  mutation{
+    deleteProduct(uuid: "${uuid}")
+  }
+  `;
+
+  executeGraphqlQuery(queryDeleteProduct, (data) => {
+    console.log(data);
+    showProductList(is_admin());
+  });
+
+  }
+
+const showProductList = (is_admin) => {
+
+
+  const queryGetListaProductos = `
+  query{
+    products{
+      uuid
+      name
+      price
+      description
+      code
+      stock
+      photo_url
+    }
+  }
+  `;
+
+
+  executeGraphqlQuery(queryGetListaProductos, (data) => {
+
+      fetch('/product_list.hbs')
+      .then(response => response.text())
+      .then(templateStr => {
+      const template = Handlebars.compile(templateStr); // compila la plantilla
+      //const is_admin = is_admin();
+      data.products.map(product => product.is_admin = is_admin);
+      const html = template({products:data.products,is_admin}); // genera el html
+      document.getElementById("lstProductos").innerHTML = html; // inyecta el html
+      });
+      
+  });  
+
+
+}
 
       
 

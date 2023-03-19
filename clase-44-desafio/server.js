@@ -30,20 +30,6 @@ const CreateProductDto = require('./dtos/product.dto.js').CreateProductDto;
 const UpdateProductDto = require('./dtos/product.dto.js').UpdateProductDto;
 
 
-const schema = buildSchema(`
-    type Query {
-        hello: String
-    }
-`);
-
-
-/*
-
-query{
-  hello
-}
-
-*/
 
 const productSchema = buildSchema(`
     type Product {
@@ -51,14 +37,20 @@ const productSchema = buildSchema(`
         name: String
         price: Float
         description: String
+        code: String
+        stock: Int
+        photo_url: String
     }
 
     type Query {
         products: [Product]
+        product(uuid: String!): Product
     }
 
     type Mutation {
-        createProduct(name: String!, price: Float!, description: String!): Product
+        createProduct(name: String!, price: Float!, description: String!, code:String,stock:Int, photo_url:String): Product
+        updateProduct(uuid: String!, name: String!, price: Float!, description: String!, code:String,stock:Int, photo_url:String): Product
+        deleteProduct(uuid: String!): String
     }
 `);
 
@@ -102,25 +94,46 @@ const main = async () => {
         saveUninitialized: false
      }));
    
-     const root = {
-        hello: () => {
-              return 'Hello world!';
-        },
 
-     };
 
      const rootProduct = {
         products: async () => {
             return await productService.getAll();
         },
+        product: async (args) => {
+            const {uuid} = args;
+            return await productService.getOne(uuid);
+        },
         createProduct: async (args) => {
-            const { name, price, description} = args;
+            const {name, description, code, price, stock, photo_url} = args;
             const timestamp = new Date();
-            const product = new CreateProductDto(name, timestamp, description, "code", price, 0, "photo_url");
+            const product = new CreateProductDto(name, timestamp, description, code, price, stock, photo_url);
             const uuid = await productService.create(product);
             product.uuid = uuid;
             return product;
+        },
+        updateProduct: async (args) => {
+            const {uuid, name, description, code, price, stock, photo_url} = args;
+            const timestamp = new Date();
+            const product = new UpdateProductDto(name, timestamp, description, code, price, stock, photo_url);
+            const response = await productService.update(uuid, product);
+            if (response) {
+                product.uuid = uuid;
+                return product;
+            } else {
+                return null;
+            }
+        },
+        deleteProduct: async (args) => {
+            const {uuid} = args;
+            const response = await productService.delete(uuid);
+            if (response) {
+                return uuid;
+            } else {
+                return '';
+            }
         }
+
      };
 
 
@@ -130,13 +143,7 @@ const main = async () => {
         graphiql: true,
      }));
 
-     /*
-     app.use('/graphql', graphqlHTTP({
-        schema: schema,
-        rootValue: root,
-        graphiql: true,
-     }));
-     */
+
   
      app.use(passport.initialize());
   
