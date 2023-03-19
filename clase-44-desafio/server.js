@@ -54,31 +54,7 @@ const productSchema = buildSchema(`
     }
 `);
 
-/*
 
-query{
-  products {
-    uuid
-    name
-    price
-    description
-  }
-}
-
-//Make a mutation with graphql
-mutation{
-    createProduct(name: "Producto desde graphql", 
-                  price: 100, 
-                  description: "Descripcion desde graphql"){
-        uuid
-        name
-        price
-        description
-    }
-}
-
-
-*/
 
 
 const main = async () => {
