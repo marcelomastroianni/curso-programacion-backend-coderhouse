@@ -27,6 +27,22 @@ const queryUpdateProduct = (uuid,name,description,code,price,stock,photo_url) =>
   `;
 }
 
+const queryGetProduct = (uuid) => {
+  return `
+  query{
+    product(uuid: "${uuid}"){
+      uuid
+      name
+      price
+      description
+      code
+      stock
+      photo_url
+    }
+  }
+  `;
+}
+
 
       const get_product_uuid = () => {
         const params = new URLSearchParams(window.location.search);
@@ -75,11 +91,19 @@ const queryUpdateProduct = (uuid,name,description,code,price,stock,photo_url) =>
       }
 
       const getProductInfo = (uuid) => {
+
+        executeGraphqlQuery(queryGetProduct(uuid), (data) => {
+          console.log(data);
+          showProductForm(data.product);
+        });
+
+        /*
           performGet(`http://localhost:8080/api/productos/${uuid}`)
           .then((data) => {
             console.log(data);
             showProductForm(data);
           });
+        */
       }
             
 
