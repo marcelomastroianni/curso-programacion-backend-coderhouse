@@ -89,10 +89,15 @@ const main = async () => {
             return product;
         },
         updateProduct: async (args) => {
+      
             const {uuid, name, description, code, price, stock, photo_url} = args;
-            const timestamp = new Date();
-            const product = new UpdateProductDto(name, timestamp, description, code, price, stock, photo_url);
-            const response = await productService.update(uuid, product);
+            const product = new UpdateProductDto(name, description, code, price, stock, photo_url);
+            let response = null;
+            try{
+                response = await productService.update(uuid, product);            }
+            catch(err){
+                console.log("err",err);
+            }
             if (response) {
                 product.uuid = uuid;
                 return product;

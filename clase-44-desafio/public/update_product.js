@@ -1,3 +1,32 @@
+ //graphql execute query
+ const executeGraphqlQuery = (query,callback) => {
+  fetch('/graphql', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ query }),
+  })
+  .then(res => res.json())
+  .then(res => {
+    callback(res.data);
+  });
+}
+
+const queryUpdateProduct = (uuid,name,description,code,price,stock,photo_url) => {
+  return `
+  mutation{
+    updateProduct(uuid: "${uuid}", name: "${name}",description: "${description}",code: "${code}",price: ${price},stock: ${stock},photo_url: "${photo_url}"){
+      uuid
+      name
+      price
+      description
+      code
+      stock
+      photo_url
+    }
+  }
+  `;
+}
+
 
       const get_product_uuid = () => {
         const params = new URLSearchParams(window.location.search);
@@ -26,10 +55,10 @@
               let photo_url = document.forms["product_form"]["photo_url"].value;
     
 
-              performUpdate(`/api/productos/${prdoduct_uuid}`, { name, description, code, price, stock, photo_url})
-              .then((data) => {
+              executeGraphqlQuery(queryUpdateProduct(prdoduct_uuid,name,description,code,price,stock,photo_url), (data) => {
                 window.location.href = `/index.html`;
               });
+
             }
           });
       }
