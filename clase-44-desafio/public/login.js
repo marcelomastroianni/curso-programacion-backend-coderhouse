@@ -31,3 +31,41 @@
 
     }
     );
+
+
+
+    //Graphql queries
+    const query = `
+    query{
+      hello
+    }
+    `;
+
+    const query2 = `
+    query{
+      products{
+        uuid
+        title
+        price
+        thumbnail
+      }
+    }
+    `;
+
+    //graphql execute query
+    const executeQuery = (query) => {
+      fetch('/graphql', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query }),
+      })
+      .then(res => res.json())
+      .then(res => {
+        console.log(res.data);
+        alert(res.data.hello);
+      });
+    }
+      
+
+
+     executeQuery(query);  

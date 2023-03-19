@@ -17,6 +17,76 @@ const logger = require('./logger/logger.js');
 
 const getRouterUsers = require('./routes/user.router.js');
 
+//GraphQL imports
+const { graphqlHTTP } = require('express-graphql');
+const { buildSchema } = require('graphql');
+const crypto = require('crypto');
+
+//End GraphQL imports
+
+const ProductService = require('./services/product.service');
+const productService = new ProductService();
+const CreateProductDto = require('./dtos/product.dto.js').CreateProductDto;
+const UpdateProductDto = require('./dtos/product.dto.js').UpdateProductDto;
+
+
+const schema = buildSchema(`
+    type Query {
+        hello: String
+    }
+`);
+
+
+/*
+
+query{
+  hello
+}
+
+*/
+
+const productSchema = buildSchema(`
+    type Product {
+        uuid: String
+        name: String
+        price: Float
+        description: String
+    }
+
+    type Query {
+        products: [Product]
+    }
+
+    type Mutation {
+        createProduct(name: String!, price: Float!, description: String!): Product
+    }
+`);
+
+/*
+
+query{
+  products {
+    uuid
+    name
+    price
+    description
+  }
+}
+
+//Make a mutation with graphql
+mutation{
+    createProduct(name: "Producto desde graphql", 
+                  price: 100, 
+                  description: "Descripcion desde graphql"){
+        uuid
+        name
+        price
+        description
+    }
+}
+
+
+*/
 
 
 const main = async () => {
@@ -32,6 +102,41 @@ const main = async () => {
         saveUninitialized: false
      }));
    
+     const root = {
+        hello: () => {
+              return 'Hello world!';
+        },
+
+     };
+
+     const rootProduct = {
+        products: async () => {
+            return await productService.getAll();
+        },
+        createProduct: async (args) => {
+            const { name, price, description} = args;
+            const timestamp = new Date();
+            const product = new CreateProductDto(name, timestamp, description, "code", price, 0, "photo_url");
+            const uuid = await productService.create(product);
+            product.uuid = uuid;
+            return product;
+        }
+     };
+
+
+     app.use('/graphql', graphqlHTTP({
+        schema: productSchema,
+        rootValue: rootProduct,
+        graphiql: true,
+     }));
+
+     /*
+     app.use('/graphql', graphqlHTTP({
+        schema: schema,
+        rootValue: root,
+        graphiql: true,
+     }));
+     */
   
      app.use(passport.initialize());
   

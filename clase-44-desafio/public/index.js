@@ -25,10 +25,8 @@
       }
 
       
-      
 
-
-      
+    
 
 
       const get_cart_uuid = () => {
