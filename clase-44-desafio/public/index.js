@@ -87,6 +87,52 @@ const showProductList = (is_admin) => {
 
       const buyProduct = (uuid) => {
         if (cartUuid=='-'){
+
+          //Create carg through GraphQL
+
+          const queryCreateCart = `
+          mutation{
+            createCart{
+              uuid
+            }
+          }
+          `;
+          executeGraphqlQuery(queryCreateCart, (data) => {
+              cartUuid = data.createCart.uuid;
+              const queryAddProductToCart = `
+              mutation{
+                addProductToCart(uuid: "${cartUuid}", product_uuid: "${uuid}"){
+                  uuid
+                }
+              }
+              `;
+              executeGraphqlQuery(queryAddProductToCart, (data_add_product_response) => {
+                console.log(data_add_product_response);
+                //showCart(cartId);
+              });
+          });
+        }
+        else {
+
+          const queryAddProductToCart = `
+          mutation{
+            addProductToCart(uuid: "${cartUuid}", product_uuid: "${uuid}"){
+              uuid
+            }
+          }
+          `;
+          executeGraphqlQuery(queryAddProductToCart, (data_add_product_response) => {
+            console.log(data_add_product_response);
+            //showCart(cartId);
+          });
+          
+          
+        }
+
+      }
+    
+      /*
+
           performCreate(`/api/carrito`,{})
           .then((data) => {
             cartUuid = data.uuid;
@@ -105,6 +151,7 @@ const showProductList = (is_admin) => {
           });
         }
       }
+      */
 
 
       const showCart = () => {
