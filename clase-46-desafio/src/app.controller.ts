@@ -25,6 +25,14 @@ export class AppController {
     return req.user;
   }
 
+
+  //register
+  @Post('users/register')
+  async register(@Request() req) {
+    return (await this.authService.register(req.body));
+  }
+
+
   /*
     $ # GET /profile
     $ curl http://localhost:3000/profile

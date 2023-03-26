@@ -36,5 +36,18 @@ export class AuthService {
       access_token: this.jwtService.sign(payload),
     };
   }
+
+  async register(user: any) {
+    let response = await this.usersService.create(user);
+    if (response) {
+      const payload = { username: user.username, sub: user.uuid , is_admin: user.is_admin };
+      return { 
+        access_token: this.jwtService.sign(payload),
+      };
+    }else{
+      return null;
+    }
+  }
+
 }
 
