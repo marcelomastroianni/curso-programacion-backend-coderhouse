@@ -134,10 +134,12 @@
       let btnLogout = document.getElementById('btnLogout');
       btnLogout.addEventListener('click', function(e) {
         e.preventDefault();
-        postData('/api/users/logout', {})
+        window.sessionStorage.setItem("access_token", undefined);
+        window.location.href = "/logout.html?username="+data.username;
+        /*postData('/api/users/logout', {})
         .then((data_logout) => {
           window.location.href = "/logout.html?username="+data.body.username;
-        });
+        });*/
       });
 
       showProductList(is_admin());
