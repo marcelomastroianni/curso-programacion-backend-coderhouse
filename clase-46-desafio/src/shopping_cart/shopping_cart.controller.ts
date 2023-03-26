@@ -8,19 +8,37 @@ export class ShoppingCartController {
   constructor(private readonly shoppingCartService: ShoppingCartService) {}
 
   @Post()
-  create(@Body() createShoppingCartDto: CreateShoppingCartDto) {
-    return this.shoppingCartService.create(createShoppingCartDto);
+  async create() {
+    const timestamp = new Date();
+    const shoppingCart = new CreateShoppingCartDto(timestamp);
+    const uuid = await this.shoppingCartService.create(shoppingCart);
+    shoppingCart.uuid = uuid;
+    return shoppingCart;
+    //return this.shoppingCartService.create(createShoppingCartDto);
   }
 
-  @Get()
-  findAll() {
-    return this.shoppingCartService.findAll();
+  @Post(':uuid/productos')
+  async addProduct(@Param('uuid') uuid: string, @Body() product: any) {
+    const { product_uuid } = product;
+    const response = await this.shoppingCartService.addProduct(uuid, product_uuid);
+    if(response){
+       return response;
+    }else{
+       return {error: 'carrito de compras no encontrado'};
+    }
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.shoppingCartService.findOne(+id);
+  @Get(':uuid/productos')
+  async getProducts(@Param('uuid') uuid: string) {
+    const response = await this.shoppingCartService.getProducts(uuid);
+    if(response){
+        return response;
+    }else{
+        return {error: 'carrito de compras no encontrado'};
+    }
   }
+  
+
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateShoppingCartDto: UpdateShoppingCartDto) {
