@@ -27,6 +27,18 @@ export class ShoppingCartController {
     }
   }
 
+  @Delete(':uuid/productos/:product_uuid')
+  async removeProduct(@Param('uuid') uuid: string, @Param('product_uuid') product_uuid: string) {
+    const response = await this.shoppingCartService.deleteProduct(uuid, product_uuid);
+    if(response){
+        return response;
+    }else{
+        return {error: 'carrito de compras no encontrado'};
+    }
+  }
+
+
+
   @Get(':uuid/productos')
   async getProducts(@Param('uuid') uuid: string) {
     const response = await this.shoppingCartService.getProducts(uuid);

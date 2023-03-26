@@ -44,6 +44,27 @@ export class ShoppingCartService {
       }
   }
 
+  deleteProduct = async (uuid, product_uuid) => {
+        const shoppingCart = await this.cartDao.getById(uuid);
+        if (shoppingCart) {
+            const product = await this.productService.findOne(product_uuid);
+            if (product) {
+                const index = shoppingCart.products.findIndex(p => p.uuid === product.uuid);
+                if (index >= 0) {
+                    shoppingCart.products.splice(index, 1);
+                    await this.cartDao.updateById(uuid, shoppingCart);
+                    return shoppingCart;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
   async getProducts(uuid: string) {
     const shoppingCart = await this.cartDao.getById(uuid);
     if (shoppingCart) {
