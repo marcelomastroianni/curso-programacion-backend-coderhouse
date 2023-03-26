@@ -55,19 +55,14 @@ export class ShoppingCartService {
 
 
 
-  findAll() {
-    return `This action returns all shoppingCart`;
-  }
 
-  findOne(id: number) {
-    return `This action returns a #${id} shoppingCart`;
-  }
-
-  update(id: number, updateShoppingCartDto: UpdateShoppingCartDto) {
-    return `This action updates a #${id} shoppingCart`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} shoppingCart`;
+  async remove(uuid: string) {
+    const data = await this.cartDao.getById(uuid);
+    if (data) {
+        await this.cartDao.deleteById(uuid);
+        return true;
+    } else {
+        return false;
+    }
   }
 }

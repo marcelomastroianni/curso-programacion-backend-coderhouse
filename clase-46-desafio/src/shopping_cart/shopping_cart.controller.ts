@@ -14,7 +14,6 @@ export class ShoppingCartController {
     const uuid = await this.shoppingCartService.create(shoppingCart);
     shoppingCart.uuid = uuid;
     return shoppingCart;
-    //return this.shoppingCartService.create(createShoppingCartDto);
   }
 
   @Post(':uuid/productos')
@@ -39,14 +38,13 @@ export class ShoppingCartController {
   }
   
 
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateShoppingCartDto: UpdateShoppingCartDto) {
-    return this.shoppingCartService.update(+id, updateShoppingCartDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.shoppingCartService.remove(+id);
+  @Delete(':uuid')
+  async remove(@Param('uuid') uuid: string) {
+    const deleted = await this.shoppingCartService.remove(uuid);
+    if (deleted) {
+        return {description:"carrito eliminado"};
+    } else {
+        return {error: 'carrito no encontrado'};
+    }
   }
 }
