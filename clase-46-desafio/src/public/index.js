@@ -128,8 +128,11 @@
       //alert(`Bienvenido is_admin ${data.body.is_admin}`);
 
       window.sessionStorage.setItem("username", data.username);
-      window.sessionStorage.setItem("is_admin","true" );//data.is_admin);
-
+      if (data.is_admin){
+        window.sessionStorage.setItem("is_admin","true" );//data.is_admin);
+      }else{
+        window.sessionStorage.setItem("is_admin","false" );//data.is_admin);
+      }
 
       let btnLogout = document.getElementById('btnLogout');
       btnLogout.addEventListener('click', function(e) {
