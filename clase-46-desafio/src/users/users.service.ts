@@ -3,8 +3,19 @@ import { Injectable } from '@nestjs/common';
 // This should be a real class/interface representing a user entity
 export type User = any;
 
+import { DaoFactory } from '../daos/';
+
+
 @Injectable()
 export class UsersService {
+
+  usersDao: any;
+
+  constructor() {
+    this.usersDao = DaoFactory.getDao('usuarios');
+  }
+
+
   private readonly users = [
     {
       userId: 1,
@@ -19,6 +30,10 @@ export class UsersService {
   ];
 
   async findOne(username: string): Promise<User | undefined> {
-    return this.users.find(user => user.username === username);
+    const user = await this.usersDao.getByUsername(username);
+
+    return user;
+
+    //return this.users.find(user => user.username === username);
   }
 }

@@ -6,6 +6,9 @@ import { ContenedorMongoDB } from '../../contenedores/contenedor_mongodb';
 
 
 export class UsuariosDaoMongo extends ContenedorMongoDB {
+
+    modelo: any;
+
     constructor() {
         const schema = new mongoose.Schema({
             id : mongoose.Schema.Types.ObjectId,
@@ -23,11 +26,12 @@ export class UsuariosDaoMongo extends ContenedorMongoDB {
         });
         const modelo = mongoose.model('usuarios', schema);
         super(modelo);
+        this.modelo = modelo;
 
     
     }
 
     async getByUsername(username) {
-        return await super.modelo.findOne({username: username});
+        return await this.modelo.findOne({username: username});
     }
 }

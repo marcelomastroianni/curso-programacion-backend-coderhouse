@@ -146,12 +146,14 @@
     }else{
       divWelcomeMessage.style.display = "none";
       window.location.href = "/login.html";
+
+      console.log("data", data);
     }
   
   }).catch((error) => {
     console.log("Error:", error);
     divWelcomeMessage.style.display = "none";
-    //window.location.href = "/login.html";
+    window.location.href = "/login.html";
   });
 
      

@@ -24,7 +24,11 @@
 
             const access_token = data.access_token;
             window.sessionStorage.setItem("access_token", access_token);
+            console.log("access_token", access_token);
+            
             window.location.href = '/';
+
+
             /*
             if (data.status === 'ok') {
                 window.location.href = '/';
