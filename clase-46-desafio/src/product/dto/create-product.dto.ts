@@ -1,4 +1,5 @@
 export class CreateProductDto {
+    uuid: string;
     name: string;
     timestamp: string;
     description: string;

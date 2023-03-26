@@ -17,7 +17,8 @@ export class ProductService {
 
   async create(createProductDto: CreateProductDto) {
     const uuid = await this.productDao.save(createProductDto);
-    return uuid;
+    createProductDto.uuid = uuid;
+    return createProductDto;
   }
 
   async findAll() {
