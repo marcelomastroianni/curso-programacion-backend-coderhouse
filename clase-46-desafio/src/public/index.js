@@ -75,13 +75,16 @@
 
       
       async function getData(url = '') {
+        const access_token = window.sessionStorage.getItem("access_token");
+
         const response = await fetch(url, {
           method: 'GET',
           mode: 'cors', 
           cache: 'no-cache',
           credentials: 'same-origin', 
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+access_token
           },
           redirect: 'follow', 
           referrerPolicy: 'no-referrer'
@@ -91,13 +94,16 @@
 
       
   async function postData(url = '', data = {}) {
+    const access_token = window.sessionStorage.getItem("access_token");
+
     const response = await fetch(url, {
       method: 'POST',
       mode: 'cors', 
       cache: 'no-cache',
       credentials: 'same-origin', 
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer '+access_token
       },
       redirect: 'follow', 
       referrerPolicy: 'no-referrer',
@@ -107,20 +113,22 @@
   }
       
 
+  
+
   //Se consulta el usuario logueado, en caso de no estar logueado se redirecciona al login
   getData("api/users/profile")
   .then((data) => {
     let divWelcomeMessage = document.getElementById('divWelcomeMessage');
     let txtWelcomeMessage = document.getElementById('txtWelcomeMessage');
-    if (data.body.username){
+    if (data.username){
       divWelcomeMessage.style.display = "block";
-      txtWelcomeMessage.innerHTML = `Bienvenido ${data.body.username}`;
+      txtWelcomeMessage.innerHTML = `Bienvenido ${data.username}`;
       console.log("Bienvenido", data);
       //alert(`Bienvenido ${data.body.username}`);
       //alert(`Bienvenido is_admin ${data.body.is_admin}`);
 
-      window.sessionStorage.setItem("username", data.body.username);
-      window.sessionStorage.setItem("is_admin", data.body.is_admin);
+      window.sessionStorage.setItem("username", data.username);
+      window.sessionStorage.setItem("is_admin","true" );//data.is_admin);
 
 
       let btnLogout = document.getElementById('btnLogout');
@@ -140,6 +148,10 @@
       window.location.href = "/login.html";
     }
   
+  }).catch((error) => {
+    console.log("Error:", error);
+    divWelcomeMessage.style.display = "none";
+    //window.location.href = "/login.html";
   });
 
      

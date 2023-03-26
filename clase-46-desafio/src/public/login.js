@@ -20,12 +20,18 @@
             window.location.href = response.url;
         }else{
             const data = await response.json();
+
+
+            const access_token = data.access_token;
+            window.sessionStorage.setItem("access_token", access_token);
+            window.location.href = '/';
+            /*
             if (data.status === 'ok') {
                 window.location.href = '/';
             }
             else {
                 alert(data.body.error);
-            }
+            }*/
         }
 
 

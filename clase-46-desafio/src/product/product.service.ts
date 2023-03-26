@@ -15,8 +15,9 @@ export class ProductService {
 
 
 
-  create(createProductDto: CreateProductDto) {
-    return 'This action adds a new product';
+  async create(createProductDto: CreateProductDto) {
+    const uuid = await this.productDao.save(createProductDto);
+    return uuid;
   }
 
   async findAll() {
@@ -25,15 +26,24 @@ export class ProductService {
     return data;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} product`;
+  async findOne(uuid: string) {
+    //return `This action returns a #${id} product`;
+    const data = await this.productDao.getById(uuid);
+    return data;
   }
 
-  update(id: number, updateProductDto: UpdateProductDto) {
-    return `This action updates a #${id} product`;
+  async update(uuid: string, updateProductDto: UpdateProductDto) {
+    const response = await this.productDao.updateById(uuid, updateProductDto);
+    return response;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} product`;
+  async remove(uuid: string) {
+    const data = await this.productDao.getById(uuid);
+    if (data) {
+        await this.productDao.deleteById(uuid);
+        return true;
+    } else {
+        return false;
+    }
   }
 }
