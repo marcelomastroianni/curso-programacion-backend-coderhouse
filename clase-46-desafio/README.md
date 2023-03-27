@@ -35,7 +35,6 @@ $ npm install
 ## Variables de entorno:
 
 
-
 MONGODB_DATABASE_URL: URL de la base de datos de Mongodb
 
 TIPO_PERSISTENCIA: En esta variable se indica el tipo de persistencia. Valores posibles: archivo, memoria, mongodb.
@@ -43,14 +42,10 @@ TIPO_PERSISTENCIA: En esta variable se indica el tipo de persistencia. Valores p
 ## Running the app
 
 ```bash
-# development
-$ npm run start
 
 # watch mode
 $ npm run start:dev
 
-# production mode
-$ npm run start:prod
 ```
 
 Para correr la aplicacion en modo admin se debe registrarse y loguearse con un usuario del tipo admin.
@@ -60,17 +55,7 @@ http://localhost:8080/
 De lo contrario no se podrian dar de alta productos o modificarlos.
 
 
-## Test
 
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
 ```
 
 
