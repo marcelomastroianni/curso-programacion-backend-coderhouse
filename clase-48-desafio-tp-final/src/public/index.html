@@ -12,11 +12,15 @@
     <!-- incluir handlebars desde el CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
     <!-------------------------------->
+    <!--Socket.io--------------------->
+    <script src="https://cdn.socket.io/4.3.2/socket.io.min.js" integrity="sha384-KAZ4DtjNhLChOB/hxXuKqhMLYvx3b5MlT55xPEiNmREKRzeEm+RVPlTnAn0ajQNs" crossorigin="anonymous"></script>
+    <!-------------------------------->
+
     <link rel="stylesheet" href="./style.css" type="text/css">
     <script src="./permissions.js"></script>
     <script src="./http_client.js"></script>
     <script src="./client_validations.js"></script>
-    <script src="./index.js"></script>
+
   </head>
   <body>
     <div style="background-color:white;padding:20px">
@@ -32,6 +36,35 @@
         <div id="lstProductos"></div> <!-- para inyectar el resultado -->
         <br/>
       </div>
+
+
+      <div style="background-color:LightGray;padding:20px;height: auto;margin-top: 20px;">
+
+
+        <h1 style="color:blue">Centro de Mensajes</h1>
+
+        <form name="message_form" id="message_form" action="">
+          <input id="txtEmail" name="email" class="form-control" style="width: 500px;margin-top:50px" placeholder="Ingresá un email"  autocomplete="off" />
+
+          <br/>
+          <hr/>
+
+          <ul id="messages"></ul>
+            <div class="row">
+              <div class="col-3">
+                <input id="input" name="message" class="form-control" style="width: 300px" placeholder="Ingresá un mensaje..."  autocomplete="off" />
+              </div>
+              <div class="col-9">
+                <button type="submit" class="btn btn-primary">Enviar!</button>
+              </div>  
+          </div>
+        </form>
+
+
+      </div>
+
+
     </div>
   </body>
+  <script src="./index.js"></script>
 </html>

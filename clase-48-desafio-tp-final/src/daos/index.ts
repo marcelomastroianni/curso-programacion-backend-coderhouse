@@ -11,6 +11,9 @@ import { UsuariosDaoArchivo } from './usuarios/usuarios_dao_archivo';
 import { UsuariosDaoMemoria } from './usuarios/usuarios_dao_memoria';
 import { UsuariosDaoMongo } from './usuarios/usuarios_dao_mongodb';
 
+import { MensajesDaoArchivo } from './mensajes/mensajes_dao_archivo';
+import { MensajesDaoMemoria } from './mensajes/mensajes_dao_memoria';
+import { MensajesDaoMongo } from './mensajes/mensajes_dao_mongodb';
 
 
 
@@ -25,6 +28,9 @@ let instanciaUsuariosDaoArchivo = null;
 let instanciaUsuariosDaoMemoria = null;
 let instanciaUsuariosDaoMongo = null;
 
+let instanciaMensajesDaoArchivo = null;
+let instanciaMensajesDaoMemoria = null;
+let instanciaMensajesDaoMongo = null;
 
 
 
@@ -100,6 +106,26 @@ export class DaoFactory {
                     instanciaUsuariosDaoMongo = new UsuariosDaoMongo();
                 }
                 return instanciaUsuariosDaoMongo;
+            }
+
+        }
+        else if (tipo === 'mensajes') {
+            if (tipoPersistencia === 'archivo') {
+                if (!instanciaMensajesDaoArchivo) {
+                    instanciaMensajesDaoArchivo = new MensajesDaoArchivo();
+                }
+                return instanciaMensajesDaoArchivo;
+            } else if (tipoPersistencia === 'memoria') {
+                if (!instanciaMensajesDaoMemoria) {
+                    instanciaMensajesDaoMemoria = new MensajesDaoMemoria();
+                }
+                return instanciaMensajesDaoMemoria;
+            }
+            else if (tipoPersistencia === 'mongodb') {
+                if (!instanciaMensajesDaoMongo) {
+                    instanciaMensajesDaoMongo = new MensajesDaoMongo();
+                }
+                return instanciaMensajesDaoMongo;
             }
 
         }

@@ -7,6 +7,8 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { ChatGateway } from './chat/chat.gateway';
+
 
 @Module({
   imports: [ProductModule, ShoppingCartModule,
@@ -16,6 +18,6 @@ import { UsersModule } from './users/users.module';
     AuthModule,
     UsersModule,],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService,ChatGateway],
 })
 export class AppModule {}

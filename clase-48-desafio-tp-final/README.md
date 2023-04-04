@@ -32,6 +32,13 @@
 $ npm install
 ```
 
+## Docker Command:
+
+Para levantar el contenedor de Mongodb se debe ejecutar el siguiente comando:
+
+docker run --name mongodb -d -p 27017:27017  mongo
+
+
 ## Variables de entorno:
 
 

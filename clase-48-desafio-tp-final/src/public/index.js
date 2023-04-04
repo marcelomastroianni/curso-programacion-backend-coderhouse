@@ -161,4 +161,48 @@
     window.location.href = "/login.html";
   });
 
-     
+
+  function validateMessageForm() {
+    let email = document.forms["message_form"]["email"].value;
+    if (!email) {
+      alert("Ingrese su email");
+      return false;
+    }
+
+    let message = document.forms["message_form"]["message"].value;
+    if (!message) {
+      alert("Ingrese su mensaje");
+      return false;
+    }
+    
+    return true;
+  }
+  
+  
+  const socket = io('http://localhost:8080');
+
+  let messages = document.getElementById('messages');
+  let message_form = document.getElementById('message_form');
+  let input = document.getElementById('input');
+  let txtEmail = document.getElementById('txtEmail');
+
+  message_form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    if(validateMessageForm()){
+      if (input.value) {
+        socket.emit('chat message', {email:txtEmail.value, msg:input.value});
+        input.value = '';
+      }
+    }
+  });
+
+  socket.on('all messages', function(lstMessages) {
+    fetch('/messageList.hbs')
+      .then(response => response.text())
+      .then(templateStr => {
+        const template = Handlebars.compile(templateStr); // compila la plantilla
+        const html = template({messages:lstMessages}); // genera el html
+        messages.innerHTML = "";
+        messages.innerHTML = html; // inyecta el resultado en la vista
+      });
+  });
