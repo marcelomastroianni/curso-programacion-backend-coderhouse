@@ -7,4 +7,14 @@ https://github.com/alexmarinmendez/32160-clase-43-generator
 https://github.com/alexmarinmendez/32160-clase-43-swagger-demo-1
 https://github.com/alexmarinmendez/32160-clase-44-graphql
 https://github.com/alexmarinmendez/32160-clase-45-adonis
-https://github.com/alexmarinmendez/32160-clase-48-api-deno
+https://github.com/alexm
+arinmendez/32160-clase-48-api-deno
+
+Nestjs - websockets
+https://docs.nestjs.com/websockets/gateways
+https://github.com/nestjs/nest/blob/master/sample/02-gateways/src/events/events.gateway.ts
+https://www.npmjs.com/package/@nestjs/websockets
+https://snyk.io/advisor/npm-package/@nestjs/websockets/example
+https://github.com/danielwii/asuna-node-server/blob/cbebc0e342bb61e5d95233e28903c81006b8ece6/src/modules/ws/socket-io.gateway.ts
+https://www.youtube.com/watch?v=geGcMSCtDVk
+https://github.com/leifermendez/nest-js-socket/blob/master/backend/src/chat/chat.gateway.ts
