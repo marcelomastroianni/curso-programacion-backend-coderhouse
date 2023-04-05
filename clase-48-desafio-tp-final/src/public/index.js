@@ -190,7 +190,14 @@
     e.preventDefault();
     if(validateMessageForm()){
       if (input.value) {
-        socket.emit('chat message', {email:txtEmail.value, msg:input.value});
+        const is_admin = window.sessionStorage.getItem("is_admin");
+        if (is_admin == "true"){
+          msg_type = "sistema";
+        }
+        else{
+          msg_type = "usuario";
+        }
+        socket.emit('chat message', {email:txtEmail.value, msg:input.value, type:msg_type});
         input.value = '';
       }
     }

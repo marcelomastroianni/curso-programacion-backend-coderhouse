@@ -15,7 +15,8 @@ export class MensajesDaoMongo extends ContenedorMongoDB {
             uuid: String,
             created_at: String,
             msg: String,
-            email: String
+            email: String,
+            type: String,
         });
         const modelo = mongoose.model('mensajes', schema);
         super(modelo);
