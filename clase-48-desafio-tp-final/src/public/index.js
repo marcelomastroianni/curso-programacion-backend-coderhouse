@@ -8,8 +8,8 @@
        }
 
       const showProductList = (is_admin) => {
-        fetch('/api/productos')
-        .then(response => response.json())
+
+        getData('/api/productos')
         .then(products => {
             // fetch template from server
             fetch('/product_list.hbs')

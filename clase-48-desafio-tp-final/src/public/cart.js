@@ -16,8 +16,9 @@
       const showCart = (cartUuid) => {
         console.log("cartUuid:", cartUuid);
         
-        fetch(`/api/carrito/${cartUuid}/productos`)
-        .then(response => response.json())
+        performGet(`/api/carrito/${cartUuid}/productos`)
+        //fetch(`/api/carrito/${cartUuid}/productos`)
+        //.then(response => response.json())
         .then(products => {
             // fetch template from server
             fetch('/cart.hbs')
