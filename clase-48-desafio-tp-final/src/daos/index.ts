@@ -15,6 +15,9 @@ import { MensajesDaoArchivo } from './mensajes/mensajes_dao_archivo';
 import { MensajesDaoMemoria } from './mensajes/mensajes_dao_memoria';
 import { MensajesDaoMongo } from './mensajes/mensajes_dao_mongodb';
 
+import { OrdenesDaoArchivo } from './ordenes/ordenes_dao_archivo';
+import { OrdenesDaoMemoria } from './ordenes/ordenes_dao_memoria';
+import { OrdenesDaoMongo } from './ordenes/ordenes_dao_mongodb';
 
 
 //Usamos el patron de diseño singleton para que solo exista una instancia de cada dao
@@ -31,6 +34,10 @@ let instanciaUsuariosDaoMongo = null;
 let instanciaMensajesDaoArchivo = null;
 let instanciaMensajesDaoMemoria = null;
 let instanciaMensajesDaoMongo = null;
+
+let instanciaOrdenesDaoArchivo = null;
+let instanciaOrdenesDaoMemoria = null;
+let instanciaOrdenesDaoMongo = null;
 
 
 
@@ -128,6 +135,25 @@ export class DaoFactory {
                 return instanciaMensajesDaoMongo;
             }
 
+        }
+        else if (tipo === 'ordenes') {
+            if (tipoPersistencia === 'archivo') {
+                if (!instanciaOrdenesDaoArchivo) {
+                    instanciaOrdenesDaoArchivo = new OrdenesDaoArchivo();
+                }
+                return instanciaOrdenesDaoArchivo;
+            } else if (tipoPersistencia === 'memoria') {
+                if (!instanciaOrdenesDaoMemoria) {
+                    instanciaOrdenesDaoMemoria = new OrdenesDaoMemoria();
+                }
+                return instanciaOrdenesDaoMemoria;
+            }
+            else if (tipoPersistencia === 'mongodb') {
+                if (!instanciaOrdenesDaoMongo) {
+                    instanciaOrdenesDaoMongo = new OrdenesDaoMongo();
+                }
+                return instanciaOrdenesDaoMongo;
+            }
         }
     }
 }
