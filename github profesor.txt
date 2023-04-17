@@ -18,3 +18,6 @@ https://snyk.io/advisor/npm-package/@nestjs/websockets/example
 https://github.com/danielwii/asuna-node-server/blob/cbebc0e342bb61e5d95233e28903c81006b8ece6/src/modules/ws/socket-io.gateway.ts
 https://www.youtube.com/watch?v=geGcMSCtDVk
 https://github.com/leifermendez/nest-js-socket/blob/master/backend/src/chat/chat.gateway.ts
+
+https://ethereal.email/messages
+
