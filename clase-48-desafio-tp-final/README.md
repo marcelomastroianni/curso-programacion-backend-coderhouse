@@ -49,7 +49,12 @@ TIPO_PERSISTENCIA: En esta variable se indica el tipo de persistencia. Valores p
 PORT: Puerto en el que se ejecuta el servicio
 
 Cambiar tambien host y puerto en archivo del frontend public/index.js
+
 const socket = io('http://localhost:8080');
+
+SESION_EXPIRATION: Tiempo en segundos de duracion de la sesion del usuario
+
+SESION_SECRET: Clave secreta para manejar la sesion
 
 ## Running the app
 
