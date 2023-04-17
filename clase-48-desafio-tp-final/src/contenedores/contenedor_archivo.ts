@@ -1,5 +1,5 @@
 
-import fs from 'fs';
+import * as fs from 'fs';
 
 
 //const { v4: uuidv4 } = require('uuid');

@@ -1,9 +1,16 @@
-//const dotenv = require('dotenv');
-
 import * as dotenv from 'dotenv';
+import * as path from 'path';
+
 
 //Configuracion de dotenv
-dotenv.config();
+
+if (process.env.NODE_ENV === 'production') {
+    dotenv.config();
+} else if (process.env.NODE_ENV === 'development') {
+    //dotenv.config({ path: 'env.dev' });
+    dotenv.config({ path: path.resolve(__dirname, '../../.env.dev')});
+}
+
 //End Configuracion de dotenv
 
 export let config = {
