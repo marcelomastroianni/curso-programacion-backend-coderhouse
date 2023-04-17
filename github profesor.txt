@@ -21,3 +21,5 @@ https://github.com/leifermendez/nest-js-socket/blob/master/backend/src/chat/chat
 
 https://ethereal.email/messages
 
+
+https://medium.com/weekly-webtips/deploying-a-nestjs-app-with-heroku-5fa84cb5b6c6

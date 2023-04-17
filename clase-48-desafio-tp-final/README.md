@@ -72,6 +72,12 @@ http://localhost:8080/
 De lo contrario no se podrian dar de alta productos o modificarlos.
 
 
+## URL proyecto deployado en Heroku
+
+
+https://app-coderhouse-backend.herokuapp.com/
+
+
 
 ```
 
