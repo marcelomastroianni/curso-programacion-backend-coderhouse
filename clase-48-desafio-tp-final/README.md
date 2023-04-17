@@ -46,6 +46,11 @@ MONGODB_DATABASE_URL: URL de la base de datos de Mongodb
 
 TIPO_PERSISTENCIA: En esta variable se indica el tipo de persistencia. Valores posibles: archivo, memoria, mongodb.
 
+PORT: Puerto en el que se ejecuta el servicio
+
+Cambiar tambien host y puerto en archivo del frontend public/index.js
+const socket = io('http://localhost:8080');
+
 ## Running the app
 
 ```bash

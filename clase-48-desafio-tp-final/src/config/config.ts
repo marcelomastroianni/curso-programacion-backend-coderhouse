@@ -14,10 +14,12 @@ if (process.env.NODE_ENV === 'production') {
 //End Configuracion de dotenv
 
 export let config = {
-    //PORT: process.env.PORT || 8080,
+    PORT: process.env.PORT || 8080,
     TIPO_PERSISTENCIA: process.env.TIPO_PERSISTENCIA || 'memoria',
     //FIREBASE_DATABASE_URL: process.env.FIREBASE_DATABASE_URL,
     //FIREBASE_CONFIG_FILE: process.env.FIREBASE_CONFIG_FILE,
     MONGODB_DATABASE_URL: process.env.MONGODB_DATABASE_URL,
     //SESSION_SECRET: process.env.SESSION_SECRET
+    SESION_EXPIRATION: process.env.SESION_EXPIRATION,
+    SESION_SECRET: process.env.SESION_SECRET
 }
