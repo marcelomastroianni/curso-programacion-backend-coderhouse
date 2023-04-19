@@ -31,25 +31,15 @@ import {
 
   
     afterInit(server: any) {
-      console.log('Esto se ejecuta cuando inicia')
     }
   
     async handleConnection(client: any, ...args: any[]) {
-      console.log('Hola alguien se conecto al socket 👌👌👌');
       const messages = await this.mensajesDao.getAll();
       client.emit('all messages', messages)
     }
   
     handleDisconnect(client: any) {
-      console.log('ALguien se fue! chao chao')
     }
-
-    /*
-    @SubscribeMessage('event_get_messages')
-    async handleGetMessages(client: Socket, room: string) {
-        const messages = await this.mensajesDao.getAll();
-        client.emit('messages', messages);
-    }*/
 
     @SubscribeMessage('chat message')
     async handleChatMessage(client: Socket, msg) {
@@ -66,28 +56,5 @@ import {
         this.server.emit('all messages', messages)
 
     }
-  
-  
-    /*
-    @SubscribeMessage('event_join')
-    handleJoinRoom(client: Socket, room: string) {
-      client.join(`room_${room}`);
-    }
-  
-    @SubscribeMessage('event_message') //TODO Backend
-    handleIncommingMessage(
-      client: Socket,
-      payload: { room: string; message: string },
-    ) {
-      const { room, message } = payload;
-      console.log(payload)
-      this.server.to(`room_${room}`).emit('new_message',message);
-    }
-  
-    @SubscribeMessage('event_leave')
-    handleRoomLeave(client: Socket, room:string) {
-      console.log(`chao room_${room}`)
-      client.leave(`room_${room}`);
-    }
-    */
+
   }

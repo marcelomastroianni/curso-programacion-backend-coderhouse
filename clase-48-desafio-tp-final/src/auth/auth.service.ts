@@ -4,6 +4,7 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { createTransport } from 'nodemailer';
 
+import { config } from '../config/config';
 
 
 @Injectable()
@@ -42,30 +43,45 @@ export class AuthService {
   }
 
   async sendNewUserCreatedEmail(user: any) {
-    const TEST_MAIL = 'jaiden97@ethereal.email';
-    const TEST_MAIL_PASSWORD = 'M9KhTan3sYtc7u2ah5';
-    const TEST_MAIL_FROM = 'jaiden97@ethereal.email'
 
-    const transporter = createTransport({
-       host: 'smtp.ethereal.email',
-       port: 587,
-       auth: {
-           user: TEST_MAIL,
-           pass: TEST_MAIL_PASSWORD
-       }
-    });
+    let transporter;
+    
+    if (config.MAIL_SERVICE_TYPE === 'gmail') {
+      transporter = createTransport({
+        service: 'gmail',
+        port: 587,
+        auth: {
+            user: config.MAIL_FROM,
+            pass: config.MAIL_PASSWORD
+        }
+      });
+    } else if (config.MAIL_SERVICE_TYPE === 'ethereal') {
+      transporter = createTransport({
+        host: 'smtp.ethereal.email',
+        port: 587,
+        auth: {
+            user: config.MAIL_FROM,
+            pass: config.MAIL_PASSWORD
+        }
+      });
+    }
 
 
     const mailTemplate = `
-    <h1 style="color: black;">Se ha registrado un nuevo usuario: ${user.username}</h1>
+    <h1 style="color: black;">Se ha registrado un nuevo usuario:</h1>
+    <p>Nombre: ${user.username}</p>
     <p>Es administrador: ${user.is_admin}</p>
     <p>Email: ${user.email}</p>
-
+    <p>Telefono: ${user.phone}</p>
+    <p>Avatar: ${user.avatar}</p>
+    <p>Direccion: ${user.address}</p>
+    <p>Alias: ${user.alias}</p>
+    <p>Edad: ${user.edad}</p>
     `
 
     
     const mailOptions = {
-        from: TEST_MAIL_FROM,
+        from: config.MAIL_FROM,
         to: 'marcelomastroianni@gmail.com',
         subject: 'Se ha registrado un nuevo usuario!',
         html: mailTemplate

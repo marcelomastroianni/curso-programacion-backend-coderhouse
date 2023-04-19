@@ -21,5 +21,10 @@ export let config = {
     MONGODB_DATABASE_URL: process.env.MONGODB_DATABASE_URL,
     //SESSION_SECRET: process.env.SESSION_SECRET
     SESION_EXPIRATION: process.env.SESION_EXPIRATION,
-    SESION_SECRET: process.env.SESION_SECRET
+    SESION_SECRET: process.env.SESION_SECRET,
+    //EMAIL
+    MAIL_FROM:process.env.MAIL_FROM,
+    MAIL_PASSWORD:process.env.MAIL_PASSWORD,
+    MAIL_SERVICE_TYPE:process.env.MAIL_SERVICE_TYPE
+
 }
