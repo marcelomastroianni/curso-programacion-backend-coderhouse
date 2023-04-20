@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards ,Headers} from '@nestjs/common';
 import { ShoppingCartService } from './shopping_cart.service';
 import { CreateShoppingCartDto } from './dto/create-shopping_cart.dto';
 import { UpdateShoppingCartDto } from './dto/update-shopping_cart.dto';
@@ -8,11 +8,26 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 export class ShoppingCartController {
   constructor(private readonly shoppingCartService: ShoppingCartService) {}
 
+
+  decodeJwt (token) {
+    return JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString());
+  }
+
+  getEmailFromJWT(authorization){
+    let payload = this.decodeJwt(authorization);
+    return payload.email;
+  }
+
+
   @UseGuards(JwtAuthGuard)
   @Post()
-  async create() {
+  async create(
+    @Headers('Authorization') authorization: string,
+
+  ) {
     const timestamp = new Date();
-    const shoppingCart = new CreateShoppingCartDto(timestamp);
+    const email = this.getEmailFromJWT(authorization);
+    const shoppingCart = new CreateShoppingCartDto(timestamp,email);
     const uuid = await this.shoppingCartService.create(shoppingCart);
     shoppingCart.uuid = uuid;
     return shoppingCart;

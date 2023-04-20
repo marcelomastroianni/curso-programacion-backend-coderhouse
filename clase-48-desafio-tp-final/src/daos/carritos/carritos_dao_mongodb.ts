@@ -22,6 +22,7 @@ export class CarritosDaoMongo extends ContenedorMongoDB {
             id : mongoose.Schema.Types.ObjectId,
             uuid: String,
             timestamp: String,
+            email: String,
             products: [{}],
         });
         const modelo = mongoose.model('carritos', schema);
