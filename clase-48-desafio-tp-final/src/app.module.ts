@@ -8,6 +8,7 @@ import { join } from 'path';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { ChatGateway } from './chat/chat.gateway';
+import { OrderModule } from './order/order.module';
 
 
 @Module({
@@ -16,7 +17,8 @@ import { ChatGateway } from './chat/chat.gateway';
       rootPath: join(__dirname, '..', 'src/public'),
     }),
     AuthModule,
-    UsersModule,],
+    UsersModule,
+    OrderModule,],
   controllers: [AppController],
   providers: [AppService,ChatGateway],
 })

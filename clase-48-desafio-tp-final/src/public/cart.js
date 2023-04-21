@@ -56,6 +56,15 @@
 
     showCart(get_cart_uuid());
 
+
+    const performBuy = () => {
+        const cartUuid = get_cart_uuid();
+        performCreate(`/api/order`, {shopping_cart_uuid: cartUuid})
+        .then((data) => {
+            alert("Compra realizada con éxito");
+            window.location.href = `/index.html`;
+        });
+    }
       
       
       
