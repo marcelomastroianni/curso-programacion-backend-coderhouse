@@ -8,10 +8,12 @@ import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt.strategy';
 
 import {config } from '../config/config';
+import { MailModule } from '../mail/mail.module';
 
 @Module({
   imports: [
     forwardRef(() => UsersModule),
+    MailModule,
     PassportModule,
     JwtModule.register({
       secret: config.SESION_SECRET,

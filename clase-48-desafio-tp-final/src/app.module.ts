@@ -9,6 +9,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { ChatGateway } from './chat/chat.gateway';
 import { OrderModule } from './order/order.module';
+import { MailModule } from './mail/mail.module';
 
 
 @Module({
@@ -18,7 +19,8 @@ import { OrderModule } from './order/order.module';
     }),
     AuthModule,
     UsersModule,
-    OrderModule,],
+    OrderModule,
+    MailModule,],
   controllers: [AppController],
   providers: [AppService,ChatGateway],
 })
