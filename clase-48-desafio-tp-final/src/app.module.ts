@@ -10,6 +10,7 @@ import { UsersModule } from './users/users.module';
 import { ChatGateway } from './chat/chat.gateway';
 import { OrderModule } from './order/order.module';
 import { MailModule } from './mail/mail.module';
+import { MessageModule } from './message/message.module';
 
 
 @Module({
@@ -20,7 +21,8 @@ import { MailModule } from './mail/mail.module';
     AuthModule,
     UsersModule,
     OrderModule,
-    MailModule,],
+    MailModule,
+    MessageModule,],
   controllers: [AppController],
   providers: [AppService,ChatGateway],
 })
