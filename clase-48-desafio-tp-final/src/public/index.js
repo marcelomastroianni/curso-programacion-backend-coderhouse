@@ -184,6 +184,15 @@
         window.sessionStorage.setItem("is_admin","false" );//data.is_admin);
       }
 
+      var btnServiceConfig = document.getElementById('btnServiceConfig');
+
+      if (window.sessionStorage.getItem("is_admin")=="true"){
+        btnServiceConfig.style.display = "block";
+      }
+      else{
+        btnServiceConfig.style.display = "none";
+      }
+
       let btnLogout = document.getElementById('btnLogout');
       btnLogout.addEventListener('click', function(e) {
         e.preventDefault();
@@ -263,3 +272,6 @@
         messages.innerHTML = html; // inyecta el resultado en la vista
       });
   });
+
+
+  

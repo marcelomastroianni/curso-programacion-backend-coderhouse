@@ -21,7 +21,7 @@ export class AppController {
   }
 
 
-  @UseGuards(JwtAuthGuard)
+  //@UseGuards(JwtAuthGuard)
   @Get('config')
   getConfig(): any {
     return this.appService.getConfig();
