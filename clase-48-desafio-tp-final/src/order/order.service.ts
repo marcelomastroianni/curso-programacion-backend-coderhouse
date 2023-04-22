@@ -37,11 +37,6 @@ export class OrderService {
 
   }
 
-  findAll() {
 
-  }
-
-  findOne(id: number) {
-  }
 
 }

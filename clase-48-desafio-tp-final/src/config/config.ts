@@ -25,6 +25,7 @@ export let config = {
     //EMAIL
     MAIL_FROM:process.env.MAIL_FROM,
     MAIL_PASSWORD:process.env.MAIL_PASSWORD,
-    MAIL_SERVICE_TYPE:process.env.MAIL_SERVICE_TYPE
+    MAIL_SERVICE_TYPE:process.env.MAIL_SERVICE_TYPE,
+    MAIL_TO:process.env.MAIL_TO,
 
 }

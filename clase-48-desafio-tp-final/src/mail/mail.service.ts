@@ -52,7 +52,7 @@ export class MailService {
         
         const mailOptions = {
             from: config.MAIL_FROM,
-            to: 'marcelomastroianni@gmail.com',
+            to: config.MAIL_TO,
             subject: 'Se ha registrado un nuevo usuario!',
             html: mailTemplate
         }
@@ -117,7 +117,7 @@ export class MailService {
         
         const mailOptions = {
             from: config.MAIL_FROM,
-            to: 'marcelomastroianni@gmail.com',
+            to: config.MAIL_TO,
             subject: 'Se ha registrado una nueva orden!',
             html: mailTemplate
         }
