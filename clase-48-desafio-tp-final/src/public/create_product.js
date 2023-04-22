@@ -11,8 +11,9 @@
               let price = document.forms["product_form"]["price"].value;
               let stock = document.forms["product_form"]["stock"].value;
               let photo_url = document.forms["product_form"]["photo_url"].value;
+              let category = document.forms["product_form"]["category"].value;
 
-              performCreate(`/api/productos`, { name, description, code, price, stock, photo_url})
+              performCreate(`/api/productos`, { name, description, code, price, stock, photo_url, category})
               .then((data) => {
                 window.location.href = `/index.html`;
               });

@@ -22,6 +22,12 @@ export class ProductController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Get('category/:category')
+  findAllByCategory(@Param('category') category: string) {
+    return this.productService.findAllByCategory(category);
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Get(':uuid')
   findOne(@Param('uuid') uuid: string) {
     return this.productService.findOne(uuid);

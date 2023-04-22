@@ -7,6 +7,56 @@
          });
        }
 
+
+      /*  Bind category form with click event */
+
+      
+      const bindCategoryForm = () => {
+        let categoryForm = document.getElementById('category_form');
+
+        categoryForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            let category = document.forms["category_form"]["category"].value;
+
+            if (category != '') { 
+              getData(`/api/productos/category/${category}`)
+              .then(products => {
+                  // fetch template from server
+                  fetch('/product_list.hbs')
+                      .then(response => response.text())
+                      .then(templateStr => {
+                      const template = Handlebars.compile(templateStr); // compila la plantilla
+                      //const is_admin = is_admin();
+                      products.map(product => product.is_admin = is_admin);
+                      const html = template({products,is_admin}); // genera el html
+                      document.getElementById("lstProductos").innerHTML = html; // inyecta el html
+                      });
+              });
+            } else{
+              //Traigo todos los productos.
+              getData(`/api/productos`)
+              .then(products => {
+                  // fetch template from server
+                  fetch('/product_list.hbs')
+                      .then(response => response.text())
+                      .then(templateStr => {
+                      const template = Handlebars.compile(templateStr); // compila la plantilla
+                      //const is_admin = is_admin();
+                      products.map(product => product.is_admin = is_admin);
+                      const html = template({products,is_admin}); // genera el html
+                      document.getElementById("lstProductos").innerHTML = html; // inyecta el html
+                      });
+              });
+            }
+          });
+
+      }
+      
+      bindCategoryForm();
+
+
+
       const showProductList = (is_admin) => {
 
         getData('/api/productos')

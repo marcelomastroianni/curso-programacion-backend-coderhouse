@@ -14,6 +14,7 @@ export class ProductosDaoMongo extends ContenedorMongoDB {
             price: Number,
             stock: Number,
             photo_url: String,
+            category: String,
         });
         const modelo = mongoose.model('productos', schema);
         super(modelo);

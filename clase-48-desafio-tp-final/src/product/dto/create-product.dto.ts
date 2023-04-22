@@ -7,8 +7,9 @@ export class CreateProductDto {
     price: number;
     stock: number;
     photo_url: string;
+    category: string;
 
-    constructor( name, timestamp, description, code, price, stock, photo_url) {
+    constructor( name, timestamp, description, code, price, stock, photo_url, category) {
         this.name = name;
         this.timestamp = timestamp;
         this.description = description;
@@ -16,5 +17,6 @@ export class CreateProductDto {
         this.price = price;
         this.stock = stock;
         this.photo_url = photo_url;
+        this.category = category;
       }
 }

@@ -7,6 +7,9 @@ import { DaoFactory } from '../daos/';
 @Injectable()
 export class ProductService {
 
+
+
+
   productDao: any;
 
   constructor() {
@@ -25,6 +28,11 @@ export class ProductService {
     //return `This action returns all product`;
     const data = await this.productDao.getAll();
     return data;
+  }
+
+  async findAllByCategory(category: string) {
+    const data = await this.productDao.getAll();
+    return data.filter((product) => product.category === category);
   }
 
   async findOne(uuid: string) {
