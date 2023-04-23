@@ -178,10 +178,15 @@
       //alert(`Bienvenido is_admin ${data.body.is_admin}`);
 
       window.sessionStorage.setItem("username", data.username);
+      window.sessionStorage.setItem("user_email", data.email);
       if (data.is_admin){
         window.sessionStorage.setItem("is_admin","true" );//data.is_admin);
+        document.getElementById('txtEmail').style.visibility = "visible"
+
       }else{
         window.sessionStorage.setItem("is_admin","false" );//data.is_admin);
+        document.getElementById('txtEmail').style.visibility = "hidden"
+
       }
 
       var btnServiceConfig = document.getElementById('btnServiceConfig');
@@ -222,11 +227,14 @@
 
 
   function validateMessageForm() {
-    let email = document.forms["message_form"]["email"].value;
-    if (!email) {
-      alert("Ingrese su email");
-      return false;
+    if (window.sessionStorage.getItem("is_admin")=="true"){
+      let email = document.forms["message_form"]["email"].value;
+      if (!email) {
+        alert("Ingrese el email al cual desea responder");
+        return false;
+      }
     }
+
 
     let message = document.forms["message_form"]["message"].value;
     if (!message) {
@@ -250,13 +258,20 @@
     if(validateMessageForm()){
       if (input.value) {
         const is_admin = window.sessionStorage.getItem("is_admin");
+        let msg_type = "";
+        let msg = "";
+        let email = "";
         if (is_admin == "true"){
           msg_type = "sistema";
+          msg = `Respuesta a ${txtEmail.value}: ${input.value}`;
+          email = txtEmail.value;
         }
         else{
           msg_type = "usuario";
+          msg = input.value;
+          email = window.sessionStorage.getItem("user_email");
         }
-        socket.emit('chat message', {email:txtEmail.value, msg:input.value, type:msg_type});
+        socket.emit('chat message', {email:email, msg:msg, type:msg_type});
         input.value = '';
       }
     }
