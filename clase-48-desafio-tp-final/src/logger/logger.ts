@@ -1,5 +1,10 @@
 //import log4js from 'log4js'
-const log4js = require('log4js');
+//const log4js = require('log4js');
+
+//import log4js from 'log4js'
+//import { Logger } from 'log4js'
+
+import * as log4js from 'log4js';
 
 
 
@@ -68,4 +73,5 @@ class LoggerFactory {
 logger = LoggerFactory.getLogger();
 
 
-module.exports = logger
+
+export default logger;

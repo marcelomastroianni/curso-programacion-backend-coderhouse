@@ -9,7 +9,8 @@ import {v4 as uuidv4} from 'uuid';
 //const config = require('../config/config.js');
 
 import {config} from '../config/config.js';
- 
+import logger from '../logger/logger';
+
 
 export class ContenedorMongoDB {
     modelo: any;
@@ -24,9 +25,9 @@ export class ContenedorMongoDB {
                 //useNewUrlParser: true,
                 //useUnifiedTopology: true
             });
-            //console.log('Base de datos conectada');
+            logger.info('Base de datos conectada');
         } catch (error) {
-            console.log(error);
+            logger.error(`Error al conectar a la base de datos: ${error}`);
         }
     }
 

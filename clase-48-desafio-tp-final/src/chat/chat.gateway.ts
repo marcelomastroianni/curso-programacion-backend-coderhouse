@@ -9,6 +9,8 @@ import {
   import { Server, Socket } from 'socket.io';
   
   import { DaoFactory } from '../daos/';
+  import logger from '../logger/logger';
+
 
   /*
   @WebSocketGateway(81, {
@@ -49,7 +51,7 @@ import {
          }
          catch(err){
             msg.created_at = new Date();
-            console.log(err);
+            logger.error(err);
          }
         const newMessage = await this.mensajesDao.save(msg);
         const messages = await this.mensajesDao.getAll();

@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { createTransport } from 'nodemailer';
 import { config } from '../config/config';
+import logger from '../logger/logger';
 
 @Injectable()
 export class MailService {
@@ -59,9 +60,11 @@ export class MailService {
         
         try {
             const info = await transporter.sendMail(mailOptions)
-            console.log(info)
+            logger.info(info)
+            logger.info(`Email sent to ${config.MAIL_TO}`)
         } catch (error) {
-            console.log(error)
+            logger.error(error)
+            logger.error(`Error sending email to ${config.MAIL_TO}`)
         }
         
       }
@@ -124,9 +127,11 @@ export class MailService {
         
         try {
             const info = await transporter.sendMail(mailOptions)
-            console.log(info)
+            logger.info(info);
+            logger.info(`Email sent to ${config.MAIL_TO}`)
         } catch (error) {
-            console.log(error)
+            logger.error(error);
+            logger.error(`Error sending email to ${config.MAIL_TO}`);
         }
         
       }

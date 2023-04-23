@@ -5,6 +5,7 @@ import * as fs from 'fs';
 //const { v4: uuidv4 } = require('uuid');
 
 import {v4 as uuidv4} from 'uuid';
+import logger from '../logger/logger';
 
 
 
@@ -25,7 +26,7 @@ export class ContenedorArchivo {
             await fs.promises.writeFile(this.fileName, JSON.stringify(data, null, 2));
             return uuid;
         } catch (error) {
-            console.log(error);
+            logger.error(error);
         }
     }
 
@@ -45,7 +46,7 @@ export class ContenedorArchivo {
             const data = await this.getAll();
             return data.find((object) => object.uuid === uuid);
         } catch (error) {
-            console.log(error);
+            logger.error(error);
         }
     }
 
@@ -54,8 +55,7 @@ export class ContenedorArchivo {
             const data = await this.getAll();
             return data.find((object) => object.username === username);
         } catch (error) {
-            //logger.error(error);
-            console.log(error);
+            logger.error(error);
         }
     }
 
@@ -66,7 +66,7 @@ export class ContenedorArchivo {
             const newData = data.filter((object) => object.uuid !== uuid);
             await fs.promises.writeFile(this.fileName, JSON.stringify(newData, null, 2));
         } catch (error) {
-            console.log(error);
+            logger.error(error);
         }
     }
 
@@ -74,7 +74,7 @@ export class ContenedorArchivo {
         try {
             await fs.promises.writeFile(this.fileName, JSON.stringify([], null, 2));
         } catch (error) {
-            console.log(error);
+            logger.error(error);
         }
     }
 
@@ -92,7 +92,7 @@ export class ContenedorArchivo {
             await fs.promises.writeFile(this.fileName, JSON.stringify(newData, null, 2));
             return updated;
         } catch (error) {
-            console.log(error);
+            logger.error(error);
         }
     }    
 

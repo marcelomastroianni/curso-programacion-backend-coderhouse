@@ -7,6 +7,9 @@ import { DaoFactory } from '../daos/';
 
 import * as bcrypt from 'bcrypt';
 
+import logger from '../logger/logger';
+
+
 @Injectable()
 export class UsersService {
 
@@ -20,36 +23,17 @@ export class UsersService {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
   }
 
-
-
-
-  private readonly users = [
-    {
-      userId: 1,
-      username: 'john',
-      password: 'changeme',
-    },
-    {
-      userId: 2,
-      username: 'maria',
-      password: 'guess',
-    },
-  ];
-
   async findOne(username: string): Promise<User | undefined> {
     const user = await this.usersDao.getByUsername(username);
 
     return user;
-
-    //return this.users.find(user => user.username === username);
   }
 
   async create(user: any): Promise<User | undefined> {
 
     const user_from_db = await this.usersDao.getByUsername(user.username);
     if (user_from_db) {
-       //logger.error(`Username already taken.`);
-       //return done(null, false, { message: 'Username already taken.' }); 
+       logger.error(`Username already taken.`);
       return null;
 
     }
@@ -64,7 +48,7 @@ export class UsersService {
                                         is_admin: user.is_admin
                                       });
     const createdUser = await this.usersDao.getByUsername(user.username);
-    //const newUserCreated = await this.usersDao.create(newUser);
+    logger.info(`User created with username: ${createdUser.username}`);
     return createdUser;
   }
 

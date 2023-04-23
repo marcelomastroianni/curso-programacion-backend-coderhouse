@@ -4,6 +4,9 @@ import { UpdateProductDto } from './dto/update-product.dto';
 
 import { DaoFactory } from '../daos/';
 
+import logger from '../logger/logger';
+
+
 @Injectable()
 export class ProductService {
 
@@ -21,11 +24,11 @@ export class ProductService {
   async create(createProductDto: CreateProductDto) {
     const uuid = await this.productDao.save(createProductDto);
     createProductDto.uuid = uuid;
+    logger.info(`Product created with uuid: ${uuid}`);
     return createProductDto;
   }
 
   async findAll() {
-    //return `This action returns all product`;
     const data = await this.productDao.getAll();
     return data;
   }
@@ -36,13 +39,13 @@ export class ProductService {
   }
 
   async findOne(uuid: string) {
-    //return `This action returns a #${id} product`;
     const data = await this.productDao.getById(uuid);
     return data;
   }
 
   async update(uuid: string, updateProductDto: UpdateProductDto) {
     const response = await this.productDao.updateById(uuid, updateProductDto);
+    logger.info(`Product updated with uuid: ${uuid}`);
     return response;
   }
 
