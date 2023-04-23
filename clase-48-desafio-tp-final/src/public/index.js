@@ -1,6 +1,6 @@
 
       const deleteProduct = (uuid) => {
-        performDelete(`http://localhost:8080/api/productos/${uuid}`)
+        performDelete(`/api/productos/${uuid}`)
         .then((data) => {
             console.log(data);
             showProductList(is_admin());

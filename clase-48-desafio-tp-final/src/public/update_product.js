@@ -46,7 +46,7 @@
       }
 
       const getProductInfo = (uuid) => {
-          performGet(`http://localhost:8080/api/productos/${uuid}`)
+          performGet(`/api/productos/${uuid}`)
           .then((data) => {
             console.log(data);
             showProductForm(data);
