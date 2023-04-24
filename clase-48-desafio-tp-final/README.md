@@ -56,6 +56,16 @@ SESION_EXPIRATION: Tiempo en segundos de duracion de la sesion del usuario
 
 SESION_SECRET: Clave secreta para manejar la sesion
 
+
+MAIL_FROM: Mail desde donde se envian los correos.
+
+MAIL_PASSWORD: Contraseña del mail
+
+MAIL_SERVICE_TYPE: Tipo de servicio del email. Puede ser gmail o ethereal
+
+MAIL_TO: Mail hacia donde se envian los correos en los eventos usuario registrado o nueva orden generada.
+
+
 ## Running the app
 
 ```bash
