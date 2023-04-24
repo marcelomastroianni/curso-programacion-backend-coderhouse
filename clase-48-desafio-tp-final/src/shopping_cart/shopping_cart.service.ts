@@ -28,11 +28,11 @@ export class ShoppingCartService {
       const shoppingCart = await this.cartDao.getById(uuid);
       const product = await this.productService.findOne(product_uuid);
       if (shoppingCart && product) {
-          product.stock = 1;
+          product.quantity = 1;
           if (shoppingCart.products) {
               const productIndex = shoppingCart.products.findIndex(p => p.uuid == product.uuid);
               if (productIndex >= 0) {
-                  shoppingCart.products[productIndex].stock++;
+                  shoppingCart.products[productIndex].quantity++;
               } else {
                   shoppingCart.products.push(product);
               }

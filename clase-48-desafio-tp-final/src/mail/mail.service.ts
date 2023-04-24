@@ -98,7 +98,7 @@ export class MailService {
           return `
           <tr>
           <td style="color: black;">${product.description}</td>
-          <td style="color: black;">${product.stock}</td>
+          <td style="color: black;">${product.quantity}</td>
           <td style="color: black;">${product.price}</td>
           </tr>
           `

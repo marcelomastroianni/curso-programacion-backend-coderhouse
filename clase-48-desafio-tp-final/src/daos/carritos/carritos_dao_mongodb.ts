@@ -14,7 +14,7 @@ export class CarritosDaoMongo extends ContenedorMongoDB {
             description: String,
             code: String,
             price: Number,
-            stock: Number,
+            quantity: Number,
             photo_url: String,
           });
 
